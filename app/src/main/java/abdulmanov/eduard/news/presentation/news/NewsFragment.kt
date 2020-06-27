@@ -6,7 +6,7 @@ import abdulmanov.eduard.news.R
 class NewsFragment : Fragment(R.layout.fragment_news) {
 
     companion object {
-        fun newInstance(): NewsFragment{
+        fun newInstance(): NewsFragment {
             return NewsFragment()
         }
     }

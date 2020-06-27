@@ -6,7 +6,7 @@ import abdulmanov.eduard.news.R
 class LiveFragment : Fragment(R.layout.fragment_live) {
 
     companion object {
-        fun newInstance(): LiveFragment{
+        fun newInstance(): LiveFragment {
             return LiveFragment()
         }
     }
