@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.presentation.news
+package abdulmanov.eduard.news.presentation.detailsnew
 
 import androidx.fragment.app.Fragment
 import abdulmanov.eduard.news.R
@@ -9,16 +9,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
-class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
+class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: NewsViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
+    private val viewModel: DetailsNewViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(DetailsNewViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
@@ -28,14 +27,6 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        openLive.setOnClickListener {
-            viewModel.onOpenLiveScreenCommandClick()
-        }
-
-        openDetailsNews.setOnClickListener {
-            viewModel.onOpenDetailsNewScreenCommandClick()
-        }
     }
 
     override fun onBackPressed(): Boolean {
@@ -44,8 +35,8 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
     }
 
     companion object {
-        fun newInstance(): NewsFragment {
-            return NewsFragment()
+        fun newInstance(): DetailsNewFragment {
+            return DetailsNewFragment()
         }
     }
 }
