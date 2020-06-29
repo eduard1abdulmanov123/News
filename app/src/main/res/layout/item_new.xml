@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="@dimen/font_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="спорт" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/categoryTextView"
+        app:riv_corner_radius="6dp"
+        tools:src="@drawable/ic_launcher_background"/>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/font_normal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+        app:layout_constraintEnd_toStartOf="@id/iconImageView"
+        app:layout_constraintStart_toStartOf="@+id/categoryTextView"
+        app:layout_constraintTop_toBottomOf="@id/categoryTextView"
+        tools:text="РФС заменил заболевшего корновирусом арбитра матча Арсенал - Спартак" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/colorTextPrimary"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="@id/iconImageView"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        tools:text="Российский боевой робот Маркер принял участие в учениях на полигоне Чебаркуль в Челябинской области. Создатели выясняли, насколько дрон удобен в обращении и как помогает решать боевые задачи." />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+        app:layout_constraintEnd_toEndOf="@id/descriptionTextView"
+        tools:text="19 июня 2020, 12:48" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/separate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/dateTextView"
+        app:layout_constraintStart_toStartOf="@id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@id/dateTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

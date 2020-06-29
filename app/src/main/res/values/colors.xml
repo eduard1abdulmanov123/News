@@ -8,10 +8,10 @@
     <color name="colorTextPrimary">#000000</color>
     <color name="colorTextSecondary">#6f6f6f</color>
 
-    <color name="background">#ffffff</color>
-
     <color name="colorTitleToolbar">#000000</color>
 
     <color name="colorIcon">#000000</color>
 
+    <color name="background">#ffffff</color>
+    <color name="separate">#99bfbfbf</color>
 </resources>
