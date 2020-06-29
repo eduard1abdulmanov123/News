@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">News</string>
+    
+    <!--News-->
+    <string name="news_title">Лента</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

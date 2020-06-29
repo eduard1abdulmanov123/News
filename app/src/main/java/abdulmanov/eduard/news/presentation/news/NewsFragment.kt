@@ -7,6 +7,7 @@ import abdulmanov.eduard.news.presentation.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.navigation.BackButtonListener
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -29,13 +30,24 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        openLive.setOnClickListener {
-            viewModel.onOpenLiveScreenCommandClick()
-        }
+        initUI()
 
         openDetailsNews.setOnClickListener {
             viewModel.onOpenDetailsNewScreenCommandClick()
         }
+    }
+
+    private fun initUI(){
+        newsToolbar.setTitle(R.string.news_title)
+        newsToolbar.inflateMenu(R.menu.menu_news)
+        newsToolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.openLiveItem -> viewModel.onOpenLiveScreenCommandClick()
+        }
+        return true
     }
 
     override fun onBackPressed(): Boolean {

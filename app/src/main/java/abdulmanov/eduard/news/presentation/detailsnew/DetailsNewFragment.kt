@@ -7,8 +7,10 @@ import abdulmanov.eduard.news.presentation.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.navigation.BackButtonListener
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.fragment_details_new.*
 import javax.inject.Inject
 
 class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonListener {
@@ -27,6 +29,22 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initUI()
+    }
+
+    private fun initUI(){
+        detailsNewToolbar.setNavigationIcon(R.drawable.ic_close)
+        detailsNewToolbar.setNavigationOnClickListener { viewModel.onBackCommandClick() }
+        detailsNewToolbar.inflateMenu(R.menu.menu_details_new)
+        detailsNewToolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.shareItem -> {}
+        }
+        return true
     }
 
     override fun onBackPressed(): Boolean {

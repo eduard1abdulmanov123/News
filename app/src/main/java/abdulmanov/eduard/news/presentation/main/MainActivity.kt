@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.setBackgroundDrawable(null)
 
         if (savedInstanceState == null) {
             navigator.applyCommands(arrayOf(Replace(Screens.News)))
