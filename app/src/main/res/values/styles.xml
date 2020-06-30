@@ -14,6 +14,7 @@
         <item name="android:theme">?attr/actionBarTheme</item>
         <item name="android:background">@color/background</item>
         <item name="titleTextColor">@color/colorTitleToolbar</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
 </resources>

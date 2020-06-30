@@ -2,11 +2,14 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootNestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,24 +24,73 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/detailsNewToolbar"
-                style="?attr/toolbarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="0dp"/>
+                android:layout_height="wrap_content"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/categoryTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="50dp"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp"
+            android:textSize="@dimen/font_normal"
+            android:textColor="@color/colorTextSecondary"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            tools:text="ОБЩЕСТВО">
         </TextView>
 
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/font_normal"
+            app:layout_constraintStart_toEndOf="@+id/categoryTextView"
+            app:layout_constraintTop_toTopOf="@+id/categoryTextView"
+            tools:text="30 Июня 2020, 17:04" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/font_few_big"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/categoryTextView"
+            app:layout_constraintTop_toBottomOf="@id/categoryTextView"
+            tools:text="В столице начинаются отключения горячей воды" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@id/iconImageView"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="6dp"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:src="@drawable/ic_placeholder"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/fullDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/font_normal"
+            app:layout_constraintEnd_toEndOf="@id/iconImageView"
+            app:layout_constraintStart_toStartOf="@id/iconImageView"
+            app:layout_constraintTop_toBottomOf="@id/iconImageView"
+            tools:text="C 1 июля в многоквартирных домах Москвы начнется плановое отключение горячей воды. Воду буду отключать не более чем на 10 дней"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

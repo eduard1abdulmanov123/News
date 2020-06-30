@@ -45,7 +45,7 @@ class NewsXmlParser {
         )
     }
 
-    private fun getId(element: Element): Long{
+    private fun getId(element: Element): Long {
         val link = getNodeValue("link", element)
         val id = link.substringAfterLast("id=")
         return id.toLong()

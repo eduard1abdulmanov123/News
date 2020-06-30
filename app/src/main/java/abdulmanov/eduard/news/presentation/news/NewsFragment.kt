@@ -4,21 +4,19 @@ import androidx.fragment.app.Fragment
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.ViewModelFactory
 import abdulmanov.eduard.news.presentation.navigation.BackButtonListener
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
+import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.CompositePageTransformer
 import com.livermor.delegateadapter.delegate.CompositeDelegateAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
@@ -29,6 +27,9 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
 
     @Inject
     lateinit var newsInteractor: NewsInteractor
+
+    @Inject
+    lateinit var mapper: NewsToPresentationModelsMapper
 
     private val viewModel: NewsViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
@@ -44,38 +45,10 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
 
         initUI()
 
-        newsInteractor.getNews()
-            .subscribeOn(Schedulers.io())
-            .map {
-                it.map {
-                    NewPresentationModel(
-                        id = it.id,
-                        title = it.title,
-                        link = it.link,
-                        description = it.description,
-                        date = it.date,
-                        category = it.category,
-                        image = it.image,
-                        fullDescription = it.fullDescription
-                    )
-                }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    it.forEach {
-                        Log.d("NewsLog", "${it.id}  ${it.title}")
-                    }
-                    (newsRecyclerView.adapter as CompositeDelegateAdapter).swapData(it)
-                },
-                {
-
-                }
-            )
-
+        viewModel.news.observe(viewLifecycleOwner, Observer(this::setData))
     }
 
-    private fun initUI(){
+    private fun initUI() {
         newsToolbar.setTitle(R.string.news_title)
         newsToolbar.inflateMenu(R.menu.menu_news)
         newsToolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
@@ -83,11 +56,17 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
         newsRecyclerView.visibility = View.VISIBLE
         newsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         newsRecyclerView.setHasFixedSize(true)
-        newsRecyclerView.adapter = CompositeDelegateAdapter(NewsDelegateAdapter())
+        newsRecyclerView.adapter = CompositeDelegateAdapter(
+            NewsDelegateAdapter(object : NewsDelegateAdapter.NewItemClickListener {
+                override fun onClick(new: NewPresentationModel) {
+                    viewModel.onOpenDetailsNewScreenCommandClick(new)
+                }
+            })
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.openLiveItem -> viewModel.onOpenLiveScreenCommandClick()
         }
         return true
@@ -96,6 +75,10 @@ class NewsFragment : Fragment(R.layout.fragment_news), BackButtonListener {
     override fun onBackPressed(): Boolean {
         viewModel.onBackCommandClick()
         return true
+    }
+
+    private fun setData(news: List<NewPresentationModel>) {
+        (newsRecyclerView.adapter as CompositeDelegateAdapter).swapData(news)
     }
 
     companion object {
