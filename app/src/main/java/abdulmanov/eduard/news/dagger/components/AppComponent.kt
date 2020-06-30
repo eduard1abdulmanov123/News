@@ -1,7 +1,6 @@
 package abdulmanov.eduard.news.dagger.components
 
-import abdulmanov.eduard.news.dagger.modules.NavigationModule
-import abdulmanov.eduard.news.dagger.modules.ViewModelModule
+import abdulmanov.eduard.news.dagger.modules.*
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.live.LiveFragment
 import abdulmanov.eduard.news.presentation.main.MainActivity
@@ -15,7 +14,10 @@ import javax.inject.Singleton
 @Component(
     modules = [
         NavigationModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        InteractorModule::class,
+        RepositoryModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent {

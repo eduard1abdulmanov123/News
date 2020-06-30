@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">News</string>
-    
+
+    <!--common-->
+    <string name="network_error">Нет интернет соединения</string>
+    <string name="server_error">Ошибка с сервером, попробуйте позже</string>
+
     <!--News-->
     <string name="news_title">Лента</string>
 

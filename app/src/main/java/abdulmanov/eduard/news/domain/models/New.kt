@@ -1,6 +1,7 @@
 package abdulmanov.eduard.news.domain.models
 
 data class New(
+    val id: Long,
     val title: String,
     val link: String,
     val description: String,

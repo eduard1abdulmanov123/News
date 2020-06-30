@@ -34,6 +34,7 @@ class NewsXmlParser {
 
     private fun getNew(itemElement: Element): New {
         return New(
+            id = getId(itemElement),
             title = getNodeValue("title", itemElement),
             link = getNodeValue("link", itemElement),
             description = getNodeValue("description", itemElement),
@@ -42,6 +43,12 @@ class NewsXmlParser {
             image = getAttribute("enclosure", "url", itemElement),
             fullDescription = getNodeValue("yandex:full-text", itemElement)
         )
+    }
+
+    private fun getId(element: Element): Long{
+        val link = getNodeValue("link", element)
+        val id = link.substringAfterLast("id=")
+        return id.toLong()
     }
 
     private fun getNodeValue(tag: String, element: Element): String {

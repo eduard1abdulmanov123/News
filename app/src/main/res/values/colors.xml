@@ -14,4 +14,5 @@
 
     <color name="background">#ffffff</color>
     <color name="separate">#99bfbfbf</color>
+    <color name="color_placeholder">#EBEBEB</color>
 </resources>
