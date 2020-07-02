@@ -1,5 +1,6 @@
 package abdulmanov.eduard.news.data.network
 
+import abdulmanov.eduard.news.data.db.models.NewDbModel
 import abdulmanov.eduard.news.domain.models.New
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,7 +12,7 @@ class NewsProvider(
     private val xmlParser: NewsXmlParser
 ) {
 
-    fun getNews(): List<New> {
+    fun getNews(): List<NewDbModel> {
         val response = makeRequestToServer()
         return xmlParser.parseNewsXml(response)
     }

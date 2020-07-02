@@ -4,6 +4,7 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.New
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -27,8 +28,7 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
 
     private fun mapDate(dateStr: String): String {
         val months = context.resources.getStringArray(R.array.months_genitive)
-        val basicDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)
-
+        val basicDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         val date = basicDateFormat.parse(dateStr) ?: Date()
         val calendar = Calendar.getInstance()
         calendar.time = date

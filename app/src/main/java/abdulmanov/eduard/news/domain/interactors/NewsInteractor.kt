@@ -9,4 +9,5 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
     fun getNews(): Single<List<New>> {
         return newsRepository.getNews()
     }
+
 }

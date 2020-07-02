@@ -4,6 +4,7 @@ import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,9 +34,11 @@ class NewsViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    Log.d("LogLog",it.size.toString())
                     _news.value = it
                 },
                 {
+                    Log.d("LogLog", "error - $it")
                 }
             )
     }

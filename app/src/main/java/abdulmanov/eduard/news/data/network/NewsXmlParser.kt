@@ -1,17 +1,21 @@
 package abdulmanov.eduard.news.data.network
 
-import abdulmanov.eduard.news.domain.models.New
+import abdulmanov.eduard.news.data._common.getDateAsString
+import abdulmanov.eduard.news.data.db.models.NewDbModel
+import android.util.Log
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.InputStream
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
 class NewsXmlParser {
 
-    fun parseNewsXml(xml: InputStream): List<New> {
+    fun parseNewsXml(xml: InputStream): List<NewDbModel> {
         try {
-            return mutableListOf<New>().apply {
+            return mutableListOf<NewDbModel>().apply {
                 val documentBuilderFactory = DocumentBuilderFactory.newInstance()
                 val documentBuilder = documentBuilderFactory.newDocumentBuilder()
                 val doc = documentBuilder.parse(xml)
@@ -32,13 +36,13 @@ class NewsXmlParser {
         }
     }
 
-    private fun getNew(itemElement: Element): New {
-        return New(
+    private fun getNew(itemElement: Element): NewDbModel {
+        return NewDbModel(
             id = getId(itemElement),
             title = getNodeValue("title", itemElement),
             link = getNodeValue("link", itemElement),
             description = getNodeValue("description", itemElement),
-            date = getNodeValue("pubDate", itemElement),
+            date = getDate(itemElement),
             category = getNodeValue("category", itemElement),
             image = getAttribute("enclosure", "url", itemElement),
             fullDescription = getNodeValue("yandex:full-text", itemElement)
@@ -49,6 +53,21 @@ class NewsXmlParser {
         val link = getNodeValue("link", element)
         val id = link.substringAfterLast("id=")
         return id.toLong()
+    }
+
+    private fun getDate(element: Element): String {
+        val dateStr= getNodeValue("pubDate", element)
+        val basicDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)
+        val date = basicDateFormat.parse(dateStr) ?: Date()
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.addMonthSinceLocalEqualUS()
+
+        return calendar.getDateAsString()
+    }
+
+    private fun Calendar.addMonthSinceLocalEqualUS(){
+        add(Calendar.MONTH,1)
     }
 
     private fun getNodeValue(tag: String, element: Element): String {
