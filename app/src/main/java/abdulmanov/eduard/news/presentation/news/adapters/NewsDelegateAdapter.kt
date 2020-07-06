@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.presentation.news.adapters
 
 import abdulmanov.eduard.news.R
-import abdulmanov.eduard.news.presentation._common.loadImg
+import abdulmanov.eduard.news.presentation._common.extensions.loadImg
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -13,18 +13,25 @@ class NewsDelegateAdapter(
     private val newItemClickListener: NewItemClickListener? = null
 ) : KDelegateAdapter<NewPresentationModel>() {
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, items: List<Any>, position: Int) {
-        super.onBindViewHolder(holder, items, position)
-        holder.itemView.separator.visibility = if (position == items.size - 1) View.INVISIBLE else View.VISIBLE
-    }
-
     override fun KViewHolder.onBind(item: NewPresentationModel) {
-        clickItemView.setOnClickListener { newItemClickListener?.onClick(item) }
         categoryTextView.text = item.category
+        categoryTextView.transitionName = containerView.context.getString(R.string.category_transition, item.id)
+
         iconImageView.loadImg(item.image, R.color.color_placeholder)
+        iconImageView.transitionName = containerView.context.getString(R.string.image_transition, item.id)
+
         titleTextView.text = item.title
+        titleTextView.transitionName = containerView.context.getString(R.string.title_transition, item.id)
+
         descriptionTextView.text = item.description
+        descriptionTextView.transitionName = containerView.context.getString(R.string.description_transition, item.id)
+
         dateTextView.text = item.date
+        dateTextView.transitionName = containerView.context.getString(R.string.date_transition, item.id)
+
+        separator.visibility = if (adapterPosition == 0) View.INVISIBLE else View.VISIBLE
+
+        clickItemView.setOnClickListener { newItemClickListener?.onClick(item, this) }
     }
 
     override fun isForViewType(item: Any) = item is NewPresentationModel
@@ -36,6 +43,6 @@ class NewsDelegateAdapter(
     override fun NewPresentationModel.getItemContent(): Any = this
 
     interface NewItemClickListener {
-        fun onClick(new: NewPresentationModel)
+        fun onClick(new: NewPresentationModel, holder: RecyclerView.ViewHolder)
     }
 }

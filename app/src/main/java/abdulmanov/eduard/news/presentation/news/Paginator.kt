@@ -15,14 +15,12 @@ object Paginator {
         data class Data<T>(val pageCount: Int, val data: List<T>) : State()
         data class Refresh<T>(val pageCount: Int, val data: List<T>) : State()
         data class NewPageProgress<T>(val pageCount: Int, val data: List<T>) : State()
-        data class NewPageError<T>(val pageCount: Int, val data: List<T>) : State()
         data class FullData<T>(val pageCount: Int, val data: List<T>) : State()
         data class RefreshAfterFullData<T>(val pageCount: Int, val data: List<T>) : State()
     }
 
     sealed class Action {
         object Refresh : Action()
-        object Repeat : Action()
         object LoadMore : Action()
         data class NewPage<T>(val pageNumber: Int, val items: List<T>) : Action()
         data class PageError(val error: Throwable) : Action()
@@ -33,17 +31,17 @@ object Paginator {
         data class ErrorEvent(val error: Throwable) : SideEffect()
     }
 
-    private fun <T> reducer(
-        action: Action,
-        state: State,
-        sideEffectListener: (SideEffect) -> Unit
-    ): State {
+    private fun <T> reducer(action: Action, state: State, sideEffectListener: (SideEffect) -> Unit): State {
         return when (action) {
             is Action.Refresh -> {
                 when (state) {
                     is State.Empty -> {
                         sideEffectListener.invoke(SideEffect.LoadPage(1))
                         State.EmptyProgress
+                    }
+                    is State.EmptyError -> {
+                        sideEffectListener.invoke(SideEffect.LoadPage(1))
+                        State.RefreshAfterEmptyError(state.error)
                     }
                     is State.Data<*> -> {
                         sideEffectListener.invoke(SideEffect.LoadPage(1))
@@ -53,26 +51,9 @@ object Paginator {
                         sideEffectListener.invoke(SideEffect.LoadPage(1))
                         State.Refresh(state.pageCount, state.data)
                     }
-                    is State.NewPageError<*> -> {
-                        sideEffectListener.invoke(SideEffect.LoadPage(1))
-                        State.Refresh(state.pageCount, state.data)
-                    }
                     is State.FullData<*> -> {
                         sideEffectListener.invoke(SideEffect.LoadPage(1))
                         State.RefreshAfterFullData(state.pageCount, state.data)
-                    }
-                    else -> state
-                }
-            }
-            is Action.Repeat -> {
-                when (state) {
-                    is State.EmptyError -> {
-                        sideEffectListener.invoke(SideEffect.LoadPage(1))
-                        State.RefreshAfterEmptyError(state.error)
-                    }
-                    is State.NewPageError<*> -> {
-                        sideEffectListener.invoke(SideEffect.LoadPage(state.pageCount + 1))
-                        State.NewPageProgress(state.pageCount, state.data)
                     }
                     else -> state
                 }
@@ -115,7 +96,6 @@ object Paginator {
                         sideEffectListener.invoke(SideEffect.ErrorEvent(action.error))
                         State.Data(state.pageCount, state.data)
                     }
-                    is State.NewPageProgress<*> -> State.NewPageError(state.pageCount, state.data)
                     is State.RefreshAfterFullData<*> -> {
                         sideEffectListener.invoke(SideEffect.ErrorEvent(action.error))
                         State.FullData(state.pageCount, state.data)

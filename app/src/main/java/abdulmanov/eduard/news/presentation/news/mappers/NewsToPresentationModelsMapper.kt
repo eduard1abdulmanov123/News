@@ -4,7 +4,6 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.New
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
-import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
                 date = mapDate(it.date),
                 category = it.category,
                 image = it.image,
-                fullDescription = it.fullDescription.replace(Regex("\n{2,}"), "\n\n")
+                fullDescription = it.fullDescription
             )
         }
     }

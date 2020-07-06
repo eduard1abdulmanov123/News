@@ -2,12 +2,20 @@ package abdulmanov.eduard.news.presentation.main
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation.navigation.BackButtonListener
+import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.navigation.Screens
-import androidx.appcompat.app.AppCompatActivity
+import abdulmanov.eduard.news.presentation.news.NewsFragment
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionInflater
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import kotlinx.android.synthetic.main.item_new.view.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Forward
 import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
@@ -16,7 +24,13 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private val navigator = SupportAppNavigator(this, R.id.fragmentContainer)
+    private val navigator = object : SupportAppNavigator(this, R.id.fragmentContainer) {
+        override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
+            if (command is Forward && currentFragment is NewsFragment && nextFragment is DetailsNewFragment) {
+                animateTransitionFromNewsFragmentToDetailsNewFragment(currentFragment, nextFragment, fragmentTransaction)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).appComponent.inject(this)
@@ -40,13 +54,28 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+    private fun animateTransitionFromNewsFragmentToDetailsNewFragment(
+        newsFragment: NewsFragment,
+        detailsNewFragment: DetailsNewFragment,
+        fragmentTransaction: FragmentTransaction
+    ) {
+        detailsNewFragment.sharedElementEnterTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
+        detailsNewFragment.enterTransition = Fade()
+        newsFragment.exitTransition = Fade()
+        detailsNewFragment.sharedElementReturnTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
 
-        if (fragment != null && fragment is BackButtonListener && fragment.onBackPressed()) {
-            return
-        } else {
-            super.onBackPressed()
-        }
+        fragmentTransaction.setReorderingAllowed(true)
+
+        val view = newsFragment.currentSelectViewHolder?.itemView ?: return
+        val iconImageView = view.iconImageView
+        val titleTextView = view.titleTextView
+        val categoryTextView = view.categoryTextView
+        val dateTextView = view.dateTextView
+        val descriptionTextView = view.descriptionTextView
+        fragmentTransaction.addSharedElement(iconImageView, iconImageView.transitionName)
+        fragmentTransaction.addSharedElement(titleTextView, titleTextView.transitionName)
+        fragmentTransaction.addSharedElement(categoryTextView, categoryTextView.transitionName)
+        fragmentTransaction.addSharedElement(dateTextView, dateTextView.transitionName)
+        fragmentTransaction.addSharedElement(descriptionTextView, descriptionTextView.transitionName)
     }
 }

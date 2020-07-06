@@ -1,9 +1,10 @@
-package abdulmanov.eduard.news.presentation._common
+package abdulmanov.eduard.news.presentation._common.extensions
 
 import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
 import android.widget.ImageView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 fun Context.getScreenSize(): Point {
@@ -13,9 +14,11 @@ fun Context.getScreenSize(): Point {
     }
 }
 
-fun ImageView.loadImg(imageUrl: String, placeholderRes: Int? = null) {
+fun ImageView.loadImg(imageUrl: String, placeholderRes: Int? = null, callback: Callback? = null) {
     Picasso.get().load(imageUrl).apply {
+        fit()
+        centerCrop()
         placeholderRes?.let { placeholder(it) }
-        fit().into(this@loadImg)
+        callback?.let { into(this@loadImg, callback) } ?: into(this@loadImg)
     }
 }

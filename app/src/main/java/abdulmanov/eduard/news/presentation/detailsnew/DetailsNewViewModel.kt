@@ -17,14 +17,14 @@ class DetailsNewViewModel @Inject constructor(
         get() = _new
 
     private val _shareNewLiveEvent = LiveEvent<String>()
-    val shareNewLiveEvent: LiveData<String>
+    val sendNewLiveEvent: LiveData<String>
         get() = _shareNewLiveEvent
 
     fun setNew(new: NewPresentationModel) {
         _new.value = new
     }
 
-    fun shareNew() {
+    fun sendNew() {
         if (new.value != null) {
             _shareNewLiveEvent.value = new.value!!.link
         }

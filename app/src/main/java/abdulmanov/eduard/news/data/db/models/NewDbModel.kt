@@ -30,11 +30,11 @@ data class NewDbModel(
 
     @ColumnInfo(name = COLUMN_FULL_DESCRIPTION)
     val fullDescription: String
-){
-    companion object{
+) {
+    companion object {
         const val TABLE_NAME = "New"
 
-        const val COLUMN_ID= "id"
+        const val COLUMN_ID = "id"
         const val COLUMN_TITLE = "title"
         const val COLUMN_LINK = "link"
         const val COLUMN_DESCRIPTION = "description"

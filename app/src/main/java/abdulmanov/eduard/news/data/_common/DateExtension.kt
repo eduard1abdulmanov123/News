@@ -2,7 +2,7 @@ package abdulmanov.eduard.news.data._common
 
 import java.util.*
 
-fun Calendar.getDateAsString(): String{
+fun Calendar.getDateAsString(): String {
     val year = getWithLeadingZeros(Calendar.YEAR)
     val month = getWithLeadingZeros(Calendar.MONTH)
     val day = getWithLeadingZeros(Calendar.DAY_OF_MONTH)
@@ -13,7 +13,7 @@ fun Calendar.getDateAsString(): String{
     return "$year-$month-$day $hour:$minute:$second"
 }
 
-fun Calendar.getWithLeadingZeros(type:Int): String {
+fun Calendar.getWithLeadingZeros(type: Int): String {
     val field = get(type)
     val fieldStr = field.toString()
     return if (fieldStr.length == 1) {

@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules
 
 import abdulmanov.eduard.news.dagger.annotations.ViewModelKey
-import abdulmanov.eduard.news.presentation._common.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewViewModel
 import abdulmanov.eduard.news.presentation.live.LiveViewModel
 import abdulmanov.eduard.news.presentation.news.NewsViewModel

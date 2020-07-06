@@ -4,11 +4,13 @@ import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hadilq.liveevent.LiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -19,33 +21,64 @@ class NewsViewModel @Inject constructor(
     private val mapper: NewsToPresentationModelsMapper
 ) : ViewModel() {
 
-    private val _news = MutableLiveData<List<NewPresentationModel>>()
-    val news: LiveData<List<NewPresentationModel>>
-        get() = _news
+    private val _messageLiveEvent = LiveEvent<Throwable>()
+    val messageLiveEvent: LiveData<Throwable>
+        get() = _messageLiveEvent
+
+    private val _state = MutableLiveData<Paginator.State>()
+    val state: LiveData<Paginator.State>
+        get() = _state
+
+    private val paginator = Paginator.Store<NewPresentationModel>()
+
+    private val compositeDisposable = CompositeDisposable()
+    private var pageDisposable: Disposable? = null
 
     init {
-        getNews()
+        paginator.render = { _state.postValue(it) }
+        paginator.sideEffects.subscribe {
+            when (it) {
+                is Paginator.SideEffect.LoadPage -> loadNewPage(it.currentPage)
+                is Paginator.SideEffect.ErrorEvent -> _messageLiveEvent.value = it.error
+            }
+        }.connect()
+
+        refresh()
     }
 
-    fun getNews() {
-        newsInteractor.getNews()
-            .subscribeOn(Schedulers.io())
-            .map(mapper::newsMapToPresentationModels)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    Log.d("LogLog",it.size.toString())
-                    _news.value = it
-                },
-                {
-                    Log.d("LogLog", "error - $it")
-                }
-            )
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
     }
+
+    fun refresh() = paginator.proceed(Paginator.Action.Refresh)
+
+    fun loadNextPage() = paginator.proceed(Paginator.Action.LoadMore)
 
     fun onOpenLiveScreenCommandClick() = router.navigateTo(Screens.Live)
 
     fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = router.navigateTo(Screens.DetailsNew(new))
 
     fun onBackCommandClick() = router.exit()
+
+    private fun loadNewPage(page: Int) {
+        pageDisposable?.dispose()
+        pageDisposable = newsInteractor.getNews(page)
+            .map(mapper::newsMapToPresentationModels)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    paginator.proceed(Paginator.Action.NewPage(page, it))
+                },
+                {
+                    paginator.proceed(Paginator.Action.PageError(it))
+                }
+            )
+        pageDisposable?.connect()
+    }
+
+    private fun Disposable.connect() {
+        compositeDisposable.add(this)
+    }
 }

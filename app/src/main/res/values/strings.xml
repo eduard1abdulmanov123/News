@@ -5,23 +5,15 @@
     <string name="network_error">Нет интернет соединения</string>
     <string name="server_error">Ошибка с сервером, попробуйте позже</string>
 
-    <string-array name="months_genitive">
-        <item>Января</item>
-        <item>Февраля</item>
-        <item>Марта</item>
-        <item>Апреля</item>
-        <item>Мая</item>
-        <item>Июня</item>
-        <item>Июля</item>
-        <item>Августа</item>
-        <item>Сентября</item>
-        <item>Октября</item>
-        <item>Ноября</item>
-        <item>Декабря</item>
-    </string-array>
-
     <!--News-->
     <string name="news_title">Лента</string>
+
+    <!--transition-->
+    <string name="image_transition">image_%d</string>
+    <string name="title_transition">title_%d</string>
+    <string name="category_transition">category_%d</string>
+    <string name="date_transition">date_%d</string>
+    <string name="description_transition">description_%d</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

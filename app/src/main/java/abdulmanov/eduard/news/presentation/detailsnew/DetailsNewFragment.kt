@@ -1,25 +1,26 @@
 package abdulmanov.eduard.news.presentation.detailsnew
 
-import androidx.fragment.app.Fragment
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation._common.getScreenSize
-import abdulmanov.eduard.news.presentation._common.loadImg
-import abdulmanov.eduard.news.presentation._common.ViewModelFactory
-import abdulmanov.eduard.news.presentation.navigation.BackButtonListener
+import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.getScreenSize
+import abdulmanov.eduard.news.presentation._common.extensions.loadImg
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Callback
 import kotlinx.android.synthetic.main.fragment_details_new.*
 import javax.inject.Inject
 
-class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonListener {
+class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -31,6 +32,17 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonLi
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.onBackCommandClick()
+            }
+        })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +51,7 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonLi
         initUI()
 
         viewModel.new.observe(viewLifecycleOwner, Observer(this::setData))
-        viewModel.shareNewLiveEvent.observe(viewLifecycleOwner, Observer(this::startIntentSendNew))
+        viewModel.sendNewLiveEvent.observe(viewLifecycleOwner, Observer(this::startIntentSendNew))
 
         if (savedInstanceState == null) {
             viewModel.setNew(requireArguments().getParcelable(ARGUMENT_NEW)!!)
@@ -58,22 +70,34 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new), BackButtonLi
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.shareItem -> viewModel.shareNew()
+            R.id.shareItem -> viewModel.sendNew()
         }
         return true
     }
 
-    override fun onBackPressed(): Boolean {
-        viewModel.onBackCommandClick()
-        return true
-    }
-
     private fun setData(new: NewPresentationModel) {
+        categoryTextView.transitionName = requireContext().getString(R.string.category_transition, new.id)
         categoryTextView.text = new.category
+
+        dateTextView.transitionName = requireContext().getString(R.string.date_transition, new.id)
         dateTextView.text = new.date
+
+        titleTextView.transitionName = requireContext().getString(R.string.title_transition, new.id)
         titleTextView.text = new.title
-        iconImageView.loadImg(new.image, R.color.color_placeholder)
+
+        fullDescriptionTextView.transitionName = requireContext().getString(R.string.description_transition, new.id)
         fullDescriptionTextView.text = new.fullDescription
+
+        iconImageView.transitionName = requireContext().getString(R.string.image_transition, new.id)
+        iconImageView.loadImg(new.image, callback = object : Callback {
+            override fun onSuccess() {
+                startPostponedEnterTransition()
+            }
+
+            override fun onError(e: Exception) {
+                startPostponedEnterTransition()
+            }
+        })
     }
 
     private fun startIntentSendNew(link: String) {

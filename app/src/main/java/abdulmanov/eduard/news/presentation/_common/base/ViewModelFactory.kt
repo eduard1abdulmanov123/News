@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.presentation._common
+package abdulmanov.eduard.news.presentation._common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -12,13 +12,13 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(context: Context):AppDatabase{
+    fun provideAppDatabase(context: Context): AppDatabase {
         return AppDatabase.getRoomDatabase(context)
     }
 
     @Singleton
     @Provides
-    fun provideNewDao(database: AppDatabase):NewDao{
+    fun provideNewDao(database: AppDatabase): NewDao {
         return database.newDao
     }
 }

@@ -2,37 +2,34 @@ package abdulmanov.eduard.news.data.network
 
 import abdulmanov.eduard.news.data._common.getDateAsString
 import abdulmanov.eduard.news.data.db.models.NewDbModel
-import android.util.Log
+import okhttp3.OkHttpClient
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.InputStream
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
-class NewsXmlParser {
+class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
 
-    fun parseNewsXml(xml: InputStream): List<NewDbModel> {
-        try {
-            return mutableListOf<NewDbModel>().apply {
-                val documentBuilderFactory = DocumentBuilderFactory.newInstance()
-                val documentBuilder = documentBuilderFactory.newDocumentBuilder()
-                val doc = documentBuilder.parse(xml)
-                doc.documentElement.normalize()
+    override fun getUrl(): String = "https://www.vesti.ru/vesti.rss"
 
-                val nodeList = doc.getElementsByTagName("item")
-                for (i in 0 until nodeList.length) {
-                    val node = nodeList.item(i)
-                    if (node.nodeType == Node.ELEMENT_NODE) {
-                        val element = node as Element
-                        val new = getNew(element)
-                        add(new)
-                    }
+    override fun parseXml(xml: InputStream): List<NewDbModel> {
+        return mutableListOf<NewDbModel>().apply {
+            val documentBuilderFactory = DocumentBuilderFactory.newInstance()
+            val documentBuilder = documentBuilderFactory.newDocumentBuilder()
+            val doc = documentBuilder.parse(xml)
+            doc.documentElement.normalize()
+
+            val nodeList = doc.getElementsByTagName("item")
+            for (i in 0 until nodeList.length) {
+                val node = nodeList.item(i)
+                if (node.nodeType == Node.ELEMENT_NODE) {
+                    val element = node as Element
+                    val new = getNew(element)
+                    add(new)
                 }
             }
-        } catch (e: Exception) {
-            throw Exception(PARSE_ERROR)
         }
     }
 
@@ -56,7 +53,7 @@ class NewsXmlParser {
     }
 
     private fun getDate(element: Element): String {
-        val dateStr= getNodeValue("pubDate", element)
+        val dateStr = getNodeValue("pubDate", element)
         val basicDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)
         val date = basicDateFormat.parse(dateStr) ?: Date()
         val calendar = Calendar.getInstance()
@@ -66,8 +63,8 @@ class NewsXmlParser {
         return calendar.getDateAsString()
     }
 
-    private fun Calendar.addMonthSinceLocalEqualUS(){
-        add(Calendar.MONTH,1)
+    private fun Calendar.addMonthSinceLocalEqualUS() {
+        add(Calendar.MONTH, 1)
     }
 
     private fun getNodeValue(tag: String, element: Element): String {
@@ -86,9 +83,5 @@ class NewsXmlParser {
             return (node as Element).getAttribute(attributeName)
         }
         return ""
-    }
-
-    companion object {
-        const val PARSE_ERROR = "Parse error"
     }
 }

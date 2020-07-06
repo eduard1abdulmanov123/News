@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemNewContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,7 +28,7 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/categoryTextView"
-        app:riv_corner_radius="6dp" />
+        app:riv_corner_radius="6dp"/>
 
     <TextView
         android:id="@+id/titleTextView"
@@ -65,22 +66,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textSize="@dimen/font_small"
+        android:layout_marginBottom="6dp"
         android:textColor="@color/colorTextSecondary"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+        android:textSize="@dimen/font_small"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
         tools:text="19 июня 2020, 12:48" />
 
     <View
         android:id="@+id/separator"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="6dp"
         android:background="@color/separate"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/dateTextView"
         app:layout_constraintStart_toStartOf="@id/descriptionTextView"
-        app:layout_constraintTop_toBottomOf="@id/dateTextView" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <View
         android:id="@+id/clickItemView"

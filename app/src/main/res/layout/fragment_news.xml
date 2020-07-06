@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newsContainerConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -35,11 +36,14 @@
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_new"/>
 
-            <include
-                android:id="@+id/errorLayout"
-                layout="@layout/layout_stub_error"
+            <TextView
+                android:id="@+id/errorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/font_few_big"
+                android:text="@string/server_error"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:visibility="gone"/>
 
@@ -47,12 +51,11 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <include
-        android:id="@+id/loadingLayout"
-        layout="@layout/layout_stub_loading"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newsToolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

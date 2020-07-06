@@ -11,12 +11,12 @@ import androidx.room.RoomDatabase
 
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val newDao:NewDao
+    abstract val newDao: NewDao
 
-    companion object{
+    companion object {
         private const val DATABASE_NAME = "news_database"
 
-        fun getRoomDatabase(context:Context): AppDatabase {
+        fun getRoomDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
         }
     }

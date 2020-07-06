@@ -6,8 +6,7 @@ import io.reactivex.Single
 
 class NewsInteractor(private val newsRepository: NewsRepository) {
 
-    fun getNews(): Single<List<New>> {
-        return newsRepository.getNews()
+    fun getNews(page: Int): Single<List<New>> {
+        return newsRepository.getNews(page)
     }
-
 }
