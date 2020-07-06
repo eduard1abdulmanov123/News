@@ -42,7 +42,8 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
             date = getDate(itemElement),
             category = getNodeValue("category", itemElement),
             image = getAttribute("enclosure", "url", itemElement),
-            fullDescription = getNodeValue("yandex:full-text", itemElement)
+            fullDescription = getNodeValue("yandex:full-text", itemElement),
+            alreadyRead = false
         )
     }
 

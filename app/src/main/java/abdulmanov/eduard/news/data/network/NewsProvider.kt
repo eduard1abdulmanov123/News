@@ -1,39 +1,48 @@
 package abdulmanov.eduard.news.data.network
 
 import abdulmanov.eduard.news.data.db.models.NewDbModel
-import abdulmanov.eduard.news.domain.models.New
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.InputStream
 import java.lang.Exception
 
-class NewsProvider(
-    private val client: OkHttpClient,
-    private val xmlParser: NewsXmlParser
-) {
+abstract class NewsProvider(private val client: OkHttpClient) {
 
     fun getNews(): List<NewDbModel> {
-        val response = makeRequestToServer()
-        return xmlParser.parseNewsXml(response)
-    }
-
-    private fun makeRequestToServer(): InputStream {
-        val request = Request.Builder()
-            .url(URL)
-            .build()
-
-        val response = client.newCall(request).execute()
-
-        return if (response.isSuccessful) {
-            response.body!!.byteStream()
-        } else {
-            throw Exception(SERVER_ERROR)
+        val url = getUrl()
+        val response = makeRequestToServer(url)
+        return try {
+            parseXml(response)
+        } catch (e: Exception) {
+            throw Exception(PARSE_ERROR)
         }
     }
 
-    companion object {
-        const val SERVER_ERROR = "Server error"
+    private fun makeRequestToServer(url: String): InputStream {
+        val request = Request.Builder()
+            .url(url)
+            .build()
 
-        private const val URL = "https://www.vesti.ru/vesti.rss"
+        try {
+            val response = client.newCall(request).execute()
+
+            return if (response.isSuccessful && response.body != null) {
+                response.body!!.byteStream()
+            } else {
+                throw Exception(SERVER_ERROR)
+            }
+        } catch (e: Exception) {
+            throw Exception(NETWORK_ERROR)
+        }
+    }
+
+    abstract fun getUrl(): String
+
+    abstract fun parseXml(xml: InputStream): List<NewDbModel>
+
+    companion object {
+        private const val SERVER_ERROR = "Ошибка сервера"
+        private const val NETWORK_ERROR = "Неполадки с интернетом.\nПопробуйте воспользоваься другой сетью-мобильной или wi-fi."
+        private const val PARSE_ERROR = "Ошибка при разборе XML"
     }
 }

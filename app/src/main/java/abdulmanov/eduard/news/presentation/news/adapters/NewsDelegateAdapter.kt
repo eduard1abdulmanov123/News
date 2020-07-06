@@ -7,7 +7,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.livermor.delegateadapter.delegate.KDelegateAdapter
 import kotlinx.android.synthetic.main.item_new.*
-import kotlinx.android.synthetic.main.item_new.view.*
 
 class NewsDelegateAdapter(
     private val newItemClickListener: NewItemClickListener? = null
@@ -17,7 +16,7 @@ class NewsDelegateAdapter(
         categoryTextView.text = item.category
         categoryTextView.transitionName = containerView.context.getString(R.string.category_transition, item.id)
 
-        iconImageView.loadImg(item.image, R.color.color_placeholder)
+        iconImageView.loadImg(item.image, R.color.placeholder)
         iconImageView.transitionName = containerView.context.getString(R.string.image_transition, item.id)
 
         titleTextView.text = item.title
@@ -28,6 +27,9 @@ class NewsDelegateAdapter(
 
         dateTextView.text = item.date
         dateTextView.transitionName = containerView.context.getString(R.string.date_transition, item.id)
+
+        val colorAlreadyRead = if(item.alreadyRead) R.color.already_read else 0
+        clickItemView.setBackgroundResource(colorAlreadyRead)
 
         separator.visibility = if (adapterPosition == 0) View.INVISIBLE else View.VISIBLE
 

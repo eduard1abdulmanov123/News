@@ -29,7 +29,10 @@ data class NewDbModel(
     val image: String,
 
     @ColumnInfo(name = COLUMN_FULL_DESCRIPTION)
-    val fullDescription: String
+    val fullDescription: String,
+
+    @ColumnInfo(name = COLUMN_ALREADY_READ)
+    val alreadyRead: Boolean
 ) {
     companion object {
         const val TABLE_NAME = "New"
@@ -42,5 +45,6 @@ data class NewDbModel(
         const val COLUMN_CATEGORY = "category"
         const val COLUMN_IMAGE = "image"
         const val COLUMN_FULL_DESCRIPTION = "full_description"
+        const val COLUMN_ALREADY_READ="already_read"
     }
 }

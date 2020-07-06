@@ -12,5 +12,6 @@ data class NewPresentationModel(
     val date: String,
     val category: String,
     val image: String,
-    val fullDescription: String
+    val fullDescription: String,
+    var alreadyRead: Boolean
 ) : Parcelable

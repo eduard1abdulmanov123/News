@@ -65,6 +65,12 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
         viewModel.messageLiveEvent.observe(viewLifecycleOwner, Observer(this::showMessage))
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scrollListener = null
+        currentSelectViewHolder = null
+    }
+
     private fun initUI() {
         newsToolbar.setTitle(R.string.news_title)
         newsToolbar.inflateMenu(R.menu.menu_news)

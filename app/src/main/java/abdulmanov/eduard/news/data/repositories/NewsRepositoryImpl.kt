@@ -4,6 +4,7 @@ import abdulmanov.eduard.news.data.db.dao.NewDao
 import abdulmanov.eduard.news.data.network.NewsProvider
 import abdulmanov.eduard.news.domain.models.New
 import abdulmanov.eduard.news.domain.repositories.NewsRepository
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class NewsRepositoryImpl(
@@ -15,7 +16,7 @@ class NewsRepositoryImpl(
         return Single.create {
             if (page == 1) {
                 val freshNews = newsProvider.getNews()
-                newsDao.insertNews(freshNews)
+                newsDao.insertNewsWithoutTouchingAlreadyRead(freshNews)
                 newsDao.deleteOldNews()
                 it.onSuccess(getNewsFromDatabase(page))
             } else {
@@ -34,8 +35,15 @@ class NewsRepositoryImpl(
                 date = newDbModel.date,
                 category = newDbModel.category,
                 image = newDbModel.image,
-                fullDescription = newDbModel.fullDescription
+                fullDescription = newDbModel.fullDescription,
+                alreadyRead = newDbModel.alreadyRead
             )
+        }
+    }
+
+    override fun markNewAsAlreadyRead(id: Long): Completable {
+        return Completable.create {
+            newsDao.markNewAsAlreadyRead(id)
         }
     }
 }

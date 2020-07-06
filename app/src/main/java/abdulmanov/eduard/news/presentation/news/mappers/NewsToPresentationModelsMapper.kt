@@ -20,7 +20,8 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
                 date = mapDate(it.date),
                 category = it.category,
                 image = it.image,
-                fullDescription = it.fullDescription
+                fullDescription = it.fullDescription,
+                alreadyRead = it.alreadyRead
             )
         }
     }

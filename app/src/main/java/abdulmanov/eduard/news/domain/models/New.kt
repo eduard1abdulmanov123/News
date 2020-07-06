@@ -8,5 +8,6 @@ data class New(
     val date: String,
     val category: String,
     val image: String,
-    val fullDescription: String
+    val fullDescription: String,
+    val alreadyRead: Boolean
 )
