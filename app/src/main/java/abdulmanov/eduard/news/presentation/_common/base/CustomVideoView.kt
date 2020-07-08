@@ -10,8 +10,10 @@ import android.widget.FrameLayout
 import kotlinx.android.synthetic.main.layout_custom_video_view.view.*
 
 class CustomVideoView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :FrameLayout(context, attrs, defStyleAttr), MediaPlayer.OnPreparedListener {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr), MediaPlayer.OnPreparedListener {
 
     private var pause: Boolean = false
     private var isPrepared: Boolean = false
@@ -21,11 +23,11 @@ class CustomVideoView @JvmOverloads constructor(
         videoView.setOnPreparedListener(this as MediaPlayer.OnPreparedListener)
 
         controlImageView.setOnClickListener {
-            pause = if(pause){
+            pause = if (pause) {
                 controlImageView.setImageResource(R.drawable.ic_pause)
                 videoView.start()
                 false
-            }else{
+            } else {
                 controlImageView.setImageResource(R.drawable.ic_play)
                 videoView.pause()
                 true
@@ -33,9 +35,9 @@ class CustomVideoView @JvmOverloads constructor(
         }
 
         rootView.setOnClickListener {
-            if(containerWithControlButtons.visibility == View.VISIBLE && isPrepared){
+            if (containerWithControlButtons.visibility == View.VISIBLE && isPrepared) {
                 containerWithControlButtons.visibility = View.GONE
-            }else if(isPrepared){
+            } else if (isPrepared) {
                 containerWithControlButtons.visibility = View.VISIBLE
             }
         }
@@ -48,7 +50,7 @@ class CustomVideoView @JvmOverloads constructor(
         videoView.start()
     }
 
-    fun setVideoPath(title:String,thumbnail: String, videoUrl: String){
+    fun setVideoPath(title: String, thumbnail: String, videoUrl: String) {
         containerWithControlButtons.visibility = View.GONE
         thumbnailImageView.visibility = View.VISIBLE
         thumbnailImageView.loadImg(thumbnail)
@@ -56,7 +58,7 @@ class CustomVideoView @JvmOverloads constructor(
         videoView.setVideoPath(videoUrl)
     }
 
-    fun setCollapseClickListener(click:(View)->Unit){
+    fun setCollapseClickListener(click: (View) -> Unit) {
         collapseImageView.setOnClickListener(click)
     }
 }

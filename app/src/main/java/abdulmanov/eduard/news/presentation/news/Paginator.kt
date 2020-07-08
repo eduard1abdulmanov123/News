@@ -81,7 +81,7 @@ object Paginator {
                         if (items.isEmpty()) {
                             State.FullData(state.pageCount, state.data)
                         } else {
-                            State.Data(state.pageCount + 1, (state.data + items).distinct())
+                            State.Data(state.pageCount + 1, (state.data + items))
                         }
                     }
                     is State.RefreshAfterFullData<*> -> State.Data(1, items)

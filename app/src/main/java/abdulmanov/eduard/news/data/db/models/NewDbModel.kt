@@ -45,6 +45,6 @@ data class NewDbModel(
         const val COLUMN_CATEGORY = "category"
         const val COLUMN_IMAGE = "image"
         const val COLUMN_FULL_DESCRIPTION = "full_description"
-        const val COLUMN_ALREADY_READ="already_read"
+        const val COLUMN_ALREADY_READ = "already_read"
     }
 }

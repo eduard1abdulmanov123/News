@@ -16,17 +16,17 @@ abstract class NewsProvider(private val client: OkHttpClient) {
         return try {
             parseNewsXml(response)
         } catch (e: Exception) {
-            Log.d("LogLog",e.message.toString())
+            Log.d("LogLog", e.message.toString())
             throw Exception(PARSE_ERROR)
         }
     }
 
-    fun getStream(): Stream{
+    fun getStream(): Stream {
         val url = getUrlForStream()
         val response = makeRequestToServer(url)
-        return try{
+        return try {
             parseStreamJson(response)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw Exception(PARSE_ERROR)
         }
     }

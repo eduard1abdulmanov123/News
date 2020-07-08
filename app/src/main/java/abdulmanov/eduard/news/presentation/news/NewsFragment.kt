@@ -8,6 +8,7 @@ import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.news.adapters.LoadingDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
+import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.models.LoadingPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
@@ -90,7 +91,8 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
         newsRecyclerView.setHasFixedSize(true)
         newsRecyclerView.adapter = CompositeDelegateAdapter(
             NewsDelegateAdapter(this),
-            LoadingDelegateAdapter()
+            LoadingDelegateAdapter(),
+            SeparateDelegateAdapter()
         )
     }
 
@@ -154,6 +156,9 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
                 errorTextView.visibility = View.GONE
                 progressBar.visibility = View.GONE
                 adapter.swapData(state.data as List<Any>)
+                if (state.pageCount == 1) {
+                    newsRecyclerView.smoothScrollToPosition(0)
+                }
             }
             is Paginator.State.Refresh<*> -> {
                 swipeRefresh.isRefreshing = true

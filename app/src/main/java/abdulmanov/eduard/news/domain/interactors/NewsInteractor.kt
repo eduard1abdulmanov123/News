@@ -16,7 +16,7 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
         return newsRepository.markNewAsAlreadyRead(id)
     }
 
-    fun getStream(): Single<Stream>{
+    fun getStream(): Single<Stream> {
         return newsRepository.getStream()
     }
 }

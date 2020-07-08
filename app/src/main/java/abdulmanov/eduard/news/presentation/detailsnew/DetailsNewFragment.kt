@@ -9,10 +9,8 @@ import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment

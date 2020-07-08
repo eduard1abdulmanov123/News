@@ -48,8 +48,8 @@ class LiveActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
     }
 
-    private fun setStateView(state:Int){
-        when(state){
+    private fun setStateView(state: Int) {
+        when (state) {
             LiveViewModel.STATE_VIEW_PROGRESS_BAR -> {
                 layoutVideoView.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
@@ -65,11 +65,11 @@ class LiveActivity : AppCompatActivity() {
         }
     }
 
-    private fun setStream(stream: Stream){
+    private fun setStream(stream: Stream) {
         layoutVideoView.setVideoPath(stream.titleChannel, stream.thumbnail, stream.streamUrl)
     }
 
-    companion object{
+    companion object {
         fun newIntent(context: Context): Intent {
             return Intent(context, LiveActivity::class.java)
         }

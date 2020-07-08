@@ -3,6 +3,7 @@ package abdulmanov.eduard.news.presentation.news.mappers
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.New
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import abdulmanov.eduard.news.presentation.news.models.SeparatePresentationModel
 import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
@@ -10,20 +11,30 @@ import javax.inject.Inject
 
 class NewsToPresentationModelsMapper @Inject constructor(private val context: Context) {
 
-    fun newsMapToPresentationModels(news: List<New>): List<NewPresentationModel> {
-        return news.map {
-            NewPresentationModel(
-                id = it.id,
-                title = it.title,
-                link = it.link,
-                description = it.description,
-                date = mapDate(it.date),
-                category = it.category,
-                image = it.image,
-                fullDescription = it.fullDescription,
-                alreadyRead = it.alreadyRead
-            )
+    fun newsMapToPresentationModels(news: List<New>, page: Int): List<Any> {
+        return mutableListOf<Any>().apply {
+            for (i in news.indices) {
+                if (i != 0 || page != 1)
+                    add(SeparatePresentationModel)
+
+                val new = mapNew(news[i])
+                add(new)
+            }
         }
+    }
+
+    private fun mapNew(new: New): NewPresentationModel {
+        return NewPresentationModel(
+            id = new.id,
+            title = new.title,
+            link = new.link,
+            description = new.description,
+            date = mapDate(new.date),
+            category = new.category,
+            image = new.image,
+            fullDescription = new.fullDescription,
+            alreadyRead = new.alreadyRead
+        )
     }
 
     private fun mapDate(dateStr: String): String {

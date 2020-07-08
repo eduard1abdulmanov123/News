@@ -3,7 +3,6 @@ package abdulmanov.eduard.news.data.network
 import abdulmanov.eduard.news.data._common.getDateAsString
 import abdulmanov.eduard.news.data.db.models.NewDbModel
 import abdulmanov.eduard.news.domain.models.Stream
-import android.util.Log
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import org.w3c.dom.Element
@@ -88,7 +87,7 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
 
     private fun getAttribute(tag: String, attributeName: String, element: Element): String {
         val node = element.getElementsByTagName(tag).item(0)
-        if (node.hasAttributes()) {
+        if (node != null && node.hasAttributes()) {
             return (node as Element).getAttribute(attributeName)
         }
         return ""
@@ -112,14 +111,14 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
             .get("auto")
             .toString() + ".m3u8"
 
-        return Stream(title,picture,streamUrl)
+        return Stream(title, picture, streamUrl)
     }
 
-    private fun InputStream.convertToString():String{
+    private fun InputStream.convertToString(): String {
         val bufferedReader = BufferedReader(InputStreamReader(this))
         val sb = StringBuilder()
         var line = bufferedReader.readLine()
-        while (line != null){
+        while (line != null) {
             sb.append(line).append('\n')
             line = bufferedReader.readLine()
         }

@@ -19,7 +19,7 @@ class LiveViewModel @Inject constructor(
     val stateView: LiveData<Int>
         get() = _stateView
 
-    fun loadUrl(){
+    fun loadUrl() {
         _stateView.value = STATE_VIEW_PROGRESS_BAR
         newsInteractor.getStream().safeSubscribe(
             {
@@ -32,7 +32,7 @@ class LiveViewModel @Inject constructor(
         )
     }
 
-    companion object{
+    companion object {
         const val STATE_VIEW_PROGRESS_BAR = 1
         const val STATE_VIEW_SHOW_CONTENT = 2
         const val STATE_VIEW_SHOW_ERROR = 3

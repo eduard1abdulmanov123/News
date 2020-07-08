@@ -7,7 +7,7 @@ import androidx.room.*
 abstract class NewDao {
 
     @Transaction
-    open fun insertNewsWithoutTouchingAlreadyRead(news: List<NewDbModel>){
+    open fun insertNewsWithoutTouchingAlreadyRead(news: List<NewDbModel>) {
         val newsToBeInsert = news.filter {
             val newFromDatabase = getNewById(it.id) ?: return@filter true
             !newFromDatabase.alreadyRead
@@ -19,7 +19,7 @@ abstract class NewDao {
     abstract fun insertNews(news: List<NewDbModel>)
 
     @Query("SELECT * FROM ${NewDbModel.TABLE_NAME} WHERE ${NewDbModel.COLUMN_ID}=:id")
-    abstract fun getNewById(id:Long): NewDbModel?
+    abstract fun getNewById(id: Long): NewDbModel?
 
     @Transaction
     open fun getNewsByPage(page: Int): List<NewDbModel> {

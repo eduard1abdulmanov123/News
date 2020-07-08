@@ -7,10 +7,8 @@ import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModels
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
@@ -57,7 +55,7 @@ class NewsViewModel @Inject constructor(
     private fun loadNewPage(page: Int) {
         pageDisposable?.dispose()
         pageDisposable = newsInteractor.getNews(page)
-            .map(mapper::newsMapToPresentationModels)
+            .map { mapper.newsMapToPresentationModels(it, page) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
