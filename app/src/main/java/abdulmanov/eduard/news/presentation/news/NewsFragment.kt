@@ -5,6 +5,7 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.LinearInfiniteScrollListener
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.news.adapters.LoadingDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.models.LoadingPresentationModel
@@ -95,7 +96,10 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.openLiveItem -> viewModel.onOpenLiveScreenCommandClick()
+            R.id.openLiveItem -> {
+                val liveActivity = LiveActivity.newIntent(requireContext())
+                startActivity(liveActivity)
+            }
         }
         return true
     }

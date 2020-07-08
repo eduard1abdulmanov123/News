@@ -2,7 +2,7 @@ package abdulmanov.eduard.news.dagger.components
 
 import abdulmanov.eduard.news.dagger.modules.*
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
-import abdulmanov.eduard.news.presentation.live.LiveFragment
+import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.main.MainActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import android.content.Context
@@ -32,7 +32,7 @@ interface AppComponent {
 
     fun inject(newsFragment: NewsFragment)
 
-    fun inject(liveFragment: LiveFragment)
+    fun inject(liveActivity: LiveActivity)
 
     fun inject(detailsNewFragment: DetailsNewFragment)
 }

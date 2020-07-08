@@ -2,19 +2,27 @@ package abdulmanov.eduard.news.data.network
 
 import abdulmanov.eduard.news.data._common.getDateAsString
 import abdulmanov.eduard.news.data.db.models.NewDbModel
+import abdulmanov.eduard.news.domain.models.Stream
+import android.util.Log
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import org.w3c.dom.Element
 import org.w3c.dom.Node
+import java.io.BufferedReader
 import java.io.InputStream
+import java.io.InputStreamReader
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
 class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
 
-    override fun getUrl(): String = "https://www.vesti.ru/vesti.rss"
+    override fun getUrlForNews(): String = "https://www.vesti.ru/vesti.rss"
 
-    override fun parseXml(xml: InputStream): List<NewDbModel> {
+    override fun getUrlForStream(): String = "https://player.vgtrk.com/iframe/datalive/id/21/sid/r24"
+
+    override fun parseNewsXml(xml: InputStream): List<NewDbModel> {
         return mutableListOf<NewDbModel>().apply {
             val documentBuilderFactory = DocumentBuilderFactory.newInstance()
             val documentBuilder = documentBuilderFactory.newDocumentBuilder()
@@ -49,7 +57,7 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
 
     private fun getId(element: Element): Long {
         val link = getNodeValue("link", element)
-        val id = link.substringAfterLast("id=")
+        val id = link.split("/").last()
         return id.toLong()
     }
 
@@ -84,5 +92,37 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
             return (node as Element).getAttribute(attributeName)
         }
         return ""
+    }
+
+    override fun parseStreamJson(json: InputStream): Stream {
+        val jsonString = json.convertToString()
+        val jsonObject = JSONObject(jsonString)
+
+        val media = jsonObject.getJSONObject("data")
+            .getJSONObject("playlist")
+            .getJSONArray("medialist")
+            .getJSONObject(0)
+
+        val title = media.get("title").toString()
+
+        val picture = media.get("picture").toString()
+
+        val streamUrl = media.getJSONObject("sources")
+            .getJSONObject("m3u8")
+            .get("auto")
+            .toString() + ".m3u8"
+
+        return Stream(title,picture,streamUrl)
+    }
+
+    private fun InputStream.convertToString():String{
+        val bufferedReader = BufferedReader(InputStreamReader(this))
+        val sb = StringBuilder()
+        var line = bufferedReader.readLine()
+        while (line != null){
+            sb.append(line).append('\n')
+            line = bufferedReader.readLine()
+        }
+        return sb.toString()
     }
 }

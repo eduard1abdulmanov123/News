@@ -1,6 +1,8 @@
 package abdulmanov.eduard.news.data.network
 
 import abdulmanov.eduard.news.data.db.models.NewDbModel
+import abdulmanov.eduard.news.domain.models.Stream
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.InputStream
@@ -9,11 +11,22 @@ import java.lang.Exception
 abstract class NewsProvider(private val client: OkHttpClient) {
 
     fun getNews(): List<NewDbModel> {
-        val url = getUrl()
+        val url = getUrlForNews()
         val response = makeRequestToServer(url)
         return try {
-            parseXml(response)
+            parseNewsXml(response)
         } catch (e: Exception) {
+            Log.d("LogLog",e.message.toString())
+            throw Exception(PARSE_ERROR)
+        }
+    }
+
+    fun getStream(): Stream{
+        val url = getUrlForStream()
+        val response = makeRequestToServer(url)
+        return try{
+            parseStreamJson(response)
+        }catch (e: Exception){
             throw Exception(PARSE_ERROR)
         }
     }
@@ -25,7 +38,6 @@ abstract class NewsProvider(private val client: OkHttpClient) {
 
         try {
             val response = client.newCall(request).execute()
-
             return if (response.isSuccessful && response.body != null) {
                 response.body!!.byteStream()
             } else {
@@ -36,9 +48,13 @@ abstract class NewsProvider(private val client: OkHttpClient) {
         }
     }
 
-    abstract fun getUrl(): String
+    abstract fun getUrlForNews(): String
 
-    abstract fun parseXml(xml: InputStream): List<NewDbModel>
+    abstract fun getUrlForStream(): String
+
+    abstract fun parseNewsXml(xml: InputStream): List<NewDbModel>
+
+    abstract fun parseStreamJson(json: InputStream): Stream
 
     companion object {
         private const val SERVER_ERROR = "Ошибка сервера"
