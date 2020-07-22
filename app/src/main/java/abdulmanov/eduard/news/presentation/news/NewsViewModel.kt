@@ -50,6 +50,10 @@ class NewsViewModel @Inject constructor(
 
     fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = router.navigateTo(Screens.DetailsNew(new))
 
+    fun onOpenLiveScreenCommandClick() = router.navigateTo(Screens.Live)
+
+    fun onOpenSettingScreenCommandClick() = router.navigateTo(Screens.Setting)
+
     fun onBackCommandClick() = router.exit()
 
     private fun loadNewPage(page: Int) {

@@ -5,6 +5,7 @@ import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewViewModel
 import abdulmanov.eduard.news.presentation.live.LiveViewModel
 import abdulmanov.eduard.news.presentation.news.NewsViewModel
+import abdulmanov.eduard.news.presentation.setting.SettingViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
@@ -28,6 +29,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailsNewViewModel::class)
     abstract fun bindDetailsNewViewModel(viewModel: DetailsNewViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingViewModel::class)
+    abstract fun bindSettingViewModel(viewModel: SettingViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

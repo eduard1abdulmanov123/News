@@ -7,13 +7,27 @@
 
     <!--News-->
     <string name="news_title">Лента</string>
-
-    <!--transition-->
     <string name="image_transition">image_%d</string>
     <string name="title_transition">title_%d</string>
     <string name="category_transition">category_%d</string>
     <string name="date_transition">date_%d</string>
     <string name="description_transition">description_%d</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--settings-->
+    <string name="setting_title">Настройки</string>
+    <string name="setting_change_theme_title">Вы можете сменить тему приложения</string>
+    <string name="setting_change_theme_dark">Темная тема</string>
+    <string name="setting_change_theme_light">Светлая тема</string>
+    <string name="setting_change_theme_automatically">Автоматически</string>
+    <string name="setting_change_theme_automatically_description">Тема меняется автоматически в зависимости от настроек телефона</string>
+    <string name="setting_feedback_title">Обратная связь</string>
+    <string name="setting_feedback_subtitle">Есть отзывы и идеи? Пишите, мы обязательно ответим</string>
+    <string name="setting_feedback_write_letter">Написать письмо</string>
+    <string name="setting_license_title">Лицензия</string>
+    <string name="setting_license_subtitle">Вся информация в данном приложении получена с сайта Вести.Ru</string>
+
+    <!--feedback-->
+    <string name="feedback_address">eduardabdulmanov123@gmail.com</string>
+    <string name="feedback_subject">Новости: Мысли, пожелания, идеи</string>
+    <string name="feedback_body">\n\n\nСлужебные параметры:\n-Версия Android: %d\n-Устройство: %s\n-Версия мобильного приложения: %s\n</string>
 </resources>

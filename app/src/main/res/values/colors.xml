@@ -12,6 +12,9 @@
 
     <color name="colorIcon">#000000</color>
 
+    <color name="colorControlNormal">#6f6f6f</color>
+    <color name="colorControlActive">#0075EE</color>
+
     <color name="background">#ffffff</color>
     <color name="separate">#99bfbfbf</color>
     <color name="placeholder">#EBEBEB</color>

@@ -5,6 +5,9 @@ import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.main.MainActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
+import abdulmanov.eduard.news.presentation.setting.SettingFragment
+import abdulmanov.eduard.news.presentation.setting.SettingViewModel
+import android.app.Application
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
@@ -18,14 +21,15 @@ import javax.inject.Singleton
         InteractorModule::class,
         RepositoryModule::class,
         NetworkModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        SharedPreferencesModule::class
     ]
 )
 interface AppComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): AppComponent
+        fun create(@BindsInstance context: Context, @BindsInstance app: Application): AppComponent
     }
 
     fun inject(mainActivity: MainActivity)
@@ -35,4 +39,6 @@ interface AppComponent {
     fun inject(liveActivity: LiveActivity)
 
     fun inject(detailsNewFragment: DetailsNewFragment)
+
+    fun inject(settingFragment: SettingFragment)
 }

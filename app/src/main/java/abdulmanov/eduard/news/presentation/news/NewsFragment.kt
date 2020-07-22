@@ -98,10 +98,8 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.openLiveItem -> {
-                val liveActivity = LiveActivity.newIntent(requireContext())
-                startActivity(liveActivity)
-            }
+            R.id.openLiveItem -> viewModel.onOpenLiveScreenCommandClick()
+            R.id.openSettingItem -> viewModel.onOpenSettingScreenCommandClick()
         }
         return true
     }

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/settingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerChangeTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settingToolbar">
+
+            <TextView
+                android:id="@+id/changeThemeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/setting_change_theme_title"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/font_few_big"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/changeThemeRadioGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/changeThemeTitle"
+                app:layout_constraintStart_toStartOf="@+id/changeThemeTitle"
+                app:layout_constraintTop_toBottomOf="@id/changeThemeTitle">
+
+                <RadioButton
+                    android:id="@+id/darkThemeRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_theme_dark"
+                    android:drawablePadding="16dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/setting_change_theme_dark"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/font_normal"
+                    android:theme="@style/RadioButton"
+                    tools:ignore="RtlHardcoded" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/separate" />
+
+                <RadioButton
+                    android:id="@+id/lightThemeRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_theme_light"
+                    android:drawablePadding="16dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/setting_change_theme_light"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/font_normal"
+                    android:theme="@style/RadioButton"
+                    tools:ignore="RtlHardcoded" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/separate" />
+
+                <RadioButton
+                    android:id="@+id/automaticallyThemeRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_theme_automatically"
+                    android:drawablePadding="16dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/setting_change_theme_automatically"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/font_normal"
+                    android:theme="@style/RadioButton"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginEnd="40dp"
+                    android:text="@string/setting_change_theme_automatically_description"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="@dimen/font_small" />
+
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/separate"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/changeThemeRadioGroup" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/containerChangeTheme">
+
+            <TextView
+                android:id="@+id/feedbackTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/setting_feedback_title"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/font_few_big"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/feedbackSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/setting_feedback_subtitle"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/font_small"
+                app:layout_constraintEnd_toEndOf="@id/feedbackTitle"
+                app:layout_constraintStart_toStartOf="@id/feedbackTitle"
+                app:layout_constraintTop_toBottomOf="@id/feedbackTitle" />
+
+            <ImageView
+                android:id="@+id/feedbackImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_mail"
+                app:layout_constraintStart_toStartOf="@id/feedbackSubtitle"
+                app:layout_constraintTop_toBottomOf="@id/feedbackSubtitle"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/feedbackWriteLetter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/setting_feedback_write_letter"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/feedbackImageView"
+                app:layout_constraintTop_toTopOf="@id/feedbackImageView"
+                app:layout_constraintBottom_toBottomOf="@id/feedbackImageView"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/separate"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/feedbackWriteLetter" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/containerFeedback">
+
+            <TextView
+                android:id="@+id/licenseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/setting_license_title"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/font_few_big"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/licenseSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/setting_license_subtitle"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/font_small"
+                app:layout_constraintEnd_toEndOf="@id/licenseTitle"
+                app:layout_constraintStart_toStartOf="@id/licenseTitle"
+                app:layout_constraintTop_toBottomOf="@id/licenseTitle" />
+
+            <ImageView
+                android:id="@+id/licenseImageView"
+                android:layout_width="54dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_vesti_ru"
+                app:layout_constraintStart_toStartOf="@id/licenseSubtitle"
+                app:layout_constraintTop_toBottomOf="@id/licenseSubtitle"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/separate"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/licenseImageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

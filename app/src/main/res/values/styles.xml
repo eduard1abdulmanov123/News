@@ -17,4 +17,9 @@
         <item name="android:elevation">4dp</item>
     </style>
 
+    <style name="RadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorControlActive</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+    </style>
+
 </resources>
