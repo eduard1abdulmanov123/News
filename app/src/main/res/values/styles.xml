@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,7 +12,7 @@
     <style name="AppToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:theme">?attr/actionBarTheme</item>
-        <item name="android:background">@color/background</item>
+        <item name="android:background">@color/colorBackgroundToolbar</item>
         <item name="titleTextColor">@color/colorTitleToolbar</item>
         <item name="android:elevation">4dp</item>
     </style>

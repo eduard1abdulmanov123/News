@@ -2,16 +2,18 @@ package abdulmanov.eduard.news.presentation.main
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
+import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.TransitionInflater
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.item_new.view.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -25,6 +27,13 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    }
+
     private val navigator = object : SupportAppNavigator(this, R.id.fragmentContainer) {
         override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
             if (command is Forward && currentFragment is NewsFragment && nextFragment is DetailsNewFragment) {
@@ -37,6 +46,10 @@ class MainActivity : AppCompatActivity() {
         (application as App).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
+        if(savedInstanceState == null){
+            setAppTheme(viewModel.getCurrentThemeType())
+        }
+
         setContentView(R.layout.activity_main)
         window.setBackgroundDrawable(null)
 

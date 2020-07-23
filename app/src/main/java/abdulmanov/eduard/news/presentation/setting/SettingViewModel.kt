@@ -3,8 +3,8 @@ package abdulmanov.eduard.news.presentation.setting
 import abdulmanov.eduard.news.domain.interactors.SettingInteractor
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hadilq.liveevent.LiveEvent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -13,15 +13,16 @@ class SettingViewModel @Inject constructor(
     private val settingInteractor: SettingInteractor
 ):ViewModel() {
 
-    private val _themeType = MutableLiveData<Int>()
-    val themeType:LiveData<Int>
-        get() = _themeType
+    private val _changeThemeTypeEvent = LiveEvent<Int>()
+    val changeThemeTypeEvent: LiveData<Int>
+        get() = _changeThemeTypeEvent
 
-    init {
-        _themeType.value = settingInteractor.getThemeType()
+    fun setCurrentThemeType(type: Int){
+        settingInteractor.setThemeType(type)
+        _changeThemeTypeEvent.value = type
     }
 
-    fun setCurrentThemeType(type: Int) = settingInteractor.setThemeType(type)
+    fun getCurrentThemeType() = settingInteractor.getThemeType()
 
     fun onOpenFeedbackCommandClick(){
         val feedbackData = settingInteractor.getFeedbackData()

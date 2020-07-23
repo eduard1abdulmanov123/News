@@ -1,14 +1,15 @@
 package abdulmanov.eduard.news.presentation.setting
 
-import androidx.fragment.app.Fragment
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -39,7 +40,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
 
         initUI()
 
-        viewModel.themeType.observe(viewLifecycleOwner, Observer(this::setCheckedTypeTheme))
+        viewModel.changeThemeTypeEvent.observe(viewLifecycleOwner, Observer(this::setAppTheme))
     }
 
     private fun initUI() {
@@ -47,6 +48,13 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         settingToolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         settingToolbar.setNavigationOnClickListener { viewModel.onBackCommandClick() }
 
+        changeThemeRadioGroup.clearCheck()
+        when (viewModel.getCurrentThemeType()) {
+            AppCompatDelegate.MODE_NIGHT_YES -> darkThemeRadioButton.isChecked = true
+            AppCompatDelegate.MODE_NIGHT_NO -> lightThemeRadioButton.isChecked = true
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> automaticallyThemeRadioButton.isChecked = true
+        }
+        changeThemeRadioGroup.jumpDrawablesToCurrentState()
         changeThemeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.darkThemeRadioButton -> viewModel.setCurrentThemeType(AppCompatDelegate.MODE_NIGHT_YES)
@@ -63,15 +71,6 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
             viewModel.onOpenSupplierWebsiteCommandClick()
         }
 
-    }
-
-    private fun setCheckedTypeTheme(type:Int){
-        changeThemeRadioGroup.clearCheck()
-        when (type) {
-            AppCompatDelegate.MODE_NIGHT_YES -> darkThemeRadioButton.isChecked = true
-            AppCompatDelegate.MODE_NIGHT_NO -> lightThemeRadioButton.isChecked = true
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> automaticallyThemeRadioButton.isChecked = true
-        }
     }
 
     companion object {

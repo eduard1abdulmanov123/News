@@ -9,6 +9,7 @@
     <color name="colorTextSecondary">#6f6f6f</color>
 
     <color name="colorTitleToolbar">#000000</color>
+    <color name="colorBackgroundToolbar">#FFFFFF</color>
 
     <color name="colorIcon">#000000</color>
 
