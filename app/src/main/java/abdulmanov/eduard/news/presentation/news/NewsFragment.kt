@@ -1,11 +1,9 @@
 package abdulmanov.eduard.news.presentation.news
 
-import androidx.fragment.app.Fragment
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.LinearInfiniteScrollListener
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
-import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.news.adapters.LoadingDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
@@ -16,6 +14,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager

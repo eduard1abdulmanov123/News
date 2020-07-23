@@ -9,27 +9,27 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class SettingViewModel @Inject constructor(
-    private val router:Router,
+    private val router: Router,
     private val settingInteractor: SettingInteractor
-):ViewModel() {
+) : ViewModel() {
 
     private val _changeThemeTypeEvent = LiveEvent<Int>()
     val changeThemeTypeEvent: LiveData<Int>
         get() = _changeThemeTypeEvent
 
-    fun setCurrentThemeType(type: Int){
+    fun setCurrentThemeType(type: Int) {
         settingInteractor.setThemeType(type)
         _changeThemeTypeEvent.value = type
     }
 
     fun getCurrentThemeType() = settingInteractor.getThemeType()
 
-    fun onOpenFeedbackCommandClick(){
+    fun onOpenFeedbackCommandClick() {
         val feedbackData = settingInteractor.getFeedbackData()
         router.navigateTo(Screens.Feedback(feedbackData))
     }
 
-    fun onOpenSupplierWebsiteCommandClick(){
+    fun onOpenSupplierWebsiteCommandClick() {
         val url = settingInteractor.getLinkSupplierWebsite()
         router.navigateTo(Screens.Website(url))
     }

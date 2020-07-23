@@ -8,7 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 
-class SettingRepositoryImpl(private val sharedPreferences: SharedPreferences): SettingRepository {
+class SettingRepositoryImpl(private val sharedPreferences: SharedPreferences) : SettingRepository {
 
     override fun getLinkSupplierWebsite() = LINK_SUPPLIER_WEBSITE
 
@@ -20,7 +20,7 @@ class SettingRepositoryImpl(private val sharedPreferences: SharedPreferences): S
 
     override fun getThemeType() = sharedPreferences.getInt(PREF_THEME_TYPE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
-    companion object{
+    companion object {
         private const val LINK_SUPPLIER_WEBSITE = "https://www.vesti.ru/"
         private const val PREF_THEME_TYPE = "theme_type"
     }

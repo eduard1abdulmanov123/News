@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 
-fun Fragment.setAppTheme(type:Int){
+fun Fragment.setAppTheme(type: Int) {
     val activity = requireActivity() as AppCompatActivity
     activity.setAppTheme(type)
 }
 
-fun AppCompatActivity.setAppTheme(type:Int){
+fun AppCompatActivity.setAppTheme(type: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         delegate.localNightMode = type
     } else {

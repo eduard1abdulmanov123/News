@@ -18,7 +18,7 @@ object Screens {
         override fun getFragment() = NewsFragment.newInstance()
     }
 
-    object Live:SupportAppScreen(){
+    object Live : SupportAppScreen() {
         override fun getActivityIntent(context: Context) = LiveActivity.newIntent(context)
     }
 
@@ -26,11 +26,11 @@ object Screens {
         override fun getFragment() = DetailsNewFragment.newInstance(new)
     }
 
-    object Setting: SupportAppScreen(){
+    object Setting : SupportAppScreen() {
         override fun getFragment() = SettingFragment.newInstance()
     }
 
-    data class Feedback(val data: FeedbackData): SupportAppScreen(){
+    data class Feedback(val data: FeedbackData) : SupportAppScreen() {
         override fun getActivityIntent(context: Context): Intent? {
             val addresses = listOf(context.getString(R.string.feedback_address)).toTypedArray()
             val subject = context.getString(R.string.feedback_subject)
@@ -46,7 +46,7 @@ object Screens {
         }
     }
 
-    data class Website(val url: String): SupportAppScreen(){
+    data class Website(val url: String) : SupportAppScreen() {
         override fun getActivityIntent(context: Context) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     }
 }

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         (application as App).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             setAppTheme(viewModel.getCurrentThemeType())
         }
 

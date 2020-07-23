@@ -67,14 +67,13 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
             viewModel.onOpenFeedbackCommandClick()
         }
 
-        containerLicense.setOnClickListener{
+        containerLicense.setOnClickListener {
             viewModel.onOpenSupplierWebsiteCommandClick()
         }
-
     }
 
     companion object {
-        fun newInstance():SettingFragment{
+        fun newInstance(): SettingFragment {
             return SettingFragment()
         }
     }

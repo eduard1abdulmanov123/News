@@ -15,7 +15,7 @@ class NewsDelegateAdapter(
         categoryTextView.text = item.category
         categoryTextView.transitionName = containerView.context.getString(R.string.category_transition, item.id)
 
-        if(item.image.isNotEmpty()) {
+        if (item.image.isNotEmpty()) {
             iconImageView.loadImg(item.image, R.color.placeholder)
         }
         iconImageView.transitionName = containerView.context.getString(R.string.image_transition, item.id)

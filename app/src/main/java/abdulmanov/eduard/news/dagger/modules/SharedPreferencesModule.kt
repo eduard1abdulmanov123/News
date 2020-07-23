@@ -16,10 +16,10 @@ class SharedPreferencesModule {
     @Provides
     @Named(SETTING_SHARED_PREFERENCES_NAME)
     fun provideSettingSharedPreferences(app: Application): SharedPreferences {
-        return app.getSharedPreferences("${BuildConfig.APPLICATION_ID}${SETTING_SHARED_PREFERENCES_NAME}", Context.MODE_PRIVATE)
+        return app.getSharedPreferences("${BuildConfig.APPLICATION_ID}$SETTING_SHARED_PREFERENCES_NAME", Context.MODE_PRIVATE)
     }
 
-    companion object{
+    companion object {
         const val SETTING_SHARED_PREFERENCES_NAME = "_setting_pref"
     }
 }

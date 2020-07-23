@@ -23,7 +23,7 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideSettingRepository(@Named(SharedPreferencesModule.SETTING_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences):SettingRepository{
+    fun provideSettingRepository(@Named(SharedPreferencesModule.SETTING_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences): SettingRepository {
         return SettingRepositoryImpl(sharedPreferences)
     }
 }

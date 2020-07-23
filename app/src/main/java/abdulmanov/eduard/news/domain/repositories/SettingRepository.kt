@@ -8,7 +8,7 @@ interface SettingRepository {
 
     fun getFeedbackData(): FeedbackData
 
-    fun setThemeType(type:Int)
+    fun setThemeType(type: Int)
 
     fun getThemeType(): Int
 }

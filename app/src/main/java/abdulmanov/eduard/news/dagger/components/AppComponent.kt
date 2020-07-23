@@ -6,7 +6,6 @@ import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.main.MainActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
-import abdulmanov.eduard.news.presentation.setting.SettingViewModel
 import android.app.Application
 import android.content.Context
 import dagger.BindsInstance

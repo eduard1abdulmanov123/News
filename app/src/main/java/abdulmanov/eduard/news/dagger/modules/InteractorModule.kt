@@ -19,7 +19,7 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideSettingInteractor(repository: SettingRepository): SettingInteractor{
+    fun provideSettingInteractor(repository: SettingRepository): SettingInteractor {
         return SettingInteractor(repository)
     }
 }

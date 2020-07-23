@@ -6,8 +6,7 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val settingInteractor: SettingInteractor
-):ViewModel() {
+) : ViewModel() {
 
     fun getCurrentThemeType() = settingInteractor.getThemeType()
-
 }
