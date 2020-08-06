@@ -10,20 +10,21 @@ import androidx.core.content.edit
 
 class SettingRepositoryImpl(private val sharedPreferences: SharedPreferences) : SettingRepository {
 
-    override fun getLinkSupplierWebsite() = LINK_SUPPLIER_WEBSITE
-
-    override fun getFeedbackData() =
-        FeedbackData(
-            Build.VERSION.SDK_INT,
-            Build.MODEL,
-            BuildConfig.VERSION_NAME
-        )
-
-    override fun setThemeType(type: Int) = sharedPreferences.edit {
-        putInt(PREF_THEME_TYPE, type)
+    override fun getLinkSupplierWebsite(): String {
+        return LINK_SUPPLIER_WEBSITE
     }
 
-    override fun getThemeType() = sharedPreferences.getInt(PREF_THEME_TYPE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    override fun getFeedbackData(): FeedbackData {
+        return FeedbackData(Build.VERSION.SDK_INT, Build.MODEL, BuildConfig.VERSION_NAME)
+    }
+
+    override fun setThemeType(type: Int) {
+        sharedPreferences.edit { putInt(PREF_THEME_TYPE, type) }
+    }
+
+    override fun getThemeType(): Int {
+        return sharedPreferences.getInt(PREF_THEME_TYPE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
 
     companion object {
         private const val LINK_SUPPLIER_WEBSITE = "https://www.vesti.ru/"

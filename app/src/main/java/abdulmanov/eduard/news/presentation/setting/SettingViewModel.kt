@@ -22,7 +22,9 @@ class SettingViewModel @Inject constructor(
         _changeThemeTypeEvent.value = type
     }
 
-    fun getCurrentThemeType() = settingInteractor.getThemeType()
+    fun getCurrentThemeType(): Int {
+        return settingInteractor.getThemeType()
+    }
 
     fun onOpenFeedbackCommandClick() {
         val feedbackData = settingInteractor.getFeedbackData()

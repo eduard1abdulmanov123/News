@@ -28,11 +28,13 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                viewModel.onBackCommandClick()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.onBackCommandClick()
+                }
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,31 +46,33 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     }
 
     private fun initUI() {
-        settingToolbar.setTitle(R.string.setting_title)
-        settingToolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        settingToolbar.setNavigationOnClickListener { viewModel.onBackCommandClick() }
+        settingToolbar.run {
+            setTitle(R.string.setting_title)
+            setNavigationIcon(R.drawable.ic_arrow_back)
+            setNavigationOnClickListener { viewModel.onBackCommandClick() }
+        }
 
-        changeThemeRadioGroup.clearCheck()
+        containerFeedbackConstraintLayout.setOnClickListener {
+            viewModel.onOpenFeedbackCommandClick()
+        }
+
+        containerLicenseConstraintLayout.setOnClickListener {
+            viewModel.onOpenSupplierWebsiteCommandClick()
+        }
+
         when (viewModel.getCurrentThemeType()) {
             AppCompatDelegate.MODE_NIGHT_YES -> darkThemeRadioButton.isChecked = true
             AppCompatDelegate.MODE_NIGHT_NO -> lightThemeRadioButton.isChecked = true
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> automaticallyThemeRadioButton.isChecked = true
         }
         changeThemeRadioGroup.jumpDrawablesToCurrentState()
+
         changeThemeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.darkThemeRadioButton -> viewModel.setCurrentThemeType(AppCompatDelegate.MODE_NIGHT_YES)
                 R.id.lightThemeRadioButton -> viewModel.setCurrentThemeType(AppCompatDelegate.MODE_NIGHT_NO)
                 R.id.automaticallyThemeRadioButton -> viewModel.setCurrentThemeType(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
-        }
-
-        containerFeedback.setOnClickListener {
-            viewModel.onOpenFeedbackCommandClick()
-        }
-
-        containerLicense.setOnClickListener {
-            viewModel.onOpenSupplierWebsiteCommandClick()
         }
     }
 

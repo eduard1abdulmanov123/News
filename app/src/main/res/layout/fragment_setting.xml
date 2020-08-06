@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerChangeTheme"
+            android:id="@+id/containerChangeThemeConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -30,15 +30,15 @@
             app:layout_constraintTop_toBottomOf="@id/settingToolbar">
 
             <TextView
-                android:id="@+id/changeThemeTitle"
+                android:id="@+id/changeThemeTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="@string/setting_change_theme_title"
-                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/font_few_big"
                 android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/setting_change_theme_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,21 +49,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/changeThemeTitle"
-                app:layout_constraintStart_toStartOf="@+id/changeThemeTitle"
-                app:layout_constraintTop_toBottomOf="@id/changeThemeTitle">
+                app:layout_constraintEnd_toEndOf="@+id/changeThemeTitleTextView"
+                app:layout_constraintStart_toStartOf="@+id/changeThemeTitleTextView"
+                app:layout_constraintTop_toBottomOf="@id/changeThemeTitleTextView">
 
                 <RadioButton
                     android:id="@+id/darkThemeRadioButton"
+                    android:theme="@style/RadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_theme_dark"
                     android:drawablePadding="16dp"
                     android:layoutDirection="rtl"
-                    android:text="@string/setting_change_theme_dark"
-                    android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/font_normal"
-                    android:theme="@style/RadioButton"
+                    android:textColor="@color/colorTextPrimary"
+                    android:text="@string/setting_change_theme_dark"
                     tools:ignore="RtlHardcoded" />
 
                 <View
@@ -76,16 +76,16 @@
 
                 <RadioButton
                     android:id="@+id/lightThemeRadioButton"
+                    android:theme="@style/RadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:drawableLeft="@drawable/ic_theme_light"
                     android:drawablePadding="16dp"
                     android:layoutDirection="rtl"
-                    android:text="@string/setting_change_theme_light"
-                    android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/font_normal"
-                    android:theme="@style/RadioButton"
+                    android:textColor="@color/colorTextPrimary"
+                    android:text="@string/setting_change_theme_light"
                     tools:ignore="RtlHardcoded" />
 
                 <View
@@ -98,16 +98,16 @@
 
                 <RadioButton
                     android:id="@+id/automaticallyThemeRadioButton"
+                    android:theme="@style/RadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:drawableLeft="@drawable/ic_theme_automatically"
                     android:drawablePadding="16dp"
                     android:layoutDirection="rtl"
-                    android:text="@string/setting_change_theme_automatically"
-                    android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/font_normal"
-                    android:theme="@style/RadioButton"
+                    android:textColor="@color/colorTextPrimary"
+                    android:text="@string/setting_change_theme_automatically"
                     tools:ignore="RtlHardcoded" />
 
                 <TextView
@@ -130,10 +130,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/changeThemeRadioGroup" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerFeedback"
+            android:id="@+id/containerFeedbackConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -142,33 +143,33 @@
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerChangeTheme">
+            app:layout_constraintTop_toBottomOf="@id/containerChangeThemeConstraintLayout">
 
             <TextView
-                android:id="@+id/feedbackTitle"
+                android:id="@+id/feedbackTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="@string/setting_feedback_title"
-                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/font_few_big"
                 android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/setting_feedback_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/feedbackSubtitle"
+                android:id="@+id/feedbackSubtitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/setting_feedback_subtitle"
-                android:textColor="@color/colorTextSecondary"
                 android:textSize="@dimen/font_small"
-                app:layout_constraintEnd_toEndOf="@id/feedbackTitle"
-                app:layout_constraintStart_toStartOf="@id/feedbackTitle"
-                app:layout_constraintTop_toBottomOf="@id/feedbackTitle" />
+                android:textColor="@color/colorTextSecondary"
+                android:text="@string/setting_feedback_subtitle"
+                app:layout_constraintEnd_toEndOf="@id/feedbackTitleTextView"
+                app:layout_constraintStart_toStartOf="@id/feedbackTitleTextView"
+                app:layout_constraintTop_toBottomOf="@id/feedbackTitleTextView" />
 
             <ImageView
                 android:id="@+id/feedbackImageView"
@@ -176,19 +177,19 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_mail"
-                app:layout_constraintStart_toStartOf="@id/feedbackSubtitle"
-                app:layout_constraintTop_toBottomOf="@id/feedbackSubtitle"
+                app:layout_constraintStart_toStartOf="@id/feedbackSubtitleTextView"
+                app:layout_constraintTop_toBottomOf="@id/feedbackSubtitleTextView"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/feedbackWriteLetter"
+                android:id="@+id/feedbackWriteLetterTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/setting_feedback_write_letter"
-                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/font_normal"
                 android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/setting_feedback_write_letter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/feedbackImageView"
                 app:layout_constraintTop_toTopOf="@id/feedbackImageView"
@@ -202,11 +203,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/feedbackWriteLetter" />
+                app:layout_constraintTop_toBottomOf="@id/feedbackWriteLetterTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerLicense"
+            android:id="@+id/containerLicenseConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -216,33 +217,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerFeedback">
+            app:layout_constraintTop_toBottomOf="@id/containerFeedbackConstraintLayout">
 
             <TextView
-                android:id="@+id/licenseTitle"
+                android:id="@+id/licenseTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="@string/setting_license_title"
-                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/font_few_big"
                 android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
+                android:text="@string/setting_license_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/licenseSubtitle"
+                android:id="@+id/licenseSubtitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/setting_license_subtitle"
-                android:textColor="@color/colorTextSecondary"
                 android:textSize="@dimen/font_small"
-                app:layout_constraintEnd_toEndOf="@id/licenseTitle"
-                app:layout_constraintStart_toStartOf="@id/licenseTitle"
-                app:layout_constraintTop_toBottomOf="@id/licenseTitle" />
+                android:textColor="@color/colorTextSecondary"
+                android:text="@string/setting_license_subtitle"
+                app:layout_constraintEnd_toEndOf="@id/licenseTitleTextView"
+                app:layout_constraintStart_toStartOf="@id/licenseTitleTextView"
+                app:layout_constraintTop_toBottomOf="@id/licenseTitleTextView" />
 
             <ImageView
                 android:id="@+id/licenseImageView"
@@ -250,8 +251,8 @@
                 android:layout_height="10dp"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/ic_vesti_ru"
-                app:layout_constraintStart_toStartOf="@id/licenseSubtitle"
-                app:layout_constraintTop_toBottomOf="@id/licenseSubtitle"
+                app:layout_constraintStart_toStartOf="@id/licenseSubtitleTextView"
+                app:layout_constraintTop_toBottomOf="@id/licenseSubtitleTextView"
                 tools:ignore="ContentDescription" />
 
             <View
