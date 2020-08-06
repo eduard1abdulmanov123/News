@@ -3,9 +3,9 @@ package abdulmanov.eduard.news.dagger.modules
 import abdulmanov.eduard.news.dagger.annotations.ViewModelKey
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewViewModel
-import abdulmanov.eduard.news.presentation.live.LiveViewModel
 import abdulmanov.eduard.news.presentation.main.MainViewModel
 import abdulmanov.eduard.news.presentation.news.NewsViewModel
+import abdulmanov.eduard.news.presentation.news.dialogs.filter.FilterNewsViewModel
 import abdulmanov.eduard.news.presentation.setting.SettingViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -23,8 +23,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(LiveViewModel::class)
-    abstract fun bindLiveViewModel(viewModel: LiveViewModel): ViewModel
+    @ViewModelKey(FilterNewsViewModel::class)
+    abstract fun bindFilterNewsViewModel(viewModel: FilterNewsViewModel): ViewModel
 
     @Binds
     @IntoMap

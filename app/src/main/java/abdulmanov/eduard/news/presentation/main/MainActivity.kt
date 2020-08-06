@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).appComponent.inject(this)
 
-        super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             setAppTheme(viewModel.getCurrentThemeType())
         }
 
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.setBackgroundDrawable(null)
 

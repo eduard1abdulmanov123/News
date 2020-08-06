@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">News</string>
+    <string name="app_name">Новости</string>
 
     <!--common-->
     <string name="network_error">Нет интернет соединения</string>
@@ -12,6 +12,11 @@
     <string name="category_transition">category_%d</string>
     <string name="date_transition">date_%d</string>
     <string name="description_transition">description_%d</string>
+
+    <!--filterNews-->
+    <string name="filter_news">Фильтр новостей</string>
+    <string name="filter_throw_off">Сбросить</string>
+    <string name="filter_to_apply">Применить</string>
 
     <!--settings-->
     <string name="setting_title">Настройки</string>

@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules
 
-import abdulmanov.eduard.news.data.network.NewsProvider
-import abdulmanov.eduard.news.data.network.VestiProvider
+import abdulmanov.eduard.news.data.network.news.NewsProvider
+import abdulmanov.eduard.news.data.network.news.VestiProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -21,4 +21,5 @@ class NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient()
     }
+
 }

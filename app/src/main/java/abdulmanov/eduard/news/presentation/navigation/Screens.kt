@@ -1,9 +1,8 @@
 package abdulmanov.eduard.news.presentation.navigation
 
 import abdulmanov.eduard.news.R
-import abdulmanov.eduard.news.domain.models.FeedbackData
+import abdulmanov.eduard.news.domain.models.feedback.FeedbackData
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
-import abdulmanov.eduard.news.presentation.live.LiveActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
@@ -16,10 +15,6 @@ object Screens {
 
     object News : SupportAppScreen() {
         override fun getFragment() = NewsFragment.newInstance()
-    }
-
-    object Live : SupportAppScreen() {
-        override fun getActivityIntent(context: Context) = LiveActivity.newIntent(context)
     }
 
     data class DetailsNew(val new: NewPresentationModel) : SupportAppScreen() {

@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.data.repositories
 
 import abdulmanov.eduard.news.BuildConfig
-import abdulmanov.eduard.news.domain.models.FeedbackData
+import abdulmanov.eduard.news.domain.models.feedback.FeedbackData
 import abdulmanov.eduard.news.domain.repositories.SettingRepository
 import android.content.SharedPreferences
 import android.os.Build
@@ -12,7 +12,12 @@ class SettingRepositoryImpl(private val sharedPreferences: SharedPreferences) : 
 
     override fun getLinkSupplierWebsite() = LINK_SUPPLIER_WEBSITE
 
-    override fun getFeedbackData() = FeedbackData(Build.VERSION.SDK_INT, Build.MODEL, BuildConfig.VERSION_NAME)
+    override fun getFeedbackData() =
+        FeedbackData(
+            Build.VERSION.SDK_INT,
+            Build.MODEL,
+            BuildConfig.VERSION_NAME
+        )
 
     override fun setThemeType(type: Int) = sharedPreferences.edit {
         putInt(PREF_THEME_TYPE, type)

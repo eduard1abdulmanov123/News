@@ -1,31 +1,17 @@
-package abdulmanov.eduard.news.data.network
+package abdulmanov.eduard.news.data.network.news
 
-import abdulmanov.eduard.news.data.db.models.NewDbModel
-import abdulmanov.eduard.news.domain.models.Stream
-import android.util.Log
+import abdulmanov.eduard.news.domain.models.news.New
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.InputStream
-import java.lang.Exception
 
 abstract class NewsProvider(private val client: OkHttpClient) {
 
-    fun getNews(): List<NewDbModel> {
+    fun getNews(): List<New> {
         val url = getUrlForNews()
         val response = makeRequestToServer(url)
         return try {
             parseNewsXml(response)
-        } catch (e: Exception) {
-            Log.d("LogLog", e.message.toString())
-            throw Exception(PARSE_ERROR)
-        }
-    }
-
-    fun getStream(): Stream {
-        val url = getUrlForStream()
-        val response = makeRequestToServer(url)
-        return try {
-            parseStreamJson(response)
         } catch (e: Exception) {
             throw Exception(PARSE_ERROR)
         }
@@ -50,11 +36,7 @@ abstract class NewsProvider(private val client: OkHttpClient) {
 
     abstract fun getUrlForNews(): String
 
-    abstract fun getUrlForStream(): String
-
-    abstract fun parseNewsXml(xml: InputStream): List<NewDbModel>
-
-    abstract fun parseStreamJson(json: InputStream): Stream
+    abstract fun parseNewsXml(xml: InputStream): List<New>
 
     companion object {
         private const val SERVER_ERROR = "Ошибка сервера"

@@ -6,12 +6,6 @@
     tools:ignore="AlwaysShowAction" >
 
     <item
-        android:id="@+id/openLiveItem"
-        android:icon="@drawable/ic_live"
-        app:showAsAction="always"
-        android:title=""/>
-
-    <item
         android:id="@+id/openSettingItem"
         android:icon="@drawable/ic_setting"
         app:showAsAction="always"

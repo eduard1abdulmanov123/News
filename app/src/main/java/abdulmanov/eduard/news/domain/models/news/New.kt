@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.domain.models
+package abdulmanov.eduard.news.domain.models.news
 
 data class New(
     val id: Long,
@@ -9,5 +9,5 @@ data class New(
     val category: String,
     val image: String,
     val fullDescription: String,
-    val alreadyRead: Boolean
+    var alreadyRead: Boolean = false
 )

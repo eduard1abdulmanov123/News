@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules
 
 import abdulmanov.eduard.news.data.db.AppDatabase
-import abdulmanov.eduard.news.data.db.dao.NewDao
+import abdulmanov.eduard.news.data.db.dao.IdentifiersDao
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -18,7 +18,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideNewDao(database: AppDatabase): NewDao {
-        return database.newDao
+    fun provideNewDao(database: AppDatabase): IdentifiersDao {
+        return database.identifiersDao
     }
 }

@@ -2,12 +2,11 @@ package abdulmanov.eduard.news.presentation.news
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation._common.base.LinearInfiniteScrollListener
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
-import abdulmanov.eduard.news.presentation.news.adapters.LoadingDelegateAdapter
+import abdulmanov.eduard.news.presentation.news.adapters.FilterNewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
-import abdulmanov.eduard.news.presentation.news.models.LoadingPresentationModel
+import abdulmanov.eduard.news.presentation.news.dialogs.filter.FilterNewsBottomSheetDialog
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
 import android.os.Bundle
@@ -24,7 +23,10 @@ import com.livermor.delegateadapter.delegate.CompositeDelegateAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
-class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewItemClickListener {
+class NewsFragment : Fragment(R.layout.fragment_news),
+    NewsDelegateAdapter.NewItemClickListener,
+    FilterNewsDelegateAdapter.FilterItemClickListener,
+    FilterNewsBottomSheetDialog.FilterNewsCallback {
 
     var currentSelectViewHolder: RecyclerView.ViewHolder? = null
 
@@ -34,11 +36,6 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
     private val viewModel: NewsViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
     }
-
-    private val adapter: CompositeDelegateAdapter
-        get() = newsRecyclerView.adapter as CompositeDelegateAdapter
-
-    private var scrollListener: LinearInfiniteScrollListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,41 +60,41 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
         initUI()
 
         viewModel.state.observe(viewLifecycleOwner, Observer(this::setState))
-        viewModel.messageLiveEvent.observe(viewLifecycleOwner, Observer(this::showMessage))
+        viewModel.news.observe(viewLifecycleOwner, Observer((newsRecyclerView.adapter as CompositeDelegateAdapter)::swapData))
+        viewModel.scrollToPositionEvent.observe(viewLifecycleOwner, Observer(newsRecyclerView::smoothScrollToPosition))
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer(errorTextView::setText))
+        viewModel.messageEvent.observe(viewLifecycleOwner, Observer(this::showMessage))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        scrollListener = null
         currentSelectViewHolder = null
     }
 
     private fun initUI() {
-        newsToolbar.setTitle(R.string.news_title)
-        newsToolbar.inflateMenu(R.menu.menu_news)
-        newsToolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
+        newsToolbar.run {
+            setTitle(R.string.news_title)
+            inflateMenu(R.menu.menu_news)
+            setOnMenuItemClickListener(this@NewsFragment::onOptionsItemSelected)
+        }
 
         swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
 
-        val layoutManager = LinearLayoutManager(requireContext())
-        scrollListener = LinearInfiniteScrollListener(layoutManager, 0) {
-            viewModel.loadNextPage()
+        newsRecyclerView.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = CompositeDelegateAdapter(
+                FilterNewsDelegateAdapter(this@NewsFragment),
+                NewsDelegateAdapter(this@NewsFragment),
+                SeparateDelegateAdapter()
+            )
         }
-        newsRecyclerView.layoutManager = layoutManager
-        newsRecyclerView.addOnScrollListener(scrollListener!!)
-        newsRecyclerView.setHasFixedSize(true)
-        newsRecyclerView.adapter = CompositeDelegateAdapter(
-            NewsDelegateAdapter(this),
-            LoadingDelegateAdapter(),
-            SeparateDelegateAdapter()
-        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.openLiveItem -> viewModel.onOpenLiveScreenCommandClick()
             R.id.openSettingItem -> viewModel.onOpenSettingScreenCommandClick()
         }
         return true
@@ -108,96 +105,62 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsDelegateAdapter.NewIt
         viewModel.onOpenDetailsNewScreenCommandClick(new)
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun setState(state: Paginator.State) {
+    override fun onClick() {
+        val dialog = FilterNewsBottomSheetDialog.newInstance()
+        dialog.show(childFragmentManager, FilterNewsBottomSheetDialog.TAG)
+    }
+
+    override fun onChangeFilterNews() {
+        viewModel.filterNews()
+    }
+
+    private fun setState(state: Int) {
         when (state) {
-            is Paginator.State.Empty -> {
+            NewsViewModel.VIEW_STATE_NEWS_EMPTY -> {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.visibility = View.GONE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
                 newsRecyclerView.visibility = View.GONE
                 errorTextView.visibility = View.GONE
                 progressBar.visibility = View.GONE
             }
-            is Paginator.State.EmptyProgress -> {
+            NewsViewModel.VIEW_STATE_NEWS_PROGRESS -> {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.visibility = View.GONE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
                 newsRecyclerView.visibility = View.GONE
                 errorTextView.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
             }
-            is Paginator.State.EmptyError -> {
+            NewsViewModel.VIEW_STATE_NEWS_ERROR -> {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
                 newsRecyclerView.visibility = View.GONE
                 errorTextView.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
-                errorTextView.text = state.error.message
             }
-            is Paginator.State.RefreshAfterEmptyError -> {
-                swipeRefresh.isRefreshing = true
+            NewsViewModel.VIEW_STATE_NEWS_REFRESH_AFTER_ERROR -> {
                 swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
                 newsRecyclerView.visibility = View.GONE
                 errorTextView.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
-                errorTextView.text = state.error.message
             }
-            is Paginator.State.Data<*> -> {
+            NewsViewModel.VIEW_STATE_NEWS_DATA -> {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Allow
                 newsRecyclerView.visibility = View.VISIBLE
                 errorTextView.visibility = View.GONE
                 progressBar.visibility = View.GONE
-                adapter.swapData(state.data as List<Any>)
-                if (state.pageCount == 1) {
-                    newsRecyclerView.smoothScrollToPosition(0)
-                }
             }
-            is Paginator.State.Refresh<*> -> {
-                swipeRefresh.isRefreshing = true
+            NewsViewModel.VIEW_STATE_NEWS_REFRESH_AFTER_DATA -> {
                 swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Allow
                 newsRecyclerView.visibility = View.VISIBLE
                 errorTextView.visibility = View.GONE
                 progressBar.visibility = View.GONE
-                adapter.swapData(state.data as List<Any>)
-            }
-            is Paginator.State.NewPageProgress<*> -> {
-                swipeRefresh.isRefreshing = false
-                swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
-                newsRecyclerView.visibility = View.VISIBLE
-                errorTextView.visibility = View.GONE
-                progressBar.visibility = View.GONE
-                adapter.swapData((state.data + LoadingPresentationModel) as List<Any>)
-            }
-            is Paginator.State.FullData<*> -> {
-                swipeRefresh.isRefreshing = false
-                swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
-                newsRecyclerView.visibility = View.VISIBLE
-                errorTextView.visibility = View.GONE
-                progressBar.visibility = View.GONE
-                adapter.swapData(state.data as List<Any>)
-            }
-            is Paginator.State.RefreshAfterFullData<*> -> {
-                swipeRefresh.isRefreshing = true
-                swipeRefresh.visibility = View.VISIBLE
-                scrollListener?.state = LinearInfiniteScrollListener.PaginationState.Ban
-                newsRecyclerView.visibility = View.VISIBLE
-                errorTextView.visibility = View.GONE
-                progressBar.visibility = View.GONE
-                adapter.swapData(state.data as List<Any>)
             }
         }
     }
 
-    private fun showMessage(error: Throwable) {
-        Snackbar.make(swipeRefresh, error.message.toString(), Snackbar.LENGTH_SHORT).show()
+    private fun showMessage(error: String) {
+        Snackbar.make(swipeRefresh, error, Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {

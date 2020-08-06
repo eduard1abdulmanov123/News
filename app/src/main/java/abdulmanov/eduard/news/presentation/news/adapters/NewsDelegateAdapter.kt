@@ -30,9 +30,9 @@ class NewsDelegateAdapter(
         dateTextView.transitionName = containerView.context.getString(R.string.date_transition, item.id)
 
         val colorAlreadyRead = if (item.alreadyRead) R.color.already_read else 0
-        clickItemView.setBackgroundResource(colorAlreadyRead)
+        backgroundItemView.setBackgroundResource(colorAlreadyRead)
 
-        clickItemView.setOnClickListener { newItemClickListener?.onClick(item, this) }
+        itemView.setOnClickListener { newItemClickListener?.onClick(item, this) }
     }
 
     override fun isForViewType(item: Any) = item is NewPresentationModel

@@ -1,6 +1,6 @@
 package abdulmanov.eduard.news.domain.repositories
 
-import abdulmanov.eduard.news.domain.models.FeedbackData
+import abdulmanov.eduard.news.domain.models.feedback.FeedbackData
 
 interface SettingRepository {
 

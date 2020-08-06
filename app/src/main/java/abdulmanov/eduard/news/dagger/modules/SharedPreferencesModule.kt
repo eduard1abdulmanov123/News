@@ -19,7 +19,15 @@ class SharedPreferencesModule {
         return app.getSharedPreferences("${BuildConfig.APPLICATION_ID}$SETTING_SHARED_PREFERENCES_NAME", Context.MODE_PRIVATE)
     }
 
+    @Singleton
+    @Provides
+    @Named(NEWS_SHARED_PREFERENCES_NAME)
+    fun provideNewsSharedPreferences(app: Application): SharedPreferences {
+        return app.getSharedPreferences("${BuildConfig.APPLICATION_ID}$NEWS_SHARED_PREFERENCES_NAME", Context.MODE_PRIVATE)
+    }
+
     companion object {
         const val SETTING_SHARED_PREFERENCES_NAME = "_setting_pref"
+        const val NEWS_SHARED_PREFERENCES_NAME = "_news_pref"
     }
 }
