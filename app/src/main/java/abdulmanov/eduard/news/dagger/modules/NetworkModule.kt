@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules
 
-import abdulmanov.eduard.news.data.network.news.NewsProvider
-import abdulmanov.eduard.news.data.network.news.VestiProvider
+import abdulmanov.eduard.news.data.remote.NewsProvider
+import abdulmanov.eduard.news.data.remote.VestiProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

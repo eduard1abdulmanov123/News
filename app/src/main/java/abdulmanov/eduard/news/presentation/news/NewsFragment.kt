@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,10 +53,7 @@ class NewsFragment : Fragment(R.layout.fragment_news),
         super.onViewCreated(view, savedInstanceState)
 
         postponeEnterTransition()
-        newsContainerConstraintLayout.viewTreeObserver.addOnPreDrawListener {
-            startPostponedEnterTransition()
-            true
-        }
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         initUI()
 

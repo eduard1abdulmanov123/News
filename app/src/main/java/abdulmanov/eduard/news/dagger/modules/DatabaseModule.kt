@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules
 
-import abdulmanov.eduard.news.data.db.AppDatabase
-import abdulmanov.eduard.news.data.db.dao.IdentifiersDao
+import abdulmanov.eduard.news.data.local.database.AppDatabase
+import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
 import android.content.Context
 import dagger.Module
 import dagger.Provides

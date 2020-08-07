@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.data.network.news
+package abdulmanov.eduard.news.data.remote
 
 import abdulmanov.eduard.news.domain.models.news.New
 import okhttp3.OkHttpClient

@@ -1,6 +1,6 @@
-package abdulmanov.eduard.news.data.db.dao
+package abdulmanov.eduard.news.data.local.database.dao
 
-import abdulmanov.eduard.news.data.db.models.IdentifierDbModel
+import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

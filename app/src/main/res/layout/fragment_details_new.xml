@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootNestedScrollView"
+    android:id="@+id/detailsNewRootNestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+            android:id="@+id/detailsNewAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="0dp"
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:textSize="@dimen/font_normal"
-            android:textColor="@color/colorTextSecondary"
             android:textAllCaps="true"
+            android:textColor="@color/colorTextSecondary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/detailsNewAppBarLayout"
             tools:text="ОБЩЕСТВО">
         </TextView>
 
@@ -48,8 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="@color/colorTextSecondary"
             android:textSize="@dimen/font_normal"
+            android:textColor="@color/colorTextSecondary"
             app:layout_constraintStart_toEndOf="@+id/categoryTextView"
             app:layout_constraintTop_toTopOf="@+id/categoryTextView"
             tools:text="30 Июня 2020, 17:04" />
@@ -60,9 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="12dp"
-            android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/font_few_big"
             android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/categoryTextView"
             app:layout_constraintTop_toBottomOf="@id/categoryTextView"
@@ -85,8 +85,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/font_normal"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="@id/iconImageView"
             app:layout_constraintStart_toStartOf="@id/iconImageView"
             app:layout_constraintTop_toBottomOf="@id/iconImageView"

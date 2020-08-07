@@ -16,5 +16,4 @@ interface NewsRepository {
     fun saveCategories(categories: List<Category>)
 
     fun markNewAsAlreadyRead(id: Long): Completable
-
 }

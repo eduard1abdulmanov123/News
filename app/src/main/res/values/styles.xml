@@ -30,4 +30,5 @@
     <style name="BottomSheetModalStyleSmallCorners" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>
+
 </resources>

@@ -26,6 +26,7 @@ object Screens {
     }
 
     data class Feedback(val data: FeedbackData) : SupportAppScreen() {
+
         override fun getActivityIntent(context: Context): Intent? {
             val addresses = listOf(context.getString(R.string.feedback_address)).toTypedArray()
             val subject = context.getString(R.string.feedback_subject)
@@ -43,5 +44,15 @@ object Screens {
 
     data class Website(val url: String) : SupportAppScreen() {
         override fun getActivityIntent(context: Context) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    }
+
+    data class SendData(val data: String): SupportAppScreen() {
+
+        override fun getActivityIntent(context: Context): Intent? {
+            return Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, this@SendData.data)
+            }
+        }
     }
 }

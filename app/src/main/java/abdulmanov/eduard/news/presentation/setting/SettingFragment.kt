@@ -3,11 +3,11 @@ package abdulmanov.eduard.news.presentation.setting
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,13 +28,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    viewModel.onBackCommandClick()
-                }
-            })
+        addOnBackPressedCallback(viewModel::onBackCommandClick)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

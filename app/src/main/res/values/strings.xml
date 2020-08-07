@@ -7,6 +7,7 @@
 
     <!--News-->
     <string name="news_title">Лента</string>
+    <string name="root_transition">root_%d</string>
     <string name="image_transition">image_%d</string>
     <string name="title_transition">title_%d</string>
     <string name="category_transition">category_%d</string>

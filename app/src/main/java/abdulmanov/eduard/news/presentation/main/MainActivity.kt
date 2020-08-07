@@ -7,13 +7,16 @@ import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.NewsFragment
+import abdulmanov.eduard.news.presentation.setting.SettingFragment
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.TransitionInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.item_new.view.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -38,6 +41,10 @@ class MainActivity : AppCompatActivity() {
         override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
             if (command is Forward && currentFragment is NewsFragment && nextFragment is DetailsNewFragment) {
                 animateTransitionFromNewsFragmentToDetailsNewFragment(currentFragment, nextFragment, fragmentTransaction)
+            }
+
+            if(command is Forward && currentFragment is NewsFragment && nextFragment is SettingFragment){
+                animateTransitionFromNewsFragmentToSettingFragment(currentFragment, nextFragment)
             }
         }
     }
@@ -73,23 +80,46 @@ class MainActivity : AppCompatActivity() {
         detailsNewFragment: DetailsNewFragment,
         fragmentTransaction: FragmentTransaction
     ) {
-        detailsNewFragment.sharedElementEnterTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
-        detailsNewFragment.enterTransition = Fade()
-        newsFragment.exitTransition = Fade()
-        detailsNewFragment.sharedElementReturnTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
+        newsFragment.reenterTransition = null
+        newsFragment.exitTransition = Hold().apply { duration = 650 }
 
-        fragmentTransaction.setReorderingAllowed(true)
+        detailsNewFragment.sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = 650
+            fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
+            scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
+            fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
+            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            startContainerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            containerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            startElevation = 4f
+        }
+
+        detailsNewFragment.sharedElementReturnTransition = MaterialContainerTransform().apply {
+            duration = 650
+            fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
+            scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
+            fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
+            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            endContainerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            containerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            endElevation = 4f
+        }
 
         val view = newsFragment.currentSelectViewHolder?.itemView ?: return
-        val iconImageView = view.iconImageView
-        val titleTextView = view.titleTextView
-        val categoryTextView = view.categoryTextView
-        val dateTextView = view.dateTextView
-        val descriptionTextView = view.descriptionTextView
-        fragmentTransaction.addSharedElement(iconImageView, iconImageView.transitionName)
-        fragmentTransaction.addSharedElement(titleTextView, titleTextView.transitionName)
-        fragmentTransaction.addSharedElement(categoryTextView, categoryTextView.transitionName)
-        fragmentTransaction.addSharedElement(dateTextView, dateTextView.transitionName)
-        fragmentTransaction.addSharedElement(descriptionTextView, descriptionTextView.transitionName)
+        val root = view.itemNewRoot
+        fragmentTransaction.addSharedElement(root, root.transitionName)
+        fragmentTransaction.setReorderingAllowed(true)
+    }
+
+    private fun animateTransitionFromNewsFragmentToSettingFragment(newsFragment: NewsFragment, settingFragment: SettingFragment){
+        newsFragment.exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply { duration = 650 }
+        newsFragment.reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply { duration = 650 }
+
+        settingFragment.enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply { duration = 650 }
+        settingFragment.returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply { duration = 650 }
     }
 }

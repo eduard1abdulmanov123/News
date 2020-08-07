@@ -1,7 +1,7 @@
-package abdulmanov.eduard.news.data.db
+package abdulmanov.eduard.news.data.local.database
 
-import abdulmanov.eduard.news.data.db.dao.IdentifiersDao
-import abdulmanov.eduard.news.data.db.models.IdentifierDbModel
+import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
+import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -17,7 +17,9 @@ abstract class AppDatabase : RoomDatabase() {
         private const val DATABASE_NAME = "news_database"
 
         fun getRoomDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
+            return Room.databaseBuilder(context, AppDatabase::class.java,
+                DATABASE_NAME
+            ).build()
         }
     }
 }

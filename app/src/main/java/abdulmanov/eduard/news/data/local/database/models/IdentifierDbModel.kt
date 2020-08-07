@@ -1,7 +1,7 @@
-package abdulmanov.eduard.news.data.db.models
+package abdulmanov.eduard.news.data.local.database.models
 
-import abdulmanov.eduard.news.data.db.models.IdentifierDbModel.Companion.COLUMN_ID
-import abdulmanov.eduard.news.data.db.models.IdentifierDbModel.Companion.TABLE_NAME
+import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel.Companion.COLUMN_ID
+import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel.Companion.TABLE_NAME
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 

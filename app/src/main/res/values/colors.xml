@@ -27,4 +27,6 @@
     <color name="colorTextForCategoryNormal">#000000</color>
     <color name="colorBackgroundForCategorySelected">@color/colorAccent</color>
     <color name="colorBackgroundForCategoryNormal">#ECECEC</color>
+
+    <color name="colorScrim">#33000000</color>
 </resources>
