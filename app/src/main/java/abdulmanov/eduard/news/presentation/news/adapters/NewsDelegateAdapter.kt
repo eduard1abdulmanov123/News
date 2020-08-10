@@ -21,7 +21,7 @@ class NewsDelegateAdapter(
         iconImageView.loadImg(item.image, R.color.colorPlaceholder)
 
         notAlreadyLabelImageView.visibility(!item.alreadyRead)
-        titleTextView.typeface =  if (item.alreadyRead) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
+        titleTextView.typeface = if (item.alreadyRead) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
 
         itemView.transitionName = containerView.context.getString(R.string.root_transition, item.id)
         itemView.setOnClickListener { newsClickListener?.onClickNew(item, this) }

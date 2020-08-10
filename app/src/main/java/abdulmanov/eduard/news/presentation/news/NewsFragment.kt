@@ -71,7 +71,7 @@ class NewsFragment : Fragment(R.layout.fragment_news),
             setOnMenuItemClickListener(this@NewsFragment::onOptionsItemSelected)
         }
 
-        swipeRefresh.setOnRefreshListener{
+        swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
 

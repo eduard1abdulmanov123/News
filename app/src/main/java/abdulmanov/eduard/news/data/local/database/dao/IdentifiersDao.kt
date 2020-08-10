@@ -16,5 +16,5 @@ abstract class IdentifiersDao {
     abstract fun isIdentifierExist(id: Long): Boolean
 
     @Query("DELETE FROM ${IdentifierDbModel.TABLE_NAME} WHERE ${IdentifierDbModel.COLUMN_ID} not in (:ids)")
-    abstract fun deleteIdentifiersThatAreMissing(ids:List<Long>)
+    abstract fun deleteIdentifiersThatAreMissing(ids: List<Long>)
 }

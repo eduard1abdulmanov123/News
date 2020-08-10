@@ -38,15 +38,15 @@ class NewsViewModel @Inject constructor(
         refresh()
     }
 
-    fun refresh(){
+    fun refresh() {
         _state.value = toggleState(ACTION_REFRESH)
     }
 
     @Suppress("UNCHECKED_CAST")
-    private fun toggleState(action: Int, data: Any = Unit): Int{
-        return when(action){
+    private fun toggleState(action: Int, data: Any = Unit): Int {
+        return when (action) {
             ACTION_REFRESH -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_NEWS_EMPTY -> {
                         loadNews()
                         VIEW_STATE_NEWS_PROGRESS
@@ -72,7 +72,7 @@ class NewsViewModel @Inject constructor(
                 }
             }
             ACTION_ERROR -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_NEWS_PROGRESS, VIEW_STATE_NEWS_REFRESH_AFTER_ERROR -> {
                         _errorMessage.value = (data as Throwable).message
                         VIEW_STATE_NEWS_ERROR
@@ -88,7 +88,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    private fun loadNews(){
+    private fun loadNews() {
         newsInteractor.getNewsFilteredByCategory()
             .map {
                 val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
@@ -104,7 +104,7 @@ class NewsViewModel @Inject constructor(
             )
     }
 
-    fun filterNews(){
+    fun filterNews() {
         val news = newsInteractor.getCachedNewsFilteredByCategory()
         val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
         _news.value = mapper.newsMapToPresentationModels(news, quantitySelectedCategories)
@@ -116,7 +116,7 @@ class NewsViewModel @Inject constructor(
 
     fun onBackCommandClick() = router.exit()
 
-    companion object{
+    companion object {
         const val ACTION_REFRESH = 1
         const val ACTION_LOAD_DATA = 2
         const val ACTION_ERROR = 3

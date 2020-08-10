@@ -25,5 +25,4 @@ class SharedPreferencesModule {
     fun provideNewsSharedPreferences(app: Application): SharedPreferences {
         return app.getSharedPreferences(SharedPreferencesStore.NEWS_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
-
 }

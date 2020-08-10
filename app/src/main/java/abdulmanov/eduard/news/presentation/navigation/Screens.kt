@@ -46,7 +46,7 @@ object Screens {
         override fun getActivityIntent(context: Context) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     }
 
-    data class SendData(val data: String): SupportAppScreen() {
+    data class SendData(val data: String) : SupportAppScreen() {
 
         override fun getActivityIntent(context: Context): Intent? {
             return Intent(Intent.ACTION_SEND).apply {

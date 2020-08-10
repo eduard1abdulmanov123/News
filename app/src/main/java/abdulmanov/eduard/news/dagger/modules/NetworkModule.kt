@@ -21,5 +21,4 @@ class NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient()
     }
-
 }

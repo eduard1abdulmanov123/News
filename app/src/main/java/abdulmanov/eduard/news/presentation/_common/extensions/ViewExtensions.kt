@@ -7,7 +7,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 fun ImageView.loadImg(imageUrl: String, placeholderRes: Int? = null, errorRes: Int? = null, callback: Callback? = null) {
-    if(imageUrl.isEmpty()){
+    if (imageUrl.isEmpty()) {
         this.setImageResource(errorRes ?: 0)
         return
     }
@@ -21,12 +21,12 @@ fun ImageView.loadImg(imageUrl: String, placeholderRes: Int? = null, errorRes: I
     }
 }
 
-fun ViewGroup.addViews(views: List<View>){
+fun ViewGroup.addViews(views: List<View>) {
     views.forEach {
         this.addView(it)
     }
 }
 
-fun View.visibility(visible: Boolean, type:Int = View.GONE) {
+fun View.visibility(visible: Boolean, type: Int = View.GONE) {
     this.visibility = if (visible) View.VISIBLE else type
 }

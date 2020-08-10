@@ -46,7 +46,7 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
         )
     }
 
-    private fun getDate(dateStr:String): String {
+    private fun getDate(dateStr: String): String {
         val originalDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)
         return DateFormatter.convertDateToBasicFormat(dateStr, originalDateFormat)
     }

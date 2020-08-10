@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 animateTransitionFromNewsFragmentToDetailsNewFragment(currentFragment, nextFragment, fragmentTransaction)
             }
 
-            if(command is Forward && currentFragment is NewsFragment && nextFragment is SettingFragment){
+            if (command is Forward && currentFragment is NewsFragment && nextFragment is SettingFragment) {
                 animateTransitionFromNewsFragmentToSettingFragment(currentFragment, nextFragment)
             }
         }
@@ -89,9 +89,9 @@ class MainActivity : AppCompatActivity() {
             fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
             scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
             fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
-            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
+            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
+            scaleProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
             startContainerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             containerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             startElevation = 4f
@@ -102,9 +102,9 @@ class MainActivity : AppCompatActivity() {
             fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
             scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
             fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
-            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
+            shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
+            scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
+            scaleProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f, 1.0f)
             endContainerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             containerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             endElevation = 4f
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.setReorderingAllowed(true)
     }
 
-    private fun animateTransitionFromNewsFragmentToSettingFragment(newsFragment: NewsFragment, settingFragment: SettingFragment){
+    private fun animateTransitionFromNewsFragmentToSettingFragment(newsFragment: NewsFragment, settingFragment: SettingFragment) {
         newsFragment.exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
             duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
         }

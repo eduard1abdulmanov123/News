@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_filter_news.*
 
 class FilterNewsDelegateAdapter(
     private val filterNewsClickListener: FilterNewsClickListener? = null
-): KDelegateAdapter<FilterNewsPresentationModel>() {
+) : KDelegateAdapter<FilterNewsPresentationModel>() {
 
     override fun KViewHolder.onBind(item: FilterNewsPresentationModel) {
         quantitySelectedCategoryTextView.visibility(item.quantitySelectedCategories != 0)
@@ -27,7 +27,7 @@ class FilterNewsDelegateAdapter(
 
     override fun FilterNewsPresentationModel.getItemContent(): Any = this
 
-    interface FilterNewsClickListener{
+    interface FilterNewsClickListener {
         fun onClickFilterNews()
     }
 }

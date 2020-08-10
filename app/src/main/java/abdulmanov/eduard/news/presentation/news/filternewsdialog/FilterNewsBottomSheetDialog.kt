@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.bottom_dialog_filter_news.*
 import kotlinx.android.synthetic.main.item_new.view.*
 import javax.inject.Inject
 
-class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
+class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -68,7 +68,7 @@ class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
     }
 
     @SuppressLint("InflateParams")
-    private fun setData(categories: List<Category>){
+    private fun setData(categories: List<Category>) {
         val viewsFromCategories = categories.map { category ->
             layoutInflater.inflate(R.layout.item_category, null).apply {
                 titleTextView.text = category.name
@@ -82,7 +82,7 @@ class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
         categoriesFlowLayout.addViews(viewsFromCategories)
     }
 
-    companion object{
+    companion object {
         const val TAG = "FilterNewsBottomSheetDialog"
 
         fun newInstance(): FilterNewsBottomSheetDialog {
@@ -90,7 +90,7 @@ class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
         }
     }
 
-    interface FilterNewsCallback{
+    interface FilterNewsCallback {
         fun onChangeFilterNews()
     }
 }

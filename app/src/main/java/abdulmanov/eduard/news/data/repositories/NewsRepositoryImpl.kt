@@ -30,7 +30,7 @@ class NewsRepositoryImpl(
         }
     }
 
-    private fun getNewsFromNetwork():List<New>{
+    private fun getNewsFromNetwork(): List<New> {
         val news = newsProvider.getNews()
         news.forEach {
             it.alreadyRead = identifiersDao.isIdentifierExist(it.id)
@@ -38,12 +38,12 @@ class NewsRepositoryImpl(
         return news
     }
 
-    private fun deleteIdentifiersThatAreMissing(news:List<New>){
+    private fun deleteIdentifiersThatAreMissing(news: List<New>) {
         val existingIdentifiers = news.map { it.id }
         identifiersDao.deleteIdentifiersThatAreMissing(existingIdentifiers)
     }
 
-    private fun updateCategoriesToSharedPreferences(news: List<New>){
+    private fun updateCategoriesToSharedPreferences(news: List<New>) {
         val categoriesFromNetwork = news.filter { it.category.isNotEmpty() }
             .map { Category(it.category) }
             .distinctBy { it.name }
@@ -61,8 +61,8 @@ class NewsRepositoryImpl(
     }
 
     override fun getCategories(): List<Category> {
-        val jsonCategories = sharedPreferences.getString(PREF_CATEGORIES,"[]")
-        val type = object : TypeToken<List<Category>>(){}.type
+        val jsonCategories = sharedPreferences.getString(PREF_CATEGORIES, "[]")
+        val type = object : TypeToken<List<Category>>() {}.type
         return Gson().fromJson(jsonCategories, type)
     }
 
@@ -80,7 +80,7 @@ class NewsRepositoryImpl(
         }
     }
 
-    companion object{
+    companion object {
         private const val PREF_CATEGORIES = "categories"
     }
 }

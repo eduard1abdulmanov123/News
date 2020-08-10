@@ -29,7 +29,7 @@ fun Context.getScreenSize(): Point {
     }
 }
 
-fun Fragment.addOnBackPressedCallback(handlerOnBackPressed: () -> Unit){
+fun Fragment.addOnBackPressedCallback(handlerOnBackPressed: () -> Unit) {
     requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             handlerOnBackPressed.invoke()

@@ -28,7 +28,7 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
         return NewPresentationModel(
             id = id,
             title = title,
-            link =link,
+            link = link,
             description = description,
             date = date.preparedDate(),
             category = category,

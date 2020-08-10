@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class FilterNewsViewModel @Inject constructor(
     private val newsInteractor: NewsInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>>
@@ -20,17 +20,17 @@ class FilterNewsViewModel @Inject constructor(
         _categories.value = newsInteractor.getCategories()
     }
 
-    fun selectCategory(category: Category, selected: Boolean){
+    fun selectCategory(category: Category, selected: Boolean) {
         _categories.value?.find { it == category }?.selected = selected
         _categories.notifyObserver()
     }
 
-    fun throwOffFilterNews(){
+    fun throwOffFilterNews() {
         _categories.value?.forEach { it.selected = false }
         _categories.notifyObserver()
     }
 
-    fun applyFilterNews(){
+    fun applyFilterNews() {
         _categories.value ?: return
         newsInteractor.saveCategories(_categories.value!!)
     }
