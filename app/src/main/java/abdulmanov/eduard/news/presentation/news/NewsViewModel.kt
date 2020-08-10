@@ -1,11 +1,9 @@
 package abdulmanov.eduard.news.presentation.news
 
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
-import abdulmanov.eduard.news.domain.models.news.New
 import abdulmanov.eduard.news.presentation._common.base.BaseViewModel
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
-import abdulmanov.eduard.news.presentation.news.models.FilterNewsPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,81 +33,81 @@ class NewsViewModel @Inject constructor(
     val messageEvent: LiveData<String>
         get() = _messageEvent
 
-    private val _scrollToPositionEvent = LiveEvent<Int>()
-    val scrollToPositionEvent: LiveData<Int>
-        get() = _scrollToPositionEvent
-
-    private var cashedNews: List<New> = emptyList()
-
     init {
         _state.value = VIEW_STATE_NEWS_EMPTY
-        getNews()
+        refresh()
     }
 
-    private fun getNews(){
-        _state.value = VIEW_STATE_NEWS_PROGRESS
+    fun refresh(){
+        _state.value = toggleState(ACTION_REFRESH)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun toggleState(action: Int, data: Any = Unit): Int{
+        return when(action){
+            ACTION_REFRESH -> {
+                when(_state.value){
+                    VIEW_STATE_NEWS_EMPTY -> {
+                        loadNews()
+                        VIEW_STATE_NEWS_PROGRESS
+                    }
+                    VIEW_STATE_NEWS_DATA -> {
+                        loadNews()
+                        VIEW_STATE_NEWS_REFRESH_AFTER_DATA
+                    }
+                    VIEW_STATE_NEWS_ERROR -> {
+                        loadNews()
+                        VIEW_STATE_NEWS_REFRESH_AFTER_ERROR
+                    }
+                    else -> _state.value!!
+                }
+            }
+            ACTION_LOAD_DATA -> {
+                when (_state.value) {
+                    VIEW_STATE_NEWS_PROGRESS, VIEW_STATE_NEWS_REFRESH_AFTER_DATA, VIEW_STATE_NEWS_REFRESH_AFTER_ERROR -> {
+                        _news.value = data as List<Any>
+                        VIEW_STATE_NEWS_DATA
+                    }
+                    else -> _state.value!!
+                }
+            }
+            ACTION_ERROR -> {
+                when(_state.value){
+                    VIEW_STATE_NEWS_PROGRESS, VIEW_STATE_NEWS_REFRESH_AFTER_ERROR -> {
+                        _errorMessage.value = (data as Throwable).message
+                        VIEW_STATE_NEWS_ERROR
+                    }
+                    VIEW_STATE_NEWS_REFRESH_AFTER_DATA -> {
+                        _messageEvent.value = (data as Throwable).message
+                        VIEW_STATE_NEWS_DATA
+                    }
+                    else -> _state.value!!
+                }
+            }
+            else -> _state.value!!
+        }
+    }
+
+    private fun loadNews(){
         newsInteractor.getNewsFilteredByCategory()
-            .doOnSuccess { cashedNews = it }
-            .map(mapper::newsMapToPresentationModels)
+            .map {
+                val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
+                mapper.newsMapToPresentationModels(it, quantitySelectedCategories)
+            }
             .safeSubscribe(
                 {
-                    _state.value = VIEW_STATE_NEWS_DATA
-                    val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
-                    val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories = quantitySelectedCategories)
-                    _news.value = listOf(filterNewsPresentationModel).plus(it)
+                    _state.value = toggleState(ACTION_LOAD_DATA, it)
                 },
                 {
-                    _state.value = VIEW_STATE_NEWS_ERROR
-                    _errorMessage.value = it.message
+                    _state.value = toggleState(ACTION_ERROR, it)
                 }
             )
     }
 
-    fun refresh(){
-        if(_state.value == VIEW_STATE_NEWS_DATA || _state.value == VIEW_STATE_NEWS_ERROR){
-            when(_state.value){
-                VIEW_STATE_NEWS_DATA -> _state.value = VIEW_STATE_NEWS_REFRESH_AFTER_DATA
-                VIEW_STATE_NEWS_ERROR -> _state.value = VIEW_STATE_NEWS_REFRESH_AFTER_ERROR
-            }
-
-            newsInteractor.getNewsFilteredByCategory()
-                .doOnSuccess { cashedNews = it }
-                .map(mapper::newsMapToPresentationModels)
-                .safeSubscribe(
-                    {
-                        _state.value = VIEW_STATE_NEWS_DATA
-                        _scrollToPositionEvent.value = 0
-
-                        val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
-                        val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories = quantitySelectedCategories)
-                        _news.value = listOf(filterNewsPresentationModel).plus(it)
-                    },
-                    {
-                        when(_state.value){
-                            VIEW_STATE_NEWS_REFRESH_AFTER_ERROR -> {
-                                _state.value = VIEW_STATE_NEWS_ERROR
-                                _errorMessage.value = it.message
-                            }
-                            VIEW_STATE_NEWS_REFRESH_AFTER_DATA -> {
-                                _state.value = VIEW_STATE_NEWS_DATA
-                                _messageEvent.value = it.message
-                            }
-                        }
-                    }
-                )
-        }else{
-            _state.value = _state.value
-        }
-    }
-
     fun filterNews(){
-
         val news = newsInteractor.getCachedNewsFilteredByCategory()
-
         val quantitySelectedCategories = newsInteractor.getQuantitySelectedCategories()
-        val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories = quantitySelectedCategories)
-        val newsPresentationModels = mapper.newsMapToPresentationModels(news)
-        _news.value = listOf(filterNewsPresentationModel).plus(newsPresentationModels)
+        _news.value = mapper.newsMapToPresentationModels(news, quantitySelectedCategories)
     }
 
     fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = router.navigateTo(Screens.DetailsNew(new))
@@ -119,6 +117,10 @@ class NewsViewModel @Inject constructor(
     fun onBackCommandClick() = router.exit()
 
     companion object{
+        const val ACTION_REFRESH = 1
+        const val ACTION_LOAD_DATA = 2
+        const val ACTION_ERROR = 3
+
         const val VIEW_STATE_NEWS_EMPTY = 1
         const val VIEW_STATE_NEWS_PROGRESS = 2
         const val VIEW_STATE_NEWS_ERROR = 3

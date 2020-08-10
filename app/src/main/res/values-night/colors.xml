@@ -16,12 +16,10 @@
     <color name="colorControlNormal">#A1A1A1</color>
     <color name="colorControlActive">#0075EE</color>
 
-    <color name="background">#202020</color>
-    <color name="separate">#828282</color>
-    <color name="placeholder">#EBEBEB</color>
-
-    <color name="already_read">#80000000</color>
-    <color name="blackout_for_container_with_control_buttons">#61000000</color>
+    <color name="colorBackground">#202020</color>
+    <color name="colorSeparate">#828282</color>
+    <color name="colorPlaceholder">#88EBEBEB</color>
+    <color name="colorScrim">#33000000</color>
 
     <color name="colorTextForCategorySelected">#ffffff</color>
     <color name="colorTextForCategoryNormal">#000000</color>

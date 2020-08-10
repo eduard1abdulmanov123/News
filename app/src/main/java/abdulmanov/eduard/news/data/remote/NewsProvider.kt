@@ -24,8 +24,8 @@ abstract class NewsProvider(private val client: OkHttpClient) {
 
         try {
             val response = client.newCall(request).execute()
-            return if (response.isSuccessful && response.body != null) {
-                response.body!!.byteStream()
+            return if (response.isSuccessful && response.body() != null) {
+                response.body()!!.byteStream()
             } else {
                 throw Exception(SERVER_ERROR)
             }
@@ -40,7 +40,7 @@ abstract class NewsProvider(private val client: OkHttpClient) {
 
     companion object {
         private const val SERVER_ERROR = "Ошибка сервера"
-        private const val NETWORK_ERROR = "Неполадки с интернетом.\nПопробуйте воспользоваься другой сетью-мобильной или wi-fi."
+        private const val NETWORK_ERROR = "Неполадки с интернетом.\nПопробуйте воспользоваться другой сетью-мобильной или wi-fi."
         private const val PARSE_ERROR = "Ошибка при разборе XML"
     }
 }

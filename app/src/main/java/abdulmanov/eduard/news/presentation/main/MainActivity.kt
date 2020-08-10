@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
-import kotlinx.android.synthetic.main.item_new.view.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -81,45 +80,54 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction: FragmentTransaction
     ) {
         newsFragment.reenterTransition = null
-        newsFragment.exitTransition = Hold().apply { duration = 650 }
+        newsFragment.exitTransition = Hold().apply {
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
+        }
 
         detailsNewFragment.sharedElementEnterTransition = MaterialContainerTransform().apply {
-            duration = 650
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
             fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
             scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
             fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
             shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
             scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
             scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            startContainerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
-            containerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            startContainerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
+            containerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             startElevation = 4f
         }
 
         detailsNewFragment.sharedElementReturnTransition = MaterialContainerTransform().apply {
-            duration = 650
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
             fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
             scrimColor = ContextCompat.getColor(this@MainActivity, R.color.colorScrim)
             fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.2f, 0.9f)
             shapeMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
             scaleMaskProgressThresholds = MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
             scaleProgressThresholds =  MaterialContainerTransform.ProgressThresholds(0.0f,1.0f)
-            endContainerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
-            containerColor = ContextCompat.getColor(this@MainActivity, R.color.background)
+            endContainerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
+            containerColor = ContextCompat.getColor(this@MainActivity, R.color.colorBackground)
             endElevation = 4f
         }
 
-        val view = newsFragment.currentSelectViewHolder?.itemView ?: return
-        val root = view.itemNewRoot
+        val root = newsFragment.currentSelectViewHolder?.itemView ?: return
         fragmentTransaction.addSharedElement(root, root.transitionName)
         fragmentTransaction.setReorderingAllowed(true)
     }
 
     private fun animateTransitionFromNewsFragmentToSettingFragment(newsFragment: NewsFragment, settingFragment: SettingFragment){
-        newsFragment.exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply { duration = 650 }
-        newsFragment.reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply { duration = 650 }
+        newsFragment.exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
+        }
+        newsFragment.reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
+        }
 
-        settingFragment.enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply { duration = 650 }
-        settingFragment.returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply { duration = 650 }
+        settingFragment.enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
+        }
+        settingFragment.returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = this@MainActivity.resources.getInteger(R.integer.duration).toLong()
+        }
     }
 }

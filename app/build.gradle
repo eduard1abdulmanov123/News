@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,6 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -53,9 +58,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "com.google.android.material:material:1.2.0"
 
     //UI
+    implementation "com.google.android.material:material:1.2.0"
     implementation 'com.github.liverm0r:delegateadapters:3.00'
     implementation 'com.nex3z:flow-layout:1.3.1'
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -63,16 +68,10 @@ dependencies {
 
     //network
     implementation "com.squareup.retrofit2:retrofit:2.7.1"
-    implementation "com.squareup.retrofit2:converter-gson:2.7.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    //rx
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation "com.jakewharton.rxrelay2:rxrelay:2.1.1"
 
     //SingleLiveEvent (https://github.com/hadilq/LiveEvent)
     implementation "com.github.hadilq.liveevent:liveevent:1.2.0"
@@ -80,7 +79,7 @@ dependencies {
     //cicerone
     implementation 'ru.terrakok.cicerone:cicerone:5.1.0'
 
-    def dagger_version = "2.27"
+    def dagger_version = "2.28.1"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 

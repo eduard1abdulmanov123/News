@@ -52,6 +52,7 @@ class NewsRepositoryImpl(
         categoriesFromNetwork.forEach { category ->
             category.selected = categoriesFromSharedPreferences.find { it.name == category.name }?.selected ?: false
         }
+
         saveCategories(categoriesFromNetwork)
     }
 

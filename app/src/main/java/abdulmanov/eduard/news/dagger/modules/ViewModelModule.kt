@@ -5,7 +5,7 @@ import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewViewModel
 import abdulmanov.eduard.news.presentation.main.MainViewModel
 import abdulmanov.eduard.news.presentation.news.NewsViewModel
-import abdulmanov.eduard.news.presentation.news.dialogs.filter.FilterNewsViewModel
+import abdulmanov.eduard.news.presentation.news.filternewsdialog.FilterNewsViewModel
 import abdulmanov.eduard.news.presentation.setting.SettingViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

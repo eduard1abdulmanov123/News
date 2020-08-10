@@ -16,17 +16,13 @@
     <color name="colorControlNormal">#6f6f6f</color>
     <color name="colorControlActive">#0075EE</color>
 
-    <color name="background">#ffffff</color>
-    <color name="separate">#99bfbfbf</color>
-    <color name="placeholder">#EBEBEB</color>
-
-    <color name="already_read">#80FFFFFF</color>
-    <color name="blackout_for_container_with_control_buttons">#61000000</color>
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorSeparate">#99bfbfbf</color>
+    <color name="colorPlaceholder">#EBEBEB</color>
+    <color name="colorScrim">#33000000</color>
 
     <color name="colorTextForCategorySelected">#ffffff</color>
     <color name="colorTextForCategoryNormal">#000000</color>
     <color name="colorBackgroundForCategorySelected">@color/colorAccent</color>
     <color name="colorBackgroundForCategoryNormal">#ECECEC</color>
-
-    <color name="colorScrim">#33000000</color>
 </resources>

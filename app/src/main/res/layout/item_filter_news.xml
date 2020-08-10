@@ -16,7 +16,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/filter_news"
+        android:text="@string/filter_news_title"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/font_big"
         android:textStyle="bold"

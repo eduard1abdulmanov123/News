@@ -8,16 +8,11 @@
     <!--News-->
     <string name="news_title">Лента</string>
     <string name="root_transition">root_%d</string>
-    <string name="image_transition">image_%d</string>
-    <string name="title_transition">title_%d</string>
-    <string name="category_transition">category_%d</string>
-    <string name="date_transition">date_%d</string>
-    <string name="description_transition">description_%d</string>
 
     <!--filterNews-->
-    <string name="filter_news">Фильтр новостей</string>
-    <string name="filter_throw_off">Сбросить</string>
-    <string name="filter_to_apply">Применить</string>
+    <string name="filter_news_title">Фильтр новостей</string>
+    <string name="filter_news_throw_off">Сбросить</string>
+    <string name="filter_news_to_apply">Применить</string>
 
     <!--settings-->
     <string name="setting_title">Настройки</string>

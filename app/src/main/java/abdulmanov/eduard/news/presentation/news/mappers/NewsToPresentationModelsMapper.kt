@@ -3,6 +3,7 @@ package abdulmanov.eduard.news.presentation.news.mappers
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain._common.DateFormatter
 import abdulmanov.eduard.news.domain.models.news.New
+import abdulmanov.eduard.news.presentation.news.models.FilterNewsPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.SeparatePresentationModel
 import android.content.Context
@@ -11,8 +12,11 @@ import javax.inject.Inject
 
 class NewsToPresentationModelsMapper @Inject constructor(private val context: Context) {
 
-    fun newsMapToPresentationModels(news: List<New>): List<Any> {
+    fun newsMapToPresentationModels(news: List<New>, quantitySelectedCategories: Int): List<Any> {
         return mutableListOf<Any>().apply {
+            val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories)
+            add(filterNewsPresentationModel)
+
             for (i in news.indices) {
                 add(SeparatePresentationModel)
                 add(news[i].toPresentationModel())

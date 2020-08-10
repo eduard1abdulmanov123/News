@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/newsContainerConstraintLayout"
+    android:id="@+id/newsRootConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/colorBackground"
     android:transitionGroup="true">
 
     <androidx.appcompat.widget.Toolbar
@@ -41,8 +41,8 @@
                 android:id="@+id/errorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextSecondary"
                 android:textSize="@dimen/font_few_big"
+                android:textColor="@color/colorTextSecondary"
                 android:text="@string/server_error"
                 android:gravity="center"
                 android:layout_gravity="center"

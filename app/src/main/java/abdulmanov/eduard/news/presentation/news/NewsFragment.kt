@@ -3,16 +3,16 @@ package abdulmanov.eduard.news.presentation.news
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.news.presentation.news.adapters.FilterNewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
-import abdulmanov.eduard.news.presentation.news.dialogs.filter.FilterNewsBottomSheetDialog
+import abdulmanov.eduard.news.presentation.news.filternewsdialog.FilterNewsBottomSheetDialog
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,8 +25,8 @@ import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
 class NewsFragment : Fragment(R.layout.fragment_news),
-    NewsDelegateAdapter.NewItemClickListener,
-    FilterNewsDelegateAdapter.FilterItemClickListener,
+    NewsDelegateAdapter.NewsClickListener,
+    FilterNewsDelegateAdapter.FilterNewsClickListener,
     FilterNewsBottomSheetDialog.FilterNewsCallback {
 
     var currentSelectViewHolder: RecyclerView.ViewHolder? = null
@@ -42,11 +42,7 @@ class NewsFragment : Fragment(R.layout.fragment_news),
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                viewModel.onBackCommandClick()
-            }
-        })
+        addOnBackPressedCallback(viewModel::onBackCommandClick)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +55,6 @@ class NewsFragment : Fragment(R.layout.fragment_news),
 
         viewModel.state.observe(viewLifecycleOwner, Observer(this::setState))
         viewModel.news.observe(viewLifecycleOwner, Observer((newsRecyclerView.adapter as CompositeDelegateAdapter)::swapData))
-        viewModel.scrollToPositionEvent.observe(viewLifecycleOwner, Observer(newsRecyclerView::smoothScrollToPosition))
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer(errorTextView::setText))
         viewModel.messageEvent.observe(viewLifecycleOwner, Observer(this::showMessage))
     }
@@ -76,7 +71,7 @@ class NewsFragment : Fragment(R.layout.fragment_news),
             setOnMenuItemClickListener(this@NewsFragment::onOptionsItemSelected)
         }
 
-        swipeRefresh.setOnRefreshListener {
+        swipeRefresh.setOnRefreshListener{
             viewModel.refresh()
         }
 
@@ -98,12 +93,12 @@ class NewsFragment : Fragment(R.layout.fragment_news),
         return true
     }
 
-    override fun onClick(new: NewPresentationModel, holder: RecyclerView.ViewHolder) {
+    override fun onClickNew(new: NewPresentationModel, holder: RecyclerView.ViewHolder) {
         currentSelectViewHolder = holder
         viewModel.onOpenDetailsNewScreenCommandClick(new)
     }
 
-    override fun onClick() {
+    override fun onClickFilterNews() {
         val dialog = FilterNewsBottomSheetDialog.newInstance()
         dialog.show(childFragmentManager, FilterNewsBottomSheetDialog.TAG)
     }
@@ -114,13 +109,6 @@ class NewsFragment : Fragment(R.layout.fragment_news),
 
     private fun setState(state: Int) {
         when (state) {
-            NewsViewModel.VIEW_STATE_NEWS_EMPTY -> {
-                swipeRefresh.isRefreshing = false
-                swipeRefresh.visibility = View.GONE
-                newsRecyclerView.visibility = View.GONE
-                errorTextView.visibility = View.GONE
-                progressBar.visibility = View.GONE
-            }
             NewsViewModel.VIEW_STATE_NEWS_PROGRESS -> {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.visibility = View.GONE

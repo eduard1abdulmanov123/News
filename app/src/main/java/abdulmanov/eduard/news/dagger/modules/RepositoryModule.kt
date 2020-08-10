@@ -29,7 +29,7 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideSettingRepository(
-        @Named(SharedPreferencesStore.NEWS_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences
+        @Named(SharedPreferencesStore.SETTING_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences
     ): SettingRepository {
         return SettingRepositoryImpl(sharedPreferences)
     }

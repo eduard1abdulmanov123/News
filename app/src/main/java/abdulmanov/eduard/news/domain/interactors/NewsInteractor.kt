@@ -41,16 +41,15 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
         return newsRepository.getCategories()
     }
 
-    fun getQuantitySelectedCategories(): Int {
-        return newsRepository.getCategories().filter { it.selected }.size
-    }
-
     fun saveCategories(categories: List<Category>){
         newsRepository.saveCategories(categories)
+    }
+
+    fun getQuantitySelectedCategories(): Int {
+        return newsRepository.getCategories().filter { it.selected }.size
     }
 
     fun markNewAsAlreadyRead(id: Long): Completable {
         return newsRepository.markNewAsAlreadyRead(id)
     }
-
 }

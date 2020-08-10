@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.presentation.news.dialogs.filter
+package abdulmanov.eduard.news.presentation.news.filternewsdialog
 
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.domain.models.news.Category
@@ -20,7 +20,7 @@ class FilterNewsViewModel @Inject constructor(
         _categories.value = newsInteractor.getCategories()
     }
 
-    fun selectCategories(category: Category, selected: Boolean){
+    fun selectCategory(category: Category, selected: Boolean){
         _categories.value?.find { it == category }?.selected = selected
         _categories.notifyObserver()
     }

@@ -1,9 +1,10 @@
-package abdulmanov.eduard.news.presentation.news.dialogs.filter
+package abdulmanov.eduard.news.presentation.news.filternewsdialog
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.news.Category
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
+import abdulmanov.eduard.news.presentation._common.extensions.addViews
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -33,9 +34,8 @@ class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
 
-        val parentFragment = parentFragment
         if (parentFragment is FilterNewsCallback) {
-            callback = parentFragment
+            callback = parentFragment as FilterNewsCallback
         } else if (context is FilterNewsCallback) {
             callback = context
         }
@@ -69,19 +69,17 @@ class FilterNewsBottomSheetDialog:BottomSheetDialogFragment() {
 
     @SuppressLint("InflateParams")
     private fun setData(categories: List<Category>){
-        categoriesFlowLayout.removeAllViews()
-
-        categories.forEach {category ->
-            val viewForCategory = layoutInflater.inflate(R.layout.item_category, null)
-            viewForCategory.titleTextView.text = category.name
-            viewForCategory.titleTextView.isSelected = category.selected
-
-            viewForCategory.titleTextView.setOnClickListener {
-                viewModel.selectCategories(category, !viewForCategory.titleTextView.isSelected)
+        val viewsFromCategories = categories.map { category ->
+            layoutInflater.inflate(R.layout.item_category, null).apply {
+                titleTextView.text = category.name
+                titleTextView.isSelected = category.selected
+                titleTextView.setOnClickListener {
+                    viewModel.selectCategory(category, !titleTextView.isSelected)
+                }
             }
-
-            categoriesFlowLayout.addView(viewForCategory)
         }
+        categoriesFlowLayout.removeAllViews()
+        categoriesFlowLayout.addViews(viewsFromCategories)
     }
 
     companion object{

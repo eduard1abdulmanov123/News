@@ -15,12 +15,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".presentation.live.LiveActivity"
-            android:configChanges="orientation|screenSize">
-
-        </activity>
-
-        <activity
             android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

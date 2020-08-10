@@ -4,7 +4,7 @@ import abdulmanov.eduard.news.dagger.modules.*
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.main.MainActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
-import abdulmanov.eduard.news.presentation.news.dialogs.filter.FilterNewsBottomSheetDialog
+import abdulmanov.eduard.news.presentation.news.filternewsdialog.FilterNewsBottomSheetDialog
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
 import android.app.Application
 import android.content.Context
