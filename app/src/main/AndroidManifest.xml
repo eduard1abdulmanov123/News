@@ -19,7 +19,8 @@
             android:value="ca-app-pub-8704070863677065~7203258551"/>
 
         <activity
-            android:name=".presentation.main.MainActivity">
+            android:name=".presentation.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
