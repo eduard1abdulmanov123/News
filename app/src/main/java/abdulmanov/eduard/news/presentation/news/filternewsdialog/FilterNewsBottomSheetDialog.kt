@@ -28,7 +28,7 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
         ViewModelProvider(this, viewModelFactory).get(FilterNewsViewModel::class.java)
     }
 
-    private lateinit var callback: FilterNewsCallback
+    private var callback: FilterNewsCallback? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,7 +60,8 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
 
         applyTextView.setOnClickListener {
             viewModel.applyFilterNews()
-            callback.onChangeFilterNews()
+            callback?.onChangeFilterNews()
+            callback = null
             dismiss()
         }
 

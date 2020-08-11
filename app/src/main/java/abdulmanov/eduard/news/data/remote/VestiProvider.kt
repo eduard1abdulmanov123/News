@@ -42,13 +42,24 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
             date = getDate(itemElement.getNodeValue("pubDate")),
             category = itemElement.getNodeValue("category"),
             image = itemElement.getAttribute("enclosure", "url"),
-            fullDescription = itemElement.getNodeValue("yandex:full-text")
+            fullDescription = getFullDescription(itemElement.getNodeValue("yandex:full-text"))
         )
     }
 
     private fun getDate(dateStr: String): String {
         val originalDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)
         return DateFormatter.convertDateToBasicFormat(dateStr, originalDateFormat)
+    }
+
+    private fun getFullDescription(fullDescription: String): String{
+        val paragraphs = fullDescription.split("\r\n").filter { it.isNotEmpty() && it != " "}
+
+        val sb = StringBuilder()
+        for(paragraph in paragraphs){
+            sb.append(paragraph)
+            sb.append("\n\n")
+        }
+        return sb.toString()
     }
 
     private fun Element.getNodeValue(tag: String): String {

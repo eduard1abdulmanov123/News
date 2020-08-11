@@ -3,6 +3,7 @@ package abdulmanov.eduard.news.presentation.news.mappers
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain._common.DateFormatter
 import abdulmanov.eduard.news.domain.models.news.New
+import abdulmanov.eduard.news.presentation.news.models.AdvertisingBannerPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.FilterNewsPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.SeparatePresentationModel
@@ -14,6 +15,8 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
 
     fun newsMapToPresentationModels(news: List<New>, quantitySelectedCategories: Int): List<Any> {
         return mutableListOf<Any>().apply {
+            add(AdvertisingBannerPresentationModel)
+
             val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories)
             add(filterNewsPresentationModel)
 
@@ -30,7 +33,7 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
             title = title,
             link = link,
             description = description,
-            date = date.preparedDate(),
+            date = prepareDate(date),
             category = category,
             image = image,
             fullDescription = fullDescription,
@@ -38,9 +41,9 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
         )
     }
 
-    private fun String.preparedDate(): String {
+    private fun prepareDate(dateStr: String): String {
         val months = context.resources.getStringArray(R.array.months_genitive)
-        val date = DateFormatter.parseDate(this)
+        val date = DateFormatter.parseDate(dateStr)
         val calendar = Calendar.getInstance()
         calendar.time = date
 

@@ -4,7 +4,6 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
-import abdulmanov.eduard.news.presentation._common.extensions.getScreenSize
 import abdulmanov.eduard.news.presentation._common.extensions.loadImg
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import android.content.Context
@@ -59,9 +58,6 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
             inflateMenu(R.menu.menu_details_new)
             setOnMenuItemClickListener(this@DetailsNewFragment::onOptionsItemSelected)
         }
-
-        val screenSize = requireContext().getScreenSize()
-        iconImageView.layoutParams.height = (screenSize.x / WIDTH_TO_HEIGHT_RATIO).toInt()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
