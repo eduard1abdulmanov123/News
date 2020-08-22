@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.data.remote
+package abdulmanov.eduard.news.data.remote.news
 
 import abdulmanov.eduard.news.domain._common.DateFormatter
 import abdulmanov.eduard.news.domain.models.news.New

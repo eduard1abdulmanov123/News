@@ -55,7 +55,7 @@
             tools:text="30 Июня 2020, 17:04" />
 
         <TextView
-            android:id="@+id/titleTextView"
+            android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -74,9 +74,9 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintDimensionRatio="h, 1.76:1"
-            app:layout_constraintEnd_toEndOf="@id/titleTextView"
-            app:layout_constraintStart_toStartOf="@id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/nameTextView"
+            app:layout_constraintStart_toStartOf="@id/nameTextView"
+            app:layout_constraintTop_toBottomOf="@id/nameTextView"
             app:riv_corner_radius="6dp"
             tools:ignore="ContentDescription"
             tools:src="@drawable/ic_placeholder" />

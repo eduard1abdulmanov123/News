@@ -90,6 +90,7 @@ class NewsFragment : Fragment(R.layout.fragment_news),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.openSettingItem -> viewModel.onOpenSettingScreenCommandClick()
+            R.id.openLiveStreamsItem -> viewModel.onOpenLiveStreamNewScreenCommandClick(requireContext())
         }
         return true
     }

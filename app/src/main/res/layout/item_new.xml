@@ -50,7 +50,7 @@
         app:riv_corner_radius="6dp"/>
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="62dp"
@@ -77,9 +77,9 @@
         android:ellipsize="end"
         android:textSize="@dimen/font_small"
         android:textColor="@color/colorTextPrimary"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="@+id/nameTextView"
         app:layout_constraintEnd_toEndOf="@id/iconImageView"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
         tools:text="Российский боевой робот Маркер принял участие в учениях на полигоне Чебаркуль в Челябинской области. Создатели выясняли, насколько дрон удобен в обращении и как помогает решать боевые задачи." />
 
     <TextView

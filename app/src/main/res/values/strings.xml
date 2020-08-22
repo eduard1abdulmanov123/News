@@ -2,8 +2,7 @@
     <string name="app_name">Новости</string>
 
     <!--common-->
-    <string name="network_error">Нет интернет соединения</string>
-    <string name="server_error">Ошибка с сервером, попробуйте позже</string>
+    <string name="try_again">Попробывать ещё</string>
 
     <!--News-->
     <string name="news_title">Лента</string>
@@ -13,6 +12,9 @@
     <string name="filter_news_title">Фильтр новостей</string>
     <string name="filter_news_throw_off">Сбросить</string>
     <string name="filter_news_to_apply">Применить</string>
+
+    <!--changeChannel-->
+    <string name="change_channel_title">Телеканалы</string>
 
     <!--settings-->
     <string name="setting_title">Настройки</string>

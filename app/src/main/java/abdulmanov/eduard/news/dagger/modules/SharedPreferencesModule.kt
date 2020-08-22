@@ -1,6 +1,8 @@
 package abdulmanov.eduard.news.dagger.modules
 
-import abdulmanov.eduard.news.data.local.SharedPreferencesStore
+import abdulmanov.eduard.news.data.local.sharedpreferences.NewsSharedPreferences
+import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
+import abdulmanov.eduard.news.data.local.sharedpreferences.TvChannelsSharedPreferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,15 +16,20 @@ class SharedPreferencesModule {
 
     @Singleton
     @Provides
-    @Named(SharedPreferencesStore.SETTING_SHARED_PREFERENCES_NAME)
-    fun provideSettingSharedPreferences(app: Application): SharedPreferences {
-        return app.getSharedPreferences(SharedPreferencesStore.SETTING_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun provideSettingSharedPreferences(app: Application): SettingSharedPreferences {
+        return SettingSharedPreferences(app)
     }
 
     @Singleton
     @Provides
-    @Named(SharedPreferencesStore.NEWS_SHARED_PREFERENCES_NAME)
-    fun provideNewsSharedPreferences(app: Application): SharedPreferences {
-        return app.getSharedPreferences(SharedPreferencesStore.NEWS_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun provideNewsSharedPreferences(app: Application): NewsSharedPreferences {
+        return NewsSharedPreferences(app)
     }
+
+    @Singleton
+    @Provides
+    fun provideChannelsSharedPreferences(app: Application): TvChannelsSharedPreferences {
+        return TvChannelsSharedPreferences(app)
+    }
+
 }

@@ -1,6 +1,7 @@
 package abdulmanov.eduard.news.presentation.main
 
 import abdulmanov.eduard.news.R
+import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
@@ -31,11 +32,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigatorHolder: NavigatorHolder
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    lateinit var settingSharedPreferences: SettingSharedPreferences
 
     private val navigator = object : SupportAppNavigator(this, R.id.fragmentContainer) {
         override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
@@ -51,10 +48,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).appComponent.inject(this)
-
-        if (savedInstanceState == null) {
-            setAppTheme(viewModel.getCurrentThemeType())
-        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

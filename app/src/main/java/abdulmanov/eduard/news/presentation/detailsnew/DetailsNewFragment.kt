@@ -72,7 +72,7 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
 
         categoryTextView.text = new.category
         dateTextView.text = new.date
-        titleTextView.text = new.title
+        nameTextView.text = new.title
         fullDescriptionTextView.text = new.fullDescription
         iconImageView.loadImg(new.image, callback = object : Callback {
             override fun onSuccess() {

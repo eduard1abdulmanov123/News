@@ -6,6 +6,7 @@ import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
+import abdulmanov.eduard.news.presentation.livestream.LiveStreamActivity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +20,10 @@ object Screens {
 
     data class DetailsNew(val new: NewPresentationModel) : SupportAppScreen() {
         override fun getFragment() = DetailsNewFragment.newInstance(new)
+    }
+
+    data class LiveStream(val context: Context): SupportAppScreen(){
+        override fun getActivityIntent(context: Context) = LiveStreamActivity.getIntent(context)
     }
 
     object Setting : SupportAppScreen() {

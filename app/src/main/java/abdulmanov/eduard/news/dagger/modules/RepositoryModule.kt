@@ -1,8 +1,9 @@
 package abdulmanov.eduard.news.dagger.modules
 
-import abdulmanov.eduard.news.data.local.SharedPreferencesStore
 import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
-import abdulmanov.eduard.news.data.remote.NewsProvider
+import abdulmanov.eduard.news.data.local.sharedpreferences.NewsSharedPreferences
+import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
+import abdulmanov.eduard.news.data.remote.news.NewsProvider
 import abdulmanov.eduard.news.data.repositories.NewsRepositoryImpl
 import abdulmanov.eduard.news.data.repositories.SettingRepositoryImpl
 import abdulmanov.eduard.news.domain.repositories.NewsRepository
@@ -18,19 +19,13 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideNewRepository(
-        newsProvider: NewsProvider,
-        identifiersDao: IdentifiersDao,
-        @Named(SharedPreferencesStore.NEWS_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences
-    ): NewsRepository {
+    fun provideNewRepository(newsProvider: NewsProvider, identifiersDao: IdentifiersDao, sharedPreferences: NewsSharedPreferences): NewsRepository {
         return NewsRepositoryImpl(newsProvider, identifiersDao, sharedPreferences)
     }
 
     @Singleton
     @Provides
-    fun provideSettingRepository(
-        @Named(SharedPreferencesStore.SETTING_SHARED_PREFERENCES_NAME) sharedPreferences: SharedPreferences
-    ): SettingRepository {
+    fun provideSettingRepository(sharedPreferences: SettingSharedPreferences): SettingRepository {
         return SettingRepositoryImpl(sharedPreferences)
     }
 }

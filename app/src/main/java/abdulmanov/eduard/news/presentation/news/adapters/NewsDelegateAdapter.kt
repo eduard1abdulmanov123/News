@@ -15,13 +15,13 @@ class NewsDelegateAdapter(
 
     override fun KViewHolder.onBind(item: NewPresentationModel) {
         categoryTextView.text = item.category
-        titleTextView.text = item.title
+        nameTextView.text = item.title
         descriptionTextView.text = item.description
         dateTextView.text = item.date
         iconImageView.loadImg(item.image, R.color.colorPlaceholder)
 
         notAlreadyLabelImageView.visibility(!item.alreadyRead)
-        titleTextView.typeface = if (item.alreadyRead) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
+        nameTextView.typeface = if (item.alreadyRead) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
 
         itemView.transitionName = containerView.context.getString(R.string.root_transition, item.id)
         itemView.setOnClickListener { newsClickListener?.onClickNew(item, this) }

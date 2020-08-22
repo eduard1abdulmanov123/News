@@ -1,9 +1,6 @@
 package abdulmanov.eduard.news.presentation._common.extensions
 
-import android.content.Context
-import android.graphics.Point
 import android.os.Build
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,13 +16,6 @@ fun AppCompatActivity.setAppTheme(type: Int) {
         delegate.localNightMode = type
     } else {
         AppCompatDelegate.setDefaultNightMode(type)
-    }
-}
-
-fun Context.getScreenSize(): Point {
-    val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    return Point().apply {
-        wm.defaultDisplay.getSize(this)
     }
 }
 

@@ -74,7 +74,7 @@
                     android:layout_marginStart="41dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginTop="12dp"
-                    android:background="@color/colorSeparate" />
+                    android:background="@color/colorSeparator" />
 
                 <RadioButton
                     android:id="@+id/lightThemeRadioButton"
@@ -98,7 +98,7 @@
                     android:layout_marginStart="41dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginTop="12dp"
-                    android:background="@color/colorSeparate" />
+                    android:background="@color/colorSeparator" />
 
                 <RadioButton
                     android:id="@+id/automaticallyThemeRadioButton"
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorSeparate"
+                android:background="@color/colorSeparator"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorSeparate"
+                android:background="@color/colorSeparator"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -265,7 +265,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorSeparate"
+                android:background="@color/colorSeparator"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -72,10 +72,10 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setData(categories: List<Category>) {
         val viewsFromCategories = categories.map { category ->
             layoutInflater.inflate(R.layout.item_category, null).apply {
-                titleTextView.text = category.name
-                titleTextView.isSelected = category.selected
-                titleTextView.setOnClickListener {
-                    viewModel.selectCategory(category, !titleTextView.isSelected)
+                nameTextView.text = category.name
+                nameTextView.isSelected = category.selected
+                nameTextView.setOnClickListener {
+                    viewModel.selectCategory(category, !nameTextView.isSelected)
                 }
             }
         }

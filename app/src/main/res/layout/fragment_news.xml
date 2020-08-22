@@ -41,9 +41,8 @@
                 android:id="@+id/errorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_few_big"
+                android:textSize="@dimen/font_normal"
                 android:textColor="@color/colorTextSecondary"
-                android:text="@string/server_error"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:visibility="gone"/>

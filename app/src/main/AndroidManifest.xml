@@ -16,7 +16,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8704070863677065~7203258551"/>
+            android:value="ca-app-pub-8704070863677065~7203258551" />
 
         <activity
             android:name=".presentation.main.MainActivity"
@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".presentation.livestream.LiveStreamActivity"
+            android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>

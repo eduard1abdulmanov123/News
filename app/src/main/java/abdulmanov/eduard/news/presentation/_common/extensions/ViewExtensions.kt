@@ -1,10 +1,15 @@
 package abdulmanov.eduard.news.presentation._common.extensions
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+
+fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
+}
 
 fun ImageView.loadImg(imageUrl: String, placeholderRes: Int? = null, errorRes: Int? = null, callback: Callback? = null) {
     if (imageUrl.isEmpty()) {
@@ -29,4 +34,10 @@ fun ViewGroup.addViews(views: List<View>) {
 
 fun View.visibility(visible: Boolean, type: Int = View.GONE) {
     this.visibility = if (visible) View.VISIBLE else type
+}
+
+fun View.setOnClickListener(onClickListener:()->Unit){
+    this.setOnClickListener {
+        onClickListener.invoke()
+    }
 }

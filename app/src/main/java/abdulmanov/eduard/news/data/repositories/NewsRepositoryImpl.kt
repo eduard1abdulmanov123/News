@@ -2,7 +2,8 @@ package abdulmanov.eduard.news.data.repositories
 
 import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
 import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel
-import abdulmanov.eduard.news.data.remote.NewsProvider
+import abdulmanov.eduard.news.data.local.sharedpreferences.NewsSharedPreferences
+import abdulmanov.eduard.news.data.remote.news.NewsProvider
 import abdulmanov.eduard.news.domain.models.news.Category
 import abdulmanov.eduard.news.domain.models.news.New
 import abdulmanov.eduard.news.domain.repositories.NewsRepository
@@ -16,7 +17,7 @@ import io.reactivex.Single
 class NewsRepositoryImpl(
     private val newsProvider: NewsProvider,
     private val identifiersDao: IdentifiersDao,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: NewsSharedPreferences
 ) : NewsRepository {
 
     private var cashedNews: List<New> = emptyList()
@@ -61,16 +62,11 @@ class NewsRepositoryImpl(
     }
 
     override fun getCategories(): List<Category> {
-        val jsonCategories = sharedPreferences.getString(PREF_CATEGORIES, "[]")
-        val type = object : TypeToken<List<Category>>() {}.type
-        return Gson().fromJson(jsonCategories, type)
+        return sharedPreferences.getCategories()
     }
 
     override fun saveCategories(categories: List<Category>) {
-        val jsonCategories = Gson().toJson(categories)
-        sharedPreferences.edit {
-            putString(PREF_CATEGORIES, jsonCategories)
-        }
+        sharedPreferences.setCategories(categories)
     }
 
     override fun markNewAsAlreadyRead(id: Long): Completable {
@@ -78,9 +74,5 @@ class NewsRepositoryImpl(
             val identifier = IdentifierDbModel(id)
             identifiersDao.insertIdentifier(identifier)
         }
-    }
-
-    companion object {
-        private const val PREF_CATEGORIES = "categories"
     }
 }

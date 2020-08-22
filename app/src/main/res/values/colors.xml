@@ -17,12 +17,17 @@
     <color name="colorControlActive">#0075EE</color>
 
     <color name="colorBackground">#ffffff</color>
-    <color name="colorSeparate">#99bfbfbf</color>
+    <color name="colorSeparator">#99bfbfbf</color>
     <color name="colorPlaceholder">#EBEBEB</color>
     <color name="colorScrim">#33000000</color>
 
+    <!--filterNews-->
     <color name="colorTextForCategorySelected">#ffffff</color>
     <color name="colorTextForCategoryNormal">#000000</color>
     <color name="colorBackgroundForCategorySelected">@color/colorAccent</color>
     <color name="colorBackgroundForCategoryNormal">#ECECEC</color>
+
+    <!--changeChannel-->
+    <color name="colorStrokeCircleNotSelected">#99bfbfbf</color>
+    <color name="colorSolidCircleSelected">@color/colorAccent</color>
 </resources>

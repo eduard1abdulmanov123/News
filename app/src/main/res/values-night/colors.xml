@@ -17,12 +17,17 @@
     <color name="colorControlActive">#0075EE</color>
 
     <color name="colorBackground">#202020</color>
-    <color name="colorSeparate">#828282</color>
+    <color name="colorSeparator">#828282</color>
     <color name="colorPlaceholder">#88EBEBEB</color>
     <color name="colorScrim">#33000000</color>
 
+    <!--filterNews-->
     <color name="colorTextForCategorySelected">#ffffff</color>
     <color name="colorTextForCategoryNormal">#000000</color>
     <color name="colorBackgroundForCategorySelected">@color/colorAccent</color>
     <color name="colorBackgroundForCategoryNormal">#BEF3F3F3</color>
+
+    <!--changeChannel-->
+    <color name="colorStrokeCircleNotSelected">#828282</color>
+    <color name="colorSolidCircleSelected">@color/colorAccent</color>
 </resources>

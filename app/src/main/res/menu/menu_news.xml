@@ -6,6 +6,12 @@
     tools:ignore="AlwaysShowAction" >
 
     <item
+        android:id="@+id/openLiveStreamsItem"
+        android:icon="@drawable/ic_broadcast"
+        app:showAsAction="always"
+        android:title=""/>
+
+    <item
         android:id="@+id/openSettingItem"
         android:icon="@drawable/ic_setting"
         app:showAsAction="always"

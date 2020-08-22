@@ -5,6 +5,7 @@ import abdulmanov.eduard.news.presentation._common.base.BaseViewModel
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hadilq.liveevent.LiveEvent
@@ -111,6 +112,8 @@ class NewsViewModel @Inject constructor(
     }
 
     fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = router.navigateTo(Screens.DetailsNew(new))
+
+    fun onOpenLiveStreamNewScreenCommandClick(context: Context) = router.navigateTo(Screens.LiveStream(context))
 
     fun onOpenSettingScreenCommandClick() = router.navigateTo(Screens.Setting)
 
