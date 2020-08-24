@@ -4,7 +4,6 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
-import abdulmanov.eduard.news.presentation.news.adapters.AdvertisingBannerDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.FilterNewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
@@ -79,7 +78,6 @@ class NewsFragment : Fragment(R.layout.fragment_news),
         newsRecyclerView.run {
             layoutManager = LinearLayoutManager(context)
             adapter = CompositeDelegateAdapter(
-                AdvertisingBannerDelegateAdapter(),
                 FilterNewsDelegateAdapter(this@NewsFragment),
                 NewsDelegateAdapter(this@NewsFragment),
                 SeparateDelegateAdapter()

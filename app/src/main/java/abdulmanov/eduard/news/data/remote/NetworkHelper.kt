@@ -13,8 +13,8 @@ class NetworkHelper(private val client: OkHttpClient) {
 
         try {
             val response = client.newCall(request).execute()
-            return if (response.isSuccessful && response.body() != null) {
-                response.body()!!.byteStream()
+            return if (response.isSuccessful && response.body != null) {
+                response.body!!.byteStream()
             } else {
                 throw Exception(SERVER_ERROR)
             }

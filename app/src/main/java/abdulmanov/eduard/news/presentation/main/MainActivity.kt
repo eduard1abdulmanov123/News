@@ -3,8 +3,6 @@ package abdulmanov.eduard.news.presentation.main
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
-import abdulmanov.eduard.news.presentation._common.extensions.setAppTheme
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.NewsFragment
@@ -14,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
@@ -51,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        MobileAds.initialize(this)
         window.setBackgroundDrawable(null)
 
         if (savedInstanceState == null) {

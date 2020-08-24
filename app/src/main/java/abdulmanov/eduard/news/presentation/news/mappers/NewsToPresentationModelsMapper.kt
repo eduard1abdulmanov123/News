@@ -3,7 +3,6 @@ package abdulmanov.eduard.news.presentation.news.mappers
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain._common.DateFormatter
 import abdulmanov.eduard.news.domain.models.news.New
-import abdulmanov.eduard.news.presentation.news.models.AdvertisingBannerPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.FilterNewsPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import abdulmanov.eduard.news.presentation.news.models.SeparatePresentationModel
@@ -15,8 +14,6 @@ class NewsToPresentationModelsMapper @Inject constructor(private val context: Co
 
     fun newsMapToPresentationModels(news: List<New>, quantitySelectedCategories: Int): List<Any> {
         return mutableListOf<Any>().apply {
-            add(AdvertisingBannerPresentationModel)
-
             val filterNewsPresentationModel = FilterNewsPresentationModel(quantitySelectedCategories)
             add(filterNewsPresentationModel)
 
