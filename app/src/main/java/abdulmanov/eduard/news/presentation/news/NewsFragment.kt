@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.presentation.news
 
 import abdulmanov.eduard.news.R
-import abdulmanov.eduard.news.presentation.App
+import abdulmanov.eduard.news.dagger.components.NewsComponent
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.news.presentation.news.adapters.FilterNewsDelegateAdapter
@@ -9,14 +9,15 @@ import abdulmanov.eduard.news.presentation.news.adapters.NewsDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.adapters.SeparateDelegateAdapter
 import abdulmanov.eduard.news.presentation.news.filternewsdialog.FilterNewsBottomSheetDialog
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import abdulmanov.eduard.news.presentation.newshostcontainer.NewsHostContainerFragment
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -31,16 +32,17 @@ class NewsFragment : Fragment(R.layout.fragment_news),
 
     var currentSelectViewHolder: RecyclerView.ViewHolder? = null
 
+    lateinit var newsComponent: NewsComponent
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: NewsViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
-    }
+    private val viewModel by viewModels<NewsViewModel> { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as App).appComponent.inject(this)
+        newsComponent = (requireParentFragment() as NewsHostContainerFragment).newsComponent
+        newsComponent.inject(this)
 
         addOnBackPressedCallback(viewModel::onBackCommandClick)
     }

@@ -31,11 +31,8 @@ class ChangeTvChannelBottomSheetDialog: BottomSheetDialogFragment(), TvChannelsA
         super.onAttach(context)
         (requireActivity() as LiveStreamActivity).liveStreamComponent.inject(this)
 
-        if (parentFragment is ChangeTvChannelCallback) {
-            callback = parentFragment as ChangeTvChannelCallback
-        } else if (context is ChangeTvChannelCallback) {
-            callback = context
-        }
+        callback = context as ChangeTvChannelCallback
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,6 +4,7 @@ import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
+import abdulmanov.eduard.news.presentation._common.extensions.setOnClickListener
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -49,13 +50,9 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
             setNavigationOnClickListener { viewModel.onBackCommandClick() }
         }
 
-        containerFeedbackConstraintLayout.setOnClickListener {
-            viewModel.onOpenFeedbackCommandClick()
-        }
+        containerFeedbackConstraintLayout.setOnClickListener(viewModel::onOpenFeedbackCommandClick)
 
-        containerLicenseConstraintLayout.setOnClickListener {
-            viewModel.onOpenSupplierWebsiteCommandClick()
-        }
+        containerLicenseConstraintLayout.setOnClickListener(viewModel::onOpenSupplierWebsiteCommandClick)
 
         when (viewModel.getCurrentThemeType()) {
             AppCompatDelegate.MODE_NIGHT_YES -> darkThemeRadioButton.isChecked = true

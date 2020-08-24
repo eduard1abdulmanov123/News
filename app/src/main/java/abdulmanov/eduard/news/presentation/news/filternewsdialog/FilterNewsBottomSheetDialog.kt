@@ -2,9 +2,10 @@ package abdulmanov.eduard.news.presentation.news.filternewsdialog
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.news.Category
-import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addViews
+import abdulmanov.eduard.news.presentation._common.extensions.setOnClickListener
+import abdulmanov.eduard.news.presentation.news.NewsFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -30,13 +31,9 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as App).appComponent.inject(this)
+        (parentFragment as NewsFragment).newsComponent.inject(this)
 
-        if (parentFragment is FilterNewsCallback) {
-            callback = parentFragment as FilterNewsCallback
-        } else if (context is FilterNewsCallback) {
-            callback = context
-        }
+        callback = parentFragment as FilterNewsCallback
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +49,7 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        throwOffTextView.setOnClickListener {
-            viewModel.throwOffFilterNews()
-        }
+        throwOffTextView.setOnClickListener(viewModel::throwOffFilterNews)
 
         applyTextView.setOnClickListener {
             viewModel.applyFilterNews()

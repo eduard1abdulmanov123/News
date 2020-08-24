@@ -3,13 +3,15 @@ package abdulmanov.eduard.news.presentation.livestream
 import abdulmanov.eduard.news.domain.interactors.TvChannelsInteractor
 import abdulmanov.eduard.news.domain.models.streams.TvChannel
 import abdulmanov.eduard.news.presentation._common.base.BaseViewModel
+import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
+import javax.inject.Named
 
 class LiveStreamViewModel @Inject constructor(
-    private val router: Router,
+    @Named(NavigationConstants.MAIN_ROUTER) private val router: Router,
     private val tvChannelsInteractor: TvChannelsInteractor
 ):BaseViewModel() {
 

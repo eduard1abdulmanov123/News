@@ -3,16 +3,21 @@ package abdulmanov.eduard.news.presentation.navigation
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.domain.models.feedback.FeedbackData
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
+import abdulmanov.eduard.news.presentation.livestream.LiveStreamActivity
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import abdulmanov.eduard.news.presentation.newshostcontainer.NewsHostContainerFragment
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
-import abdulmanov.eduard.news.presentation.livestream.LiveStreamActivity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
+
+    object NewsHostContainer: SupportAppScreen() {
+        override fun getFragment() = NewsHostContainerFragment.newInstance()
+    }
 
     object News : SupportAppScreen() {
         override fun getFragment() = NewsFragment.newInstance()

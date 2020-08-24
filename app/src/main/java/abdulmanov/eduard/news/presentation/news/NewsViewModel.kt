@@ -2,6 +2,7 @@ package abdulmanov.eduard.news.presentation.news
 
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.presentation._common.base.BaseViewModel
+import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
@@ -11,9 +12,11 @@ import androidx.lifecycle.MutableLiveData
 import com.hadilq.liveevent.LiveEvent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
+import javax.inject.Named
 
 class NewsViewModel @Inject constructor(
-    private val router: Router,
+    @Named(NavigationConstants.MAIN_ROUTER) private val mainRouter: Router,
+    @Named(NavigationConstants.NEWS_ROUTER) private val newsRouter: Router,
     private val newsInteractor: NewsInteractor,
     private val mapper: NewsToPresentationModelsMapper
 ) : BaseViewModel() {
@@ -111,13 +114,13 @@ class NewsViewModel @Inject constructor(
         _news.value = mapper.newsMapToPresentationModels(news, quantitySelectedCategories)
     }
 
-    fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = router.navigateTo(Screens.DetailsNew(new))
+    fun onOpenDetailsNewScreenCommandClick(new: NewPresentationModel) = newsRouter.navigateTo(Screens.DetailsNew(new))
 
-    fun onOpenLiveStreamNewScreenCommandClick(context: Context) = router.navigateTo(Screens.LiveStream(context))
+    fun onOpenLiveStreamNewScreenCommandClick(context: Context) = mainRouter.navigateTo(Screens.LiveStream(context))
 
-    fun onOpenSettingScreenCommandClick() = router.navigateTo(Screens.Setting)
+    fun onOpenSettingScreenCommandClick() = mainRouter.navigateTo(Screens.Setting)
 
-    fun onBackCommandClick() = router.exit()
+    fun onBackCommandClick() = newsRouter.exit()
 
     companion object {
         const val ACTION_REFRESH = 1

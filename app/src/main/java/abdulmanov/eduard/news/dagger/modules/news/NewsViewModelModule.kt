@@ -1,18 +1,22 @@
-package abdulmanov.eduard.news.dagger.modules
+package abdulmanov.eduard.news.dagger.modules.news
 
 import abdulmanov.eduard.news.dagger.annotations.ViewModelKey
-import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewViewModel
 import abdulmanov.eduard.news.presentation.news.NewsViewModel
 import abdulmanov.eduard.news.presentation.news.filternewsdialog.FilterNewsViewModel
+import abdulmanov.eduard.news.presentation.newshostcontainer.NewsHostContainerViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ViewModelModule {
+abstract class NewsViewModelModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewsHostContainerViewModel::class)
+    abstract fun bindNewsHostContainerViewModel(viewModel: NewsHostContainerViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -29,6 +33,4 @@ abstract class ViewModelModule {
     @ViewModelKey(DetailsNewViewModel::class)
     abstract fun bindDetailsNewViewModel(viewModel: DetailsNewViewModel): ViewModel
 
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

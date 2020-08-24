@@ -1,15 +1,17 @@
 package abdulmanov.eduard.news.presentation.setting
 
 import abdulmanov.eduard.news.domain.interactors.SettingInteractor
+import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
+import javax.inject.Named
 
 class SettingViewModel @Inject constructor(
-    private val router: Router,
+    @Named(NavigationConstants.MAIN_ROUTER) private val router: Router,
     private val settingInteractor: SettingInteractor
 ) : ViewModel() {
 

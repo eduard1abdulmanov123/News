@@ -1,4 +1,4 @@
-package abdulmanov.eduard.news.dagger.modules
+package abdulmanov.eduard.news.dagger.modules.app
 
 import abdulmanov.eduard.news.data.local.database.AppDatabase
 import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao

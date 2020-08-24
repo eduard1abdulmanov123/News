@@ -8,6 +8,7 @@ import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.setOnClickListener
 import abdulmanov.eduard.news.presentation.livestream.changechanneldialog.ChangeTvChannelBottomSheetDialog
 import abdulmanov.eduard.news.presentation.livestream.helper.VideoActivity
+import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_live_stream.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
+import javax.inject.Named
 
 class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.ChangeTvChannelCallback {
 
@@ -32,6 +34,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
     private val viewModel by viewModels<LiveStreamViewModel> { viewModelFactory }
 
     @Inject
+    @Named(NavigationConstants.MAIN_NAVIGATOR_HOLDER)
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator = SupportAppNavigator(this, -1)

@@ -1,19 +1,19 @@
 package abdulmanov.eduard.news.presentation.detailsnew
 
 import abdulmanov.eduard.news.R
-import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.news.presentation._common.extensions.loadImg
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
+import abdulmanov.eduard.news.presentation.newshostcontainer.NewsHostContainerFragment
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Callback
 import kotlinx.android.synthetic.main.fragment_details_new.*
 import javax.inject.Inject
@@ -23,13 +23,11 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: DetailsNewViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(DetailsNewViewModel::class.java)
-    }
+    private val viewModel by viewModels<DetailsNewViewModel> { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as App).appComponent.inject(this)
+        (requireParentFragment() as NewsHostContainerFragment).newsComponent.inject(this)
         addOnBackPressedCallback(viewModel::onBackCommandClick)
     }
 

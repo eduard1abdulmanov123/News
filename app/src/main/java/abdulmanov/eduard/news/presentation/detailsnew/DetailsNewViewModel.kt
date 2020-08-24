@@ -1,6 +1,7 @@
 package abdulmanov.eduard.news.presentation.detailsnew
 
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
+import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
 import androidx.lifecycle.LiveData
@@ -10,9 +11,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
+import javax.inject.Named
 
 class DetailsNewViewModel @Inject constructor(
-    private val router: Router,
+    @Named(NavigationConstants.NEWS_ROUTER) private val router: Router,
     private val newsInteractor: NewsInteractor
 ) : ViewModel() {
 

@@ -4,7 +4,6 @@ import abdulmanov.eduard.news.dagger.components.AppComponent
 import abdulmanov.eduard.news.dagger.components.DaggerAppComponent
 import abdulmanov.eduard.news.dagger.scope.ScopeManager
 import android.app.Application
-import android.util.Log
 import com.facebook.stetho.Stetho
 import com.squareup.picasso.LruCache
 import com.squareup.picasso.Picasso
@@ -22,12 +21,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        RxJavaPlugins.setErrorHandler {
-            Log.d("ThrowableLog", it.message.toString())
-            it.stackTrace.forEach {
-                Log.d("ThrowableLog", it.toString())
-            }
-        }
+        RxJavaPlugins.setErrorHandler {}
         initPicasso()
         Stetho.initializeWithDefaults(this)
     }
