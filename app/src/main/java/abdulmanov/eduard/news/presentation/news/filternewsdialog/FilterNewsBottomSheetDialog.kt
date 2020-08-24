@@ -11,12 +11,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_dialog_filter_news.*
-import kotlinx.android.synthetic.main.item_new.view.*
 import javax.inject.Inject
 
 class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
@@ -24,9 +24,7 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: FilterNewsViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(FilterNewsViewModel::class.java)
-    }
+    private val viewModel by viewModels<FilterNewsViewModel> { viewModelFactory }
 
     private var callback: FilterNewsCallback? = null
 
@@ -71,11 +69,11 @@ class FilterNewsBottomSheetDialog : BottomSheetDialogFragment() {
     @SuppressLint("InflateParams")
     private fun setData(categories: List<Category>) {
         val viewsFromCategories = categories.map { category ->
-            layoutInflater.inflate(R.layout.item_category, null).apply {
-                nameTextView.text = category.name
-                nameTextView.isSelected = category.selected
-                nameTextView.setOnClickListener {
-                    viewModel.selectCategory(category, !nameTextView.isSelected)
+            (layoutInflater.inflate(R.layout.item_category, null) as TextView).apply {
+                text = category.name
+                isSelected = category.selected
+                setOnClickListener {
+                    viewModel.selectCategory(category, !isSelected)
                 }
             }
         }

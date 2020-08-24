@@ -26,10 +26,10 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
 
     private fun getSelectedCategories(): List<String> {
         val categories = newsRepository.getCategories()
-        val selectedCategories = categories.filter { it.selected }
+        val isSelectedCategoriesMissing = categories.none{ it.selected }
 
-        val filterCategories = if (selectedCategories.isNotEmpty()) {
-            selectedCategories
+        val filterCategories = if (!isSelectedCategoriesMissing) {
+            categories.filter { it.selected }
         } else {
             categories
         }
@@ -41,8 +41,8 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
         return newsRepository.getCategories()
     }
 
-    fun saveCategories(categories: List<Category>) {
-        newsRepository.saveCategories(categories)
+    fun saveSelectedCategories(categories: List<Category>) {
+        newsRepository.saveSelectedCategories(categories)
     }
 
     fun getQuantitySelectedCategories(): Int {

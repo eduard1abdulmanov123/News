@@ -32,6 +32,8 @@ class FilterNewsViewModel @Inject constructor(
 
     fun applyFilterNews() {
         _categories.value ?: return
-        newsInteractor.saveCategories(_categories.value!!)
+
+        val selectedCategories = _categories.value!!.filter { it.selected }
+        newsInteractor.saveSelectedCategories(selectedCategories)
     }
 }

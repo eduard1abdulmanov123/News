@@ -7,10 +7,6 @@ import abdulmanov.eduard.news.data.remote.news.NewsProvider
 import abdulmanov.eduard.news.domain.models.news.Category
 import abdulmanov.eduard.news.domain.models.news.New
 import abdulmanov.eduard.news.domain.repositories.NewsRepository
-import android.content.SharedPreferences
-import androidx.core.content.edit
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -26,7 +22,6 @@ class NewsRepositoryImpl(
         return Single.create {
             cashedNews = getNewsFromNetwork()
             deleteIdentifiersThatAreMissing(cashedNews)
-            updateCategoriesToSharedPreferences(cashedNews)
             it.onSuccess(cashedNews)
         }
     }
@@ -44,29 +39,23 @@ class NewsRepositoryImpl(
         identifiersDao.deleteIdentifiersThatAreMissing(existingIdentifiers)
     }
 
-    private fun updateCategoriesToSharedPreferences(news: List<New>) {
-        val categoriesFromNetwork = news.filter { it.category.isNotEmpty() }
-            .map { Category(it.category) }
-            .distinctBy { it.name }
-        val categoriesFromSharedPreferences = getCategories()
-
-        categoriesFromNetwork.forEach { category ->
-            category.selected = categoriesFromSharedPreferences.find { it.name == category.name }?.selected ?: false
-        }
-
-        saveCategories(categoriesFromNetwork)
-    }
-
     override fun getCachedNews(): List<New> {
         return cashedNews
     }
 
     override fun getCategories(): List<Category> {
-        return sharedPreferences.getCategories()
+        val categories = cashedNews.map { Category(it.category) }.distinctBy { it.name }
+        val selectedCategories = sharedPreferences.getSelectedCategories()
+
+        categories.forEach {
+            it.selected = (it.name in selectedCategories)
+        }
+
+        return categories
     }
 
-    override fun saveCategories(categories: List<Category>) {
-        sharedPreferences.setCategories(categories)
+    override fun saveSelectedCategories(categories: List<Category>) {
+        sharedPreferences.setSelectedCategories(categories.map { it.name })
     }
 
     override fun markNewAsAlreadyRead(id: Long): Completable {
