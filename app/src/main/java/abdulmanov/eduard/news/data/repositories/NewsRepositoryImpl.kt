@@ -3,7 +3,7 @@ package abdulmanov.eduard.news.data.repositories
 import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
 import abdulmanov.eduard.news.data.local.database.models.IdentifierDbModel
 import abdulmanov.eduard.news.data.local.sharedpreferences.NewsSharedPreferences
-import abdulmanov.eduard.news.data.remote.news.NewsProvider
+import abdulmanov.eduard.news.data.remote.NewsProvider
 import abdulmanov.eduard.news.domain.models.news.Category
 import abdulmanov.eduard.news.domain.models.news.New
 import abdulmanov.eduard.news.domain.repositories.NewsRepository

@@ -1,9 +1,8 @@
 package abdulmanov.eduard.news.dagger.modules
 
 import abdulmanov.eduard.news.data.remote.NetworkHelper
-import abdulmanov.eduard.news.data.remote.news.NewsProvider
-import abdulmanov.eduard.news.data.remote.news.VestiProvider
-import abdulmanov.eduard.news.data.remote.streams.TvChannelsProvider
+import abdulmanov.eduard.news.data.remote.NewsProvider
+import abdulmanov.eduard.news.data.remote.TvChannelsProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -14,13 +13,13 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideNewsProvider(client: OkHttpClient): NewsProvider {
-        return VestiProvider(client)
+    fun provideNewsProvider(networkHelper: NetworkHelper): NewsProvider {
+        return NewsProvider(networkHelper)
     }
 
     @Singleton
     @Provides
-    fun provideStreamsProvider(networkHelper: NetworkHelper): TvChannelsProvider{
+    fun provideStreamsProvider(networkHelper: NetworkHelper): TvChannelsProvider {
         return TvChannelsProvider(networkHelper)
     }
 

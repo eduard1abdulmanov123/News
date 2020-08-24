@@ -1,6 +1,5 @@
-package abdulmanov.eduard.news.data.remote.streams
+package abdulmanov.eduard.news.data.remote
 
-import abdulmanov.eduard.news.data.remote.NetworkHelper
 import abdulmanov.eduard.news.domain.models.streams.TvChannel
 import com.google.gson.JsonParser
 import com.google.gson.stream.JsonReader
@@ -29,10 +28,11 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
 
             for(key in jsonObject.keys()){
                 val channelJsonObject = jsonObject.getJSONObject(key)
-                val tvChannelNetworkModel = TvChannelNetworkModel(
-                    id = channelJsonObject.getLong("id"),
-                    name = channelJsonObject.getString("title")
-                )
+                val tvChannelNetworkModel =
+                    TvChannelNetworkModel(
+                        id = channelJsonObject.getLong("id"),
+                        name = channelJsonObject.getString("title")
+                    )
                 add(tvChannelNetworkModel)
             }
         }
@@ -67,7 +67,10 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
             .getJSONObject("m3u8")
             .getString("auto") + ".m3u8"
 
-        return LiveStreamNetworkModel(title, urlLiveStream)
+        return LiveStreamNetworkModel(
+            title,
+            urlLiveStream
+        )
     }
 
     private fun getJsonObjectFromInputStream(inputStream: InputStream):JSONObject{

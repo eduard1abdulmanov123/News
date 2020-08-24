@@ -2,7 +2,7 @@ package abdulmanov.eduard.news.dagger.modules.livestream
 
 import abdulmanov.eduard.news.dagger.annotations.ActivityScope
 import abdulmanov.eduard.news.data.local.sharedpreferences.TvChannelsSharedPreferences
-import abdulmanov.eduard.news.data.remote.streams.TvChannelsProvider
+import abdulmanov.eduard.news.data.remote.TvChannelsProvider
 import abdulmanov.eduard.news.data.repositories.TvChannelsRepositoryImpl
 import abdulmanov.eduard.news.domain.interactors.TvChannelsInteractor
 import abdulmanov.eduard.news.domain.repositories.TvChannelsRepository

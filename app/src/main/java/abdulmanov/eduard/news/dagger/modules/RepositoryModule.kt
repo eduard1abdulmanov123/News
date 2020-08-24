@@ -3,15 +3,13 @@ package abdulmanov.eduard.news.dagger.modules
 import abdulmanov.eduard.news.data.local.database.dao.IdentifiersDao
 import abdulmanov.eduard.news.data.local.sharedpreferences.NewsSharedPreferences
 import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
-import abdulmanov.eduard.news.data.remote.news.NewsProvider
+import abdulmanov.eduard.news.data.remote.NewsProvider
 import abdulmanov.eduard.news.data.repositories.NewsRepositoryImpl
 import abdulmanov.eduard.news.data.repositories.SettingRepositoryImpl
 import abdulmanov.eduard.news.domain.repositories.NewsRepository
 import abdulmanov.eduard.news.domain.repositories.SettingRepository
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module

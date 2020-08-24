@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.data.repositories
 
 import abdulmanov.eduard.news.data.local.sharedpreferences.TvChannelsSharedPreferences
-import abdulmanov.eduard.news.data.remote.streams.TvChannelsProvider
+import abdulmanov.eduard.news.data.remote.TvChannelsProvider
 import abdulmanov.eduard.news.domain.models.streams.TvChannel
 import abdulmanov.eduard.news.domain.repositories.TvChannelsRepository
 import io.reactivex.Single

@@ -1,8 +1,7 @@
-package abdulmanov.eduard.news.data.remote.news
+package abdulmanov.eduard.news.data.remote
 
 import abdulmanov.eduard.news.domain._common.DateFormatter
 import abdulmanov.eduard.news.domain.models.news.New
-import okhttp3.OkHttpClient
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.InputStream
@@ -10,11 +9,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
-class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
+class NewsProvider(private val networkHelper: NetworkHelper) {
 
-    override fun getUrlForNews(): String = "https://www.vesti.ru/vesti.rss"
+    fun getNews(): List<New> {
+        val url = "https://www.vesti.ru/vesti.rss"
+        val response = networkHelper.makeRequestToServer(url)
+        return try {
+            parseNewsXml(response)
+        } catch (e: Exception) {
+            throw Exception(PARSE_ERROR)
+        }
+    }
 
-    override fun parseNewsXml(xml: InputStream): List<New> {
+    private fun parseNewsXml(xml: InputStream): List<New> {
         return mutableListOf<New>().apply {
             val documentBuilderFactory = DocumentBuilderFactory.newInstance()
             val documentBuilder = documentBuilderFactory.newDocumentBuilder()
@@ -78,5 +85,9 @@ class VestiProvider(client: OkHttpClient) : NewsProvider(client) {
             return (node as Element).getAttribute(attributeName)
         }
         return ""
+    }
+
+    companion object {
+        private const val PARSE_ERROR = "Ошибка при разборе XML"
     }
 }
