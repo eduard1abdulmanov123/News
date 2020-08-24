@@ -1,16 +1,14 @@
 package abdulmanov.eduard.news.presentation
 
-import abdulmanov.eduard.news.dagger.ScopeManager
 import abdulmanov.eduard.news.dagger.components.AppComponent
 import abdulmanov.eduard.news.dagger.components.DaggerAppComponent
-import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
+import abdulmanov.eduard.news.dagger.scope.ScopeManager
 import android.app.Application
-import android.os.Build
-import androidx.appcompat.app.AppCompatDelegate
+import android.util.Log
 import com.facebook.stetho.Stetho
 import com.squareup.picasso.LruCache
 import com.squareup.picasso.Picasso
-import javax.inject.Inject
+import io.reactivex.plugins.RxJavaPlugins
 
 class App : Application() {
 
@@ -24,6 +22,12 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        RxJavaPlugins.setErrorHandler {
+            Log.d("ThrowableLog", it.message.toString())
+            it.stackTrace.forEach {
+                Log.d("ThrowableLog", it.toString())
+            }
+        }
         initPicasso()
         Stetho.initializeWithDefaults(this)
     }

@@ -4,10 +4,7 @@ import abdulmanov.eduard.news.BuildConfig
 import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
 import abdulmanov.eduard.news.domain.models.feedback.FeedbackData
 import abdulmanov.eduard.news.domain.repositories.SettingRepository
-import android.content.SharedPreferences
 import android.os.Build
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.edit
 
 class SettingRepositoryImpl(private val sharedPreferences: SettingSharedPreferences) : SettingRepository {
 

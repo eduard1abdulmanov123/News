@@ -13,6 +13,16 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
 
     fun getTvChannels(): List<TvChannel>{
         val tvChannels = getTvChannelsNetworkModel()
+        /*return try {
+            tvChannels.performActionsParallel {
+                val liveId = getLiveIdForIdTvChannel(it.id)
+                val liveStream = getLiveStreamForLiveId(liveId)
+                TvChannel(it.id, it.name, liveStream.title, liveStream.url)
+            }
+        }catch (e: InterruptedException){
+            Thread.currentThread().interrupt()
+            return listOf()
+        }*/
         return tvChannels.performActionsParallel {
             val liveId = getLiveIdForIdTvChannel(it.id)
             val liveStream = getLiveStreamForLiveId(liveId)
@@ -43,7 +53,12 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
         val tasks = this.map {
             Callable { action.invoke(it) }
         }
-        return pool.invokeAll(tasks).map { it.get() }
+        return try {
+            pool.invokeAll(tasks).map { it.get() }
+        }catch (e: InterruptedException){
+            pool.shutdownNow()
+            listOf()
+        }
     }
 
     private fun getLiveIdForIdTvChannel(id:Long): Long {

@@ -14,7 +14,7 @@ abstract class LiveStreamViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(LiveStreamViewModel::class)
-    abstract fun bindLiveStreamViewModel(viewModelLive: LiveStreamViewModel): ViewModel
+    abstract fun bindLiveStreamViewModel(viewModel: LiveStreamViewModel): ViewModel
 
     @Binds
     @IntoMap

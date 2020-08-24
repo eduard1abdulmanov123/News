@@ -30,7 +30,6 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
-
         addOnBackPressedCallback(viewModel::onBackCommandClick)
     }
 
@@ -41,7 +40,6 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUI()
 
         viewModel.new.observe(viewLifecycleOwner, Observer(this::setData))
@@ -86,8 +84,6 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
     }
 
     companion object {
-        private const val WIDTH_TO_HEIGHT_RATIO = 1.76
-
         private const val ARGUMENT_NEW = "ARGUMENT_NEW"
 
         fun newInstance(new: NewPresentationModel): DetailsNewFragment {
