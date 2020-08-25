@@ -77,7 +77,7 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
     override fun onDetach() {
         super.onDetach()
         if(!requireActivity().isChangingConfigurations){
-            (requireActivity().application as App).scopeManager.attachNewsComponent()
+            (requireActivity().application as App).scopeManager.detachNewsComponent()
         }
     }
 
