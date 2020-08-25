@@ -36,6 +36,6 @@ fun View.visibility(visible: Boolean, type: Int = View.GONE) {
     this.visibility = if (visible) View.VISIBLE else type
 }
 
-fun View.setOnClickListener(onClickListener:()->Unit){
+fun View.setOnClickListener(onClickListener: () -> Unit) {
     this.setOnClickListener { onClickListener.invoke() }
 }

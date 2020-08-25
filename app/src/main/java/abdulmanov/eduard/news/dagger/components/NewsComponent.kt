@@ -15,8 +15,8 @@ import dagger.Subcomponent
 interface NewsComponent {
 
     @Subcomponent.Factory
-    interface Factory{
-        fun create():NewsComponent
+    interface Factory {
+        fun create(): NewsComponent
     }
 
     fun inject(newsHostContainerFragment: NewsHostContainerFragment)

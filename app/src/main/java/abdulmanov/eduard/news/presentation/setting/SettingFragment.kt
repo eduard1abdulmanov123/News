@@ -38,7 +38,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
 
     override fun onDetach() {
         super.onDetach()
-        if(!requireActivity().isChangingConfigurations) {
+        if (!requireActivity().isChangingConfigurations) {
             (requireActivity().application as App).scopeManager.detachSettingComponent()
         }
     }

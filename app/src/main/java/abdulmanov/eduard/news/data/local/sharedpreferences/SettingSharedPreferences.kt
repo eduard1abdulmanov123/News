@@ -6,7 +6,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 
-class SettingSharedPreferences(app:Application) {
+class SettingSharedPreferences(app: Application) {
 
     private val sharedPreferences = app.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
@@ -18,7 +18,7 @@ class SettingSharedPreferences(app:Application) {
         return sharedPreferences.getInt(PREF_THEME_TYPE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
-    companion object{
+    companion object {
         private const val PREFERENCES_NAME = "${BuildConfig.APPLICATION_ID}_setting_pref"
         private const val PREF_THEME_TYPE = "theme_type"
     }

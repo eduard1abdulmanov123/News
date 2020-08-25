@@ -20,5 +20,4 @@ abstract class LiveStreamViewModelModule {
     @IntoMap
     @ViewModelKey(ChangeTvChannelViewModel::class)
     abstract fun bindChangeTvChannelViewModel(viewModel: ChangeTvChannelViewModel): ViewModel
-
 }

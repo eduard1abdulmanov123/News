@@ -13,7 +13,7 @@ import javax.inject.Named
 class LiveStreamViewModel @Inject constructor(
     @Named(CiceroneConstants.MAIN_ROUTER) private val router: Router,
     private val tvChannelsInteractor: TvChannelsInteractor
-):BaseViewModel() {
+) : BaseViewModel() {
 
     private val _state = MutableLiveData<Int>()
     val state: LiveData<Int>
@@ -32,30 +32,30 @@ class LiveStreamViewModel @Inject constructor(
         refresh()
     }
 
-    fun refresh(){
+    fun refresh() {
         _state.value = toggleState(ACTION_REFRESH)
     }
 
-    fun prepareTvChannel(){
+    fun prepareTvChannel() {
         _state.value = toggleState(ACTION_PREPARE_TV_CHANNEL)
     }
 
-    fun errorWhilePreparingTvChannel(){
+    fun errorWhilePreparingTvChannel() {
         _state.value = toggleState(ACTION_ERROR_WHILE_PREPARING_TV_CHANNEL)
     }
 
-    fun tvChannelHaveBeenPrepared(){
+    fun tvChannelHaveBeenPrepared() {
         _state.value = toggleState(ACTION_TV_CHANNEL_HAVE_BEEN_PREPARED)
     }
 
-    fun changeTvChannel(){
+    fun changeTvChannel() {
         _selectedTvChannel.value = tvChannelsInteractor.getSelectedTvChannel().blockingGet()
     }
 
-    private fun toggleState(action: Int): Int{
-        return when(action){
+    private fun toggleState(action: Int): Int {
+        return when (action) {
             ACTION_REFRESH -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_EMPTY, VIEW_STATE_ERROR -> {
                         loadSelectedTvChannel()
                         VIEW_STATE_PROGRESS
@@ -64,7 +64,7 @@ class LiveStreamViewModel @Inject constructor(
                 }
             }
             ACTION_LOAD_DATA -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_PROGRESS -> {
                         VIEW_STATE_DATA
                     }
@@ -72,7 +72,7 @@ class LiveStreamViewModel @Inject constructor(
                 }
             }
             ACTION_ERROR -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_PROGRESS -> {
                         VIEW_STATE_ERROR
                     }
@@ -80,15 +80,15 @@ class LiveStreamViewModel @Inject constructor(
                 }
             }
             ACTION_PREPARE_TV_CHANNEL -> {
-                when(_state.value){
-                    VIEW_STATE_DATA, VIEW_STATE_ERROR_WHILE_PREPARING_TV_CHANNEL,VIEW_STATE_TV_CHANNEL_HAVE_BEEN_PREPARED -> {
+                when (_state.value) {
+                    VIEW_STATE_DATA, VIEW_STATE_ERROR_WHILE_PREPARING_TV_CHANNEL, VIEW_STATE_TV_CHANNEL_HAVE_BEEN_PREPARED -> {
                         VIEW_STATE_PREPARE_TV_CHANNEL
                     }
                     else -> _state.value!!
                 }
             }
             ACTION_ERROR_WHILE_PREPARING_TV_CHANNEL -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_PREPARE_TV_CHANNEL -> {
                         VIEW_STATE_ERROR_WHILE_PREPARING_TV_CHANNEL
                     }
@@ -96,7 +96,7 @@ class LiveStreamViewModel @Inject constructor(
                 }
             }
             ACTION_TV_CHANNEL_HAVE_BEEN_PREPARED -> {
-                when(_state.value){
+                when (_state.value) {
                     VIEW_STATE_PREPARE_TV_CHANNEL -> {
                         VIEW_STATE_TV_CHANNEL_HAVE_BEEN_PREPARED
                     }
@@ -107,10 +107,10 @@ class LiveStreamViewModel @Inject constructor(
         }
     }
 
-    private fun loadSelectedTvChannel(){
+    private fun loadSelectedTvChannel() {
         tvChannelsInteractor.getSelectedTvChannel().safeSubscribe(
             {
-               _state.value = toggleState(ACTION_LOAD_DATA)
+                _state.value = toggleState(ACTION_LOAD_DATA)
                 _selectedTvChannel.value = it
             },
             {
@@ -122,7 +122,7 @@ class LiveStreamViewModel @Inject constructor(
 
     fun onBackCommandClick() = router.exit()
 
-    companion object{
+    companion object {
         const val ACTION_REFRESH = 1
         const val ACTION_LOAD_DATA = 2
         const val ACTION_ERROR = 3

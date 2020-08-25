@@ -19,7 +19,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideNetworkHelper(client: OkHttpClient):NetworkHelper {
+    fun provideNetworkHelper(client: OkHttpClient): NetworkHelper {
         return NetworkHelper(client)
     }
 

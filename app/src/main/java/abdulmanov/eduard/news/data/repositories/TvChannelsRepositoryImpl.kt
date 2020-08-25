@@ -9,7 +9,7 @@ import io.reactivex.Single
 class TvChannelsRepositoryImpl(
     private val tvChannelsProvider: TvChannelsProvider,
     private val sharedPreferences: TvChannelsSharedPreferences
-): TvChannelsRepository {
+) : TvChannelsRepository {
 
     private var cachedTvChannels: List<TvChannel>? = null
 
@@ -21,7 +21,7 @@ class TvChannelsRepositoryImpl(
         }
     }
 
-    private fun prepareTvChannels(tvChannels: List<TvChannel>){
+    private fun prepareTvChannels(tvChannels: List<TvChannel>) {
         val idSelectedTvChannel = getIdSelectedTvChannel()
 
         tvChannels.forEach {

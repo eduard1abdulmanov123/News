@@ -14,7 +14,7 @@ class ScopeManager(private val appComponent: AppComponent) {
     private var settingComponent: SettingComponent? = null
 
     fun attachNewsComponent(): NewsComponent {
-        if(newsComponent == null){
+        if (newsComponent == null) {
             newsComponent = appComponent.newsComponent().create()
         }
         return newsComponent!!
@@ -25,7 +25,7 @@ class ScopeManager(private val appComponent: AppComponent) {
     }
 
     fun attachLiveStreamComponent(): LiveStreamComponent {
-        if(liveStreamComponent == null){
+        if (liveStreamComponent == null) {
             liveStreamComponent = appComponent.liveStreamComponent().create()
         }
         return liveStreamComponent!!
@@ -36,7 +36,7 @@ class ScopeManager(private val appComponent: AppComponent) {
     }
 
     fun attachSettingComponent(): SettingComponent {
-        if(settingComponent == null){
+        if (settingComponent == null) {
             settingComponent = appComponent.settingComponent().create()
         }
         return settingComponent!!

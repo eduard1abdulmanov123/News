@@ -18,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_dialog_change_tv_channel.*
 import javax.inject.Inject
 
-class ChangeTvChannelBottomSheetDialog: BottomSheetDialogFragment(), TvChannelsAdapter.TvChannelsClickListener {
+class ChangeTvChannelBottomSheetDialog : BottomSheetDialogFragment(), TvChannelsAdapter.TvChannelsClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -32,7 +32,6 @@ class ChangeTvChannelBottomSheetDialog: BottomSheetDialogFragment(), TvChannelsA
         (requireActivity() as LiveStreamActivity).liveStreamComponent.inject(this)
 
         callback = context as ChangeTvChannelCallback
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +69,7 @@ class ChangeTvChannelBottomSheetDialog: BottomSheetDialogFragment(), TvChannelsA
         }
     }
 
-    interface ChangeTvChannelCallback{
+    interface ChangeTvChannelCallback {
         fun onChangeTvChannel()
     }
 }

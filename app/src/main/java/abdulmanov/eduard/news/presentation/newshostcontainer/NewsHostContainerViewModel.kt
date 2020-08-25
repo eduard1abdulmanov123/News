@@ -8,7 +8,7 @@ import javax.inject.Named
 
 class NewsHostContainerViewModel @Inject constructor(
     @Named(CiceroneConstants.MAIN_ROUTER) private val router: Router
-):ViewModel() {
+) : ViewModel() {
 
     fun onBackCommandClick() = router.exit()
 }

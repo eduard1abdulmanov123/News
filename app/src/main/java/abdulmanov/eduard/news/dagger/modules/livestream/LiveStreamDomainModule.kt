@@ -14,7 +14,7 @@ class LiveStreamDomainModule {
 
     @ActivityScope
     @Provides
-    fun provideTvChannelsRepository(tvChannelsProvider: TvChannelsProvider, sharedPreferences: TvChannelsSharedPreferences): TvChannelsRepository{
+    fun provideTvChannelsRepository(tvChannelsProvider: TvChannelsProvider, sharedPreferences: TvChannelsSharedPreferences): TvChannelsRepository {
         return TvChannelsRepositoryImpl(tvChannelsProvider, sharedPreferences)
     }
 

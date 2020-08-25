@@ -27,7 +27,7 @@ interface AppComponent {
         fun create(@BindsInstance context: Context, @BindsInstance app: Application): AppComponent
     }
 
-    fun liveStreamComponent():LiveStreamComponent.Factory
+    fun liveStreamComponent(): LiveStreamComponent.Factory
 
     fun settingComponent(): SettingComponent.Factory
 

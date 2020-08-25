@@ -12,12 +12,11 @@ import dagger.Subcomponent
 interface LiveStreamComponent {
 
     @Subcomponent.Factory
-    interface Factory{
-        fun create():LiveStreamComponent
+    interface Factory {
+        fun create(): LiveStreamComponent
     }
 
     fun inject(liveStreamActivity: LiveStreamActivity)
 
     fun inject(changeTvChannelBottomSheetDialog: ChangeTvChannelBottomSheetDialog)
-
 }

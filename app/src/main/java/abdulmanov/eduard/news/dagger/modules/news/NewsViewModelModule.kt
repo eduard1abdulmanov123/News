@@ -32,5 +32,4 @@ abstract class NewsViewModelModule {
     @IntoMap
     @ViewModelKey(DetailsNewViewModel::class)
     abstract fun bindDetailsNewViewModel(viewModel: DetailsNewViewModel): ViewModel
-
 }

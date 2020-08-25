@@ -25,7 +25,7 @@ class App : Application() {
         initPicasso()
         Stetho.initializeWithDefaults(this)
     }
-    
+
     private fun initPicasso() {
         val picasso = Picasso.Builder(this)
             .memoryCache(LruCache(MAX_CACHE))

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_tv_channel.view.*
 
 class TvChannelsAdapter(
     private val tvChannelsClickListener: TvChannelsClickListener? = null
-): RecyclerView.Adapter<TvChannelsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TvChannelsAdapter.ViewHolder>() {
 
     private val tvcChannels = mutableListOf<TvChannel>()
 
@@ -48,10 +48,9 @@ class TvChannelsAdapter(
                 separator.visibility(adapterPosition != tvcChannels.size - 1, View.INVISIBLE)
             }
         }
-
     }
 
-    interface TvChannelsClickListener{
+    interface TvChannelsClickListener {
         fun onClickTvChannel(tvChannel: TvChannel)
     }
 }

@@ -15,7 +15,7 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    object NewsHostContainer: SupportAppScreen() {
+    object NewsHostContainer : SupportAppScreen() {
         override fun getFragment() = NewsHostContainerFragment.newInstance()
     }
 
@@ -27,7 +27,7 @@ object Screens {
         override fun getFragment() = DetailsNewFragment.newInstance(new)
     }
 
-    data class LiveStream(val context: Context): SupportAppScreen(){
+    data class LiveStream(val context: Context) : SupportAppScreen() {
         override fun getActivityIntent(context: Context) = LiveStreamActivity.getIntent(context)
     }
 

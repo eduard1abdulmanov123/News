@@ -65,7 +65,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
 
     override fun onDestroy() {
         super.onDestroy()
-        if(!isChangingConfigurations){
+        if (!isChangingConfigurations) {
             (application as App).scopeManager.detachLiveStreamComponent()
         }
     }
@@ -79,7 +79,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
     }
 
     override fun handlerVisibilityMenuItems(visibility: Boolean) {
-        for(menuItem in streamToolbar.menu.iterator()){
+        for (menuItem in streamToolbar.menu.iterator()) {
             menuItem.isVisible = visibility
         }
     }
@@ -88,7 +88,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
         viewModel.changeTvChannel()
     }
 
-    private fun initUI(){
+    private fun initUI() {
         streamToolbar.run {
             setNavigationIcon(R.drawable.ic_arrow_back_white)
             setNavigationOnClickListener { viewModel.onBackCommandClick() }
@@ -108,7 +108,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.openChangeTvChannelItem -> {
                 val dialog = ChangeTvChannelBottomSheetDialog.newInstance()
                 dialog.show(supportFragmentManager, ChangeTvChannelBottomSheetDialog.TAG)
@@ -117,13 +117,13 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
         return true
     }
 
-    private fun changeImageAccordingStateVideoView(isPause: Boolean){
-        val imageForLiveStreamState = if(isPause) R.drawable.ic_play_white else R.drawable.ic_pause_white
+    private fun changeImageAccordingStateVideoView(isPause: Boolean) {
+        val imageForLiveStreamState = if (isPause) R.drawable.ic_play_white else R.drawable.ic_pause_white
         liveStreamStateManagementImageView.setImageResource(imageForLiveStreamState)
     }
 
-    private fun setState(state: Int){
-        when(state){
+    private fun setState(state: Int) {
+        when (state) {
             LiveStreamViewModel.VIEW_STATE_PROGRESS -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.GONE
                 liveStreamStateManagementImageView.visibility = View.GONE
@@ -169,14 +169,14 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
         }
     }
 
-    private fun setData(channel: TvChannel){
+    private fun setData(channel: TvChannel) {
         streamToolbar.title = channel.title
         customVideoView.setVideoPath(channel.urlLiveStream)
         viewModel.prepareTvChannel()
     }
 
-    companion object{
-        fun getIntent(context: Context): Intent{
+    companion object {
+        fun getIntent(context: Context): Intent {
             return Intent(context, LiveStreamActivity::class.java)
         }
     }

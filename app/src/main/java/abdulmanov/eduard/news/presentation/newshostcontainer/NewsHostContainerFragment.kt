@@ -25,7 +25,7 @@ import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 import javax.inject.Named
 
-class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container) {
+class NewsHostContainerFragment : Fragment(R.layout.fragment_news_host_container) {
 
     lateinit var newsComponent: NewsComponent
 
@@ -39,7 +39,7 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator: SupportAppNavigator by lazy {
-        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.newsFragmentContainer){
+        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.newsFragmentContainer) {
             override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
                 if (command is Forward && currentFragment is NewsFragment && nextFragment is DetailsNewFragment) {
                     animateTransitionFromNewsFragmentToDetailsNewFragment(currentFragment, nextFragment, fragmentTransaction)
@@ -59,7 +59,7 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(childFragmentManager.findFragmentById(R.id.newsFragmentContainer) == null){
+        if (childFragmentManager.findFragmentById(R.id.newsFragmentContainer) == null) {
             navigator.applyCommands(arrayOf(Replace(Screens.News)))
         }
     }
@@ -76,7 +76,7 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
 
     override fun onDetach() {
         super.onDetach()
-        if(!requireActivity().isChangingConfigurations){
+        if (!requireActivity().isChangingConfigurations) {
             (requireActivity().application as App).scopeManager.detachNewsComponent()
         }
     }
@@ -122,8 +122,8 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
         fragmentTransaction.setReorderingAllowed(true)
     }
 
-    companion object{
-        fun newInstance():NewsHostContainerFragment{
+    companion object {
+        fun newInstance(): NewsHostContainerFragment {
             return NewsHostContainerFragment()
         }
     }

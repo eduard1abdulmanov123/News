@@ -7,10 +7,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 
 class DisappearingConstraintLayout @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private var hideRunnable:Runnable
+    private var hideRunnable: Runnable
     private var isShow = true
 
     init {
@@ -27,7 +29,7 @@ class DisappearingConstraintLayout @JvmOverloads constructor(
             show(isShow)
 
             handler.removeCallbacks(hideRunnable)
-            if(isShow)
+            if (isShow)
                 handler.postDelayed(hideRunnable, DELAY_BEFORE_DISAPPEARING)
         }
         hide()
@@ -42,23 +44,22 @@ class DisappearingConstraintLayout @JvmOverloads constructor(
         return !isShow
     }
 
-    private fun hide(){
+    private fun hide() {
         handler.removeCallbacks(hideRunnable)
         handler.postDelayed(hideRunnable, DELAY_BEFORE_DISAPPEARING)
     }
 
-    private fun show(show:Boolean){
-        val alpha = if(show) ALPHA_VISIBLE else ALPHA_INVISIBLE
+    private fun show(show: Boolean) {
+        val alpha = if (show) ALPHA_VISIBLE else ALPHA_INVISIBLE
 
         animate()
             .alpha(alpha)
             .setDuration(ANIMATE_DURATION)
             .setInterpolator(FastOutSlowInInterpolator())
             .start()
-
     }
 
-    companion object{
+    companion object {
         private const val ALPHA_VISIBLE = 1f
         private const val ALPHA_INVISIBLE = 0f
         private const val ANIMATE_DURATION = 300L

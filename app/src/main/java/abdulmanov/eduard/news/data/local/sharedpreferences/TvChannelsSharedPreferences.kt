@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 
-class TvChannelsSharedPreferences(app:Application) {
+class TvChannelsSharedPreferences(app: Application) {
 
     private val sharedPreferences = app.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
@@ -17,7 +17,7 @@ class TvChannelsSharedPreferences(app:Application) {
         return sharedPreferences.getLong(PREF_ID_SELECTED_TV_CHANNEL, -1L)
     }
 
-    companion object{
+    companion object {
         private const val PREFERENCES_NAME = "${BuildConfig.APPLICATION_ID}_tv_channels"
         private const val PREF_ID_SELECTED_TV_CHANNEL = "id_selected_tv_channel"
     }

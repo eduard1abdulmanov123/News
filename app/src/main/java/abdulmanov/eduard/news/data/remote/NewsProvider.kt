@@ -58,11 +58,11 @@ class NewsProvider(private val networkHelper: NetworkHelper) {
         return DateFormatter.convertDateToBasicFormat(dateStr, originalDateFormat)
     }
 
-    private fun getFullDescription(fullDescription: String): String{
-        val paragraphs = fullDescription.split("\r\n").filter { it.isNotEmpty() && it != " "}
+    private fun getFullDescription(fullDescription: String): String {
+        val paragraphs = fullDescription.split("\r\n").filter { it.isNotEmpty() && it != " " }
 
         val sb = StringBuilder()
-        for(paragraph in paragraphs){
+        for (paragraph in paragraphs) {
             sb.append(paragraph)
             sb.append("\n\n")
         }

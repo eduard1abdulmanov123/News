@@ -23,7 +23,7 @@ class NetworkHelper(private val client: OkHttpClient) {
         }
     }
 
-    companion object{
+    companion object {
         private const val SERVER_ERROR = "Ошибка сервера"
         private const val NETWORK_ERROR = "Неполадки с интернетом.\nПопробуйте воспользоваться другой сетью-мобильной или wi-fi."
     }

@@ -12,8 +12,8 @@ import dagger.Subcomponent
 interface SettingComponent {
 
     @Subcomponent.Factory
-    interface Factory{
-        fun create():SettingComponent
+    interface Factory {
+        fun create(): SettingComponent
     }
 
     fun inject(settingFragment: SettingFragment)

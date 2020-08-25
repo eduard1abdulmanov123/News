@@ -11,7 +11,7 @@ import java.util.concurrent.Executors
 
 class TvChannelsProvider(private val networkHelper: NetworkHelper) {
 
-    fun getTvChannels(): List<TvChannel>{
+    fun getTvChannels(): List<TvChannel> {
         val tvChannels = getTvChannelsNetworkModel()
         return tvChannels.performActionsParallel {
             val liveId = getLiveIdForIdTvChannel(it.id)
@@ -20,13 +20,13 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
         }
     }
 
-    private fun getTvChannelsNetworkModel(): List<TvChannelNetworkModel>{
+    private fun getTvChannelsNetworkModel(): List<TvChannelNetworkModel> {
         return mutableListOf<TvChannelNetworkModel>().apply {
             val url = "https://live.russia.tv/api/channels"
             val response = networkHelper.makeRequestToServer(url)
             val jsonObject = getJsonObjectFromInputStream(response)
 
-            for(key in jsonObject.keys()){
+            for (key in jsonObject.keys()) {
                 val channelJsonObject = jsonObject.getJSONObject(key)
                 val tvChannelNetworkModel =
                     TvChannelNetworkModel(
@@ -38,20 +38,20 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
         }
     }
 
-    private fun <T, V> List<T>.performActionsParallel(action:(T)->V):List<V>{
+    private fun <T, V> List<T>.performActionsParallel(action: (T) -> V): List<V> {
         val pool = Executors.newFixedThreadPool(this.size)
         val tasks = this.map {
             Callable { action.invoke(it) }
         }
         return try {
             pool.invokeAll(tasks).map { it.get() }
-        }catch (e: InterruptedException){
+        } catch (e: InterruptedException) {
             pool.shutdownNow()
             listOf()
         }
     }
 
-    private fun getLiveIdForIdTvChannel(id:Long): Long {
+    private fun getLiveIdForIdTvChannel(id: Long): Long {
         val url = "https://live.russia.tv/api/now/channel/$id"
         val response = networkHelper.makeRequestToServer(url)
         val jsonObject = getJsonObjectFromInputStream(response)
@@ -78,7 +78,7 @@ class TvChannelsProvider(private val networkHelper: NetworkHelper) {
         )
     }
 
-    private fun getJsonObjectFromInputStream(inputStream: InputStream):JSONObject{
+    private fun getJsonObjectFromInputStream(inputStream: InputStream): JSONObject {
         val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
         val jsonReader = JsonReader(inputStreamReader)
         val jsonElement = JsonParser.parseReader(jsonReader)
