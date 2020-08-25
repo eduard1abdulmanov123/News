@@ -1,6 +1,7 @@
 package abdulmanov.eduard.news.dagger.components
 
 import abdulmanov.eduard.news.dagger.modules.app.*
+import abdulmanov.eduard.news.data.local.sharedpreferences.SettingSharedPreferences
 import abdulmanov.eduard.news.presentation.main.MainActivity
 import android.app.Application
 import android.content.Context
@@ -34,6 +35,8 @@ interface AppComponent {
     fun newsComponent(): NewsComponent.Factory
 
     fun inject(mainActivity: MainActivity)
+
+    fun settingSharedPreferences(): SettingSharedPreferences
 }
 
 @Module(subcomponents = [LiveStreamComponent::class, SettingComponent::class, NewsComponent::class])
