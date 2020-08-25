@@ -2,7 +2,7 @@ package abdulmanov.eduard.news.presentation.news
 
 import abdulmanov.eduard.news.domain.interactors.NewsInteractor
 import abdulmanov.eduard.news.presentation._common.base.BaseViewModel
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.mappers.NewsToPresentationModelsMapper
 import abdulmanov.eduard.news.presentation.news.models.NewPresentationModel
@@ -15,8 +15,8 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class NewsViewModel @Inject constructor(
-    @Named(NavigationConstants.MAIN_ROUTER) private val mainRouter: Router,
-    @Named(NavigationConstants.NEWS_ROUTER) private val newsRouter: Router,
+    @Named(CiceroneConstants.MAIN_ROUTER) private val mainRouter: Router,
+    @Named(CiceroneConstants.NEWS_ROUTER) private val newsRouter: Router,
     private val newsInteractor: NewsInteractor,
     private val mapper: NewsToPresentationModelsMapper
 ) : BaseViewModel() {

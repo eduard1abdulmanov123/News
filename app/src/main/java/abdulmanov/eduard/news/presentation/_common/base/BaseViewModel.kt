@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 abstract class BaseViewModel : ViewModel() {
@@ -21,9 +20,5 @@ abstract class BaseViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError)
         compositeDisposable.add(disposable)
-    }
-
-    protected fun Disposable.connect() {
-        compositeDisposable.add(this)
     }
 }

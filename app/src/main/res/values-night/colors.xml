@@ -25,7 +25,7 @@
     <color name="colorTextForCategorySelected">#ffffff</color>
     <color name="colorTextForCategoryNormal">#000000</color>
     <color name="colorBackgroundForCategorySelected">@color/colorAccent</color>
-    <color name="colorBackgroundForCategoryNormal">#BEF3F3F3</color>
+    <color name="colorBackgroundForCategoryNormal">#BFF5F5F5</color>
 
     <!--changeChannel-->
     <color name="colorStrokeCircleNotSelected">#828282</color>

@@ -2,7 +2,7 @@ package abdulmanov.eduard.news.presentation.main
 
 import abdulmanov.eduard.news.R
 import abdulmanov.eduard.news.presentation.App
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.newshostcontainer.NewsHostContainerFragment
 import abdulmanov.eduard.news.presentation.setting.SettingFragment
@@ -22,7 +22,7 @@ import javax.inject.Named
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    @Named(NavigationConstants.MAIN_NAVIGATOR_HOLDER)
+    @Named(CiceroneConstants.MAIN_NAVIGATOR_HOLDER)
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator = object : SupportAppNavigator(this, R.id.fragmentContainer) {

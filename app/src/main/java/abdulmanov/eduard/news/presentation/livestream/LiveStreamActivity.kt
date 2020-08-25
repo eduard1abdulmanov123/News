@@ -8,7 +8,7 @@ import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.setOnClickListener
 import abdulmanov.eduard.news.presentation.livestream.changechanneldialog.ChangeTvChannelBottomSheetDialog
 import abdulmanov.eduard.news.presentation.livestream.helper.VideoActivity
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -34,7 +34,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
     private val viewModel by viewModels<LiveStreamViewModel> { viewModelFactory }
 
     @Inject
-    @Named(NavigationConstants.MAIN_NAVIGATOR_HOLDER)
+    @Named(CiceroneConstants.MAIN_NAVIGATOR_HOLDER)
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator = SupportAppNavigator(this, -1)
@@ -96,13 +96,13 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
             setOnMenuItemClickListener(this@LiveStreamActivity::onOptionsItemSelected)
         }
 
-        customViewView.run {
+        customVideoView.run {
             setOnCallbackError(viewModel::errorWhilePreparingTvChannel)
             setOnPreparedListener(viewModel::tvChannelHaveBeenPrepared)
             setOnCallbackVideoState(this@LiveStreamActivity::changeImageAccordingStateVideoView)
         }
 
-        liveStreamStateManagementImageView.setOnClickListener(customViewView::toggleVideoState)
+        liveStreamStateManagementImageView.setOnClickListener(customVideoView::toggleVideoState)
 
         tryAgainTextView.setOnClickListener(viewModel::refresh)
     }
@@ -127,42 +127,42 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
             LiveStreamViewModel.VIEW_STATE_PROGRESS -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.GONE
                 liveStreamStateManagementImageView.visibility = View.GONE
-                customViewView.visibility = View.GONE
+                customVideoView.visibility = View.GONE
                 errorContainerConstraintLayout.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
             }
             LiveStreamViewModel.VIEW_STATE_ERROR -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.GONE
                 liveStreamStateManagementImageView.visibility = View.GONE
-                customViewView.visibility = View.GONE
+                customVideoView.visibility = View.GONE
                 errorContainerConstraintLayout.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
             }
             LiveStreamViewModel.VIEW_STATE_DATA -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.VISIBLE
                 liveStreamStateManagementImageView.visibility = View.GONE
-                customViewView.visibility = View.GONE
+                customVideoView.visibility = View.GONE
                 errorContainerConstraintLayout.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
             }
             LiveStreamViewModel.VIEW_STATE_PREPARE_TV_CHANNEL -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.VISIBLE
                 liveStreamStateManagementImageView.visibility = View.GONE
-                customViewView.visibility = View.INVISIBLE
+                customVideoView.visibility = View.INVISIBLE
                 errorContainerConstraintLayout.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
             }
             LiveStreamViewModel.VIEW_STATE_ERROR_WHILE_PREPARING_TV_CHANNEL -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.VISIBLE
                 liveStreamStateManagementImageView.visibility = View.GONE
-                customViewView.visibility = View.GONE
+                customVideoView.visibility = View.GONE
                 errorContainerConstraintLayout.visibility = View.GONE
                 progressBar.visibility = View.GONE
             }
             LiveStreamViewModel.VIEW_STATE_TV_CHANNEL_HAVE_BEEN_PREPARED -> {
                 liveStreamManagementContainerConstraintLayout.visibility = View.VISIBLE
                 liveStreamStateManagementImageView.visibility = View.VISIBLE
-                customViewView.visibility = View.VISIBLE
+                customVideoView.visibility = View.VISIBLE
                 errorContainerConstraintLayout.visibility = View.GONE
                 progressBar.visibility = View.GONE
             }
@@ -171,7 +171,7 @@ class LiveStreamActivity : VideoActivity(), ChangeTvChannelBottomSheetDialog.Cha
 
     private fun setData(channel: TvChannel){
         streamToolbar.title = channel.title
-        customViewView.setVideoPath(channel.urlLiveStream)
+        customVideoView.setVideoPath(channel.urlLiveStream)
         viewModel.prepareTvChannel()
     }
 

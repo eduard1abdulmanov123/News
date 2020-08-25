@@ -14,9 +14,7 @@ class FilterNewsDelegateAdapter(
         quantitySelectedCategoryTextView.visibility(item.quantitySelectedCategories != 0)
         quantitySelectedCategoryTextView.text = item.quantitySelectedCategories.toString()
 
-        itemView.setOnClickListener {
-            filterNewsClickListener?.onClickFilterNews()
-        }
+        itemView.setOnClickListener { filterNewsClickListener?.onClickFilterNews() }
     }
 
     override fun isForViewType(item: Any) = item is FilterNewsPresentationModel

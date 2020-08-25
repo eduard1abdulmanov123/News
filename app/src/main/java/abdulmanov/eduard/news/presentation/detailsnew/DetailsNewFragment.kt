@@ -38,6 +38,7 @@ class DetailsNewFragment : Fragment(R.layout.fragment_details_new) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initUI()
 
         viewModel.new.observe(viewLifecycleOwner, Observer(this::setData))

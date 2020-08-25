@@ -1,7 +1,7 @@
 package abdulmanov.eduard.news.dagger.modules.news
 
 import abdulmanov.eduard.news.dagger.annotations.FragmentScope
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -15,14 +15,14 @@ class NewsNavigationModule {
 
     @FragmentScope
     @Provides
-    @Named(NavigationConstants.NEWS_ROUTER)
+    @Named(CiceroneConstants.NEWS_ROUTER)
     fun provideRouter(): Router {
         return cicerone.router
     }
 
     @FragmentScope
     @Provides
-    @Named(NavigationConstants.NEWS_NAVIGATOR_HOLDER)
+    @Named(CiceroneConstants.NEWS_NAVIGATOR_HOLDER)
     fun provideNavigationHolder(): NavigatorHolder {
         return cicerone.navigatorHolder
     }

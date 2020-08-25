@@ -9,7 +9,7 @@
     android:background="@android:color/black">
 
     <abdulmanov.eduard.news.presentation.livestream.helper.CustomVideoView
-        android:id="@+id/customViewView"
+        android:id="@+id/customVideoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"/>

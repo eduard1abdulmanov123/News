@@ -14,13 +14,13 @@ class LiveStreamDomainModule {
 
     @ActivityScope
     @Provides
-    fun provideTvChannelsInteractor(repository: TvChannelsRepository): TvChannelsInteractor {
-        return TvChannelsInteractor(repository)
+    fun provideTvChannelsRepository(tvChannelsProvider: TvChannelsProvider, sharedPreferences: TvChannelsSharedPreferences): TvChannelsRepository{
+        return TvChannelsRepositoryImpl(tvChannelsProvider, sharedPreferences)
     }
 
     @ActivityScope
     @Provides
-    fun provideTvChannelsRepository(tvChannelsProvider: TvChannelsProvider, sharedPreferences: TvChannelsSharedPreferences): TvChannelsRepository{
-        return TvChannelsRepositoryImpl(tvChannelsProvider, sharedPreferences)
+    fun provideTvChannelsInteractor(repository: TvChannelsRepository): TvChannelsInteractor {
+        return TvChannelsInteractor(repository)
     }
 }

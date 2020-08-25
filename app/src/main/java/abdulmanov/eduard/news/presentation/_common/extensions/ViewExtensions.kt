@@ -37,7 +37,5 @@ fun View.visibility(visible: Boolean, type: Int = View.GONE) {
 }
 
 fun View.setOnClickListener(onClickListener:()->Unit){
-    this.setOnClickListener {
-        onClickListener.invoke()
-    }
+    this.setOnClickListener { onClickListener.invoke() }
 }

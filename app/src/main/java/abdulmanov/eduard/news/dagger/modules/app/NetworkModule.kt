@@ -13,14 +13,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideNewsProvider(networkHelper: NetworkHelper): NewsProvider {
-        return NewsProvider(networkHelper)
-    }
-
-    @Singleton
-    @Provides
-    fun provideStreamsProvider(networkHelper: NetworkHelper): TvChannelsProvider {
-        return TvChannelsProvider(networkHelper)
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient()
     }
 
     @Singleton
@@ -31,7 +25,13 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient()
+    fun provideNewsProvider(networkHelper: NetworkHelper): NewsProvider {
+        return NewsProvider(networkHelper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStreamsProvider(networkHelper: NetworkHelper): TvChannelsProvider {
+        return TvChannelsProvider(networkHelper)
     }
 }

@@ -26,5 +26,4 @@ interface NewsComponent {
     fun inject(filterNewsBottomSheetDialog: FilterNewsBottomSheetDialog)
 
     fun inject(detailsNewFragment: DetailsNewFragment)
-
 }

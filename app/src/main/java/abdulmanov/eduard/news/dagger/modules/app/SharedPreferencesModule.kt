@@ -25,8 +25,7 @@ class SharedPreferencesModule {
 
     @Singleton
     @Provides
-    fun provideChannelsSharedPreferences(app: Application): TvChannelsSharedPreferences {
+    fun provideTvChannelsSharedPreferences(app: Application): TvChannelsSharedPreferences {
         return TvChannelsSharedPreferences(app)
     }
-
 }

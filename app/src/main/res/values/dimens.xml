@@ -5,6 +5,4 @@
     <dimen name="font_normal">16sp</dimen>
     <dimen name="font_few_big">18sp</dimen>
     <dimen name="font_big">22sp</dimen>
-
-    <dimen name="duration">600</dimen>
 </resources>

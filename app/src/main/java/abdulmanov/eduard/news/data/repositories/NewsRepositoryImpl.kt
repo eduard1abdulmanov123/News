@@ -20,18 +20,17 @@ class NewsRepositoryImpl(
 
     override fun getNews(): Single<List<New>> {
         return Single.create {
-            cashedNews = getNewsFromNetwork()
+            cashedNews = newsProvider.getNews()
+            markReadNews(cashedNews)
             deleteIdentifiersThatAreMissing(cashedNews)
             it.onSuccess(cashedNews)
         }
     }
 
-    private fun getNewsFromNetwork(): List<New> {
-        val news = newsProvider.getNews()
+    private fun markReadNews(news: List<New>) {
         news.forEach {
             it.alreadyRead = identifiersDao.isIdentifierExist(it.id)
         }
-        return news
     }
 
     private fun deleteIdentifiersThatAreMissing(news: List<New>) {
@@ -44,7 +43,7 @@ class NewsRepositoryImpl(
     }
 
     override fun getCategories(): List<Category> {
-        val categories = cashedNews.map { Category(it.category) }.distinctBy { it.name }
+        val categories = cashedNews.distinctBy { it.category }.map { Category(it.category) }
         val selectedCategories = sharedPreferences.getSelectedCategories()
 
         categories.forEach {
@@ -60,6 +59,8 @@ class NewsRepositoryImpl(
 
     override fun markNewAsAlreadyRead(id: Long): Completable {
         return Completable.create {
+            cashedNews.find { new -> new.id == id }?.alreadyRead = true
+
             val identifier = IdentifierDbModel(id)
             identifiersDao.insertIdentifier(identifier)
         }

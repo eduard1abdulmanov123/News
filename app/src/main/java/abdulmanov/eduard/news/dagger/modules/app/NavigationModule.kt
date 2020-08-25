@@ -1,6 +1,6 @@
 package abdulmanov.eduard.news.dagger.modules.app
 
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -16,14 +16,14 @@ class NavigationModule {
 
     @Singleton
     @Provides
-    @Named(NavigationConstants.MAIN_ROUTER)
+    @Named(CiceroneConstants.MAIN_ROUTER)
     fun provideRouter(): Router {
         return cicerone.router
     }
 
     @Singleton
     @Provides
-    @Named(NavigationConstants.MAIN_NAVIGATOR_HOLDER)
+    @Named(CiceroneConstants.MAIN_NAVIGATOR_HOLDER)
     fun provideNavigationHolder(): NavigatorHolder {
         return cicerone.navigatorHolder
     }

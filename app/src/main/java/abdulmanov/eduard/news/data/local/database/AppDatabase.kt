@@ -8,7 +8,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [IdentifierDbModel::class], version = 1)
-
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val identifiersDao: IdentifiersDao

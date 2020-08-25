@@ -6,7 +6,7 @@ import abdulmanov.eduard.news.presentation.App
 import abdulmanov.eduard.news.presentation._common.base.ViewModelFactory
 import abdulmanov.eduard.news.presentation._common.extensions.addOnBackPressedCallback
 import abdulmanov.eduard.news.presentation.detailsnew.DetailsNewFragment
-import abdulmanov.eduard.news.presentation.navigation.NavigationConstants
+import abdulmanov.eduard.news.presentation.navigation.CiceroneConstants
 import abdulmanov.eduard.news.presentation.navigation.Screens
 import abdulmanov.eduard.news.presentation.news.NewsFragment
 import android.content.Context
@@ -35,7 +35,7 @@ class NewsHostContainerFragment: Fragment(R.layout.fragment_news_host_container)
     private val viewModel by viewModels<NewsHostContainerViewModel> { viewModelFactory }
 
     @Inject
-    @Named(NavigationConstants.NEWS_NAVIGATOR_HOLDER)
+    @Named(CiceroneConstants.NEWS_NAVIGATOR_HOLDER)
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator: SupportAppNavigator by lazy {

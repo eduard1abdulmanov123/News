@@ -13,14 +13,13 @@ class SettingDomainModule {
 
     @FragmentScope
     @Provides
-    fun provideSettingInteractor(settingRepository: SettingRepository):SettingInteractor{
-        return SettingInteractor(settingRepository)
-    }
-
-    @FragmentScope
-    @Provides
     fun provideSettingRepository(sharedPreferences: SettingSharedPreferences):SettingRepository{
         return SettingRepositoryImpl(sharedPreferences)
     }
 
+    @FragmentScope
+    @Provides
+    fun provideSettingInteractor(settingRepository: SettingRepository):SettingInteractor{
+        return SettingInteractor(settingRepository)
+    }
 }

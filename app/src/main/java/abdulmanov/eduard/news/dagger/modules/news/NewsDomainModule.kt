@@ -15,13 +15,13 @@ class NewsDomainModule {
 
     @FragmentScope
     @Provides
-    fun provideNewsInteractor(repository: NewsRepository): NewsInteractor {
-        return NewsInteractor(repository)
+    fun provideNewRepository(newsProvider: NewsProvider, identifiersDao: IdentifiersDao, sharedPreferences: NewsSharedPreferences): NewsRepository {
+        return NewsRepositoryImpl(newsProvider, identifiersDao, sharedPreferences)
     }
 
     @FragmentScope
     @Provides
-    fun provideNewRepository(newsProvider: NewsProvider, identifiersDao: IdentifiersDao, sharedPreferences: NewsSharedPreferences): NewsRepository {
-        return NewsRepositoryImpl(newsProvider, identifiersDao, sharedPreferences)
+    fun provideNewsInteractor(repository: NewsRepository): NewsInteractor {
+        return NewsInteractor(repository)
     }
 }

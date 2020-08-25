@@ -26,7 +26,7 @@ class NewsInteractor(private val newsRepository: NewsRepository) {
 
     private fun getSelectedCategories(): List<String> {
         val categories = newsRepository.getCategories()
-        val isSelectedCategoriesMissing = categories.none{ it.selected }
+        val isSelectedCategoriesMissing = categories.none { it.selected }
 
         val filterCategories = if (!isSelectedCategoriesMissing) {
             categories.filter { it.selected }
